@@ -114,6 +114,200 @@
         ["Mandeln", 15, "g", "S"]
       ],
       "zubereitung": "Banane in Scheiben schneiden und mit Haferflocken und Mandeln unter den Joghurt mischen."
+    },
+    {
+      "id": "b8",
+      "name": "Griechischer Joghurt mit Honig und Walnüssen",
+      "vegetarisch": true,
+      "kcal": 370,
+      "eiweiss": 26,
+      "kohlenhydrate": 28,
+      "fett": 17,
+      "zutaten": [
+        ["Griechischer Joghurt 2 %", 250, "g", "M"],
+        ["Honig", 10, "g", "S"],
+        ["Walnüsse", 20, "g", "S"],
+        ["Beeren (frisch oder TK)", 80, "g", "G"]
+      ],
+      "zubereitung": "Joghurt in eine Schale geben, Beeren und gehackte Walnüsse darauf, mit Honig beträufeln."
+    },
+    {
+      "id": "b9",
+      "name": "Bananen-Porridge mit Erdnussmus",
+      "vegetarisch": true,
+      "kcal": 500,
+      "eiweiss": 21,
+      "kohlenhydrate": 75,
+      "fett": 13,
+      "zutaten": [
+        ["Haferflocken", 60, "g", "K"],
+        ["Milch 1,5 %", 250, "ml", "M"],
+        ["Banane", 1, "Stk", "G"],
+        ["Erdnussmus", 10, "g", "S"]
+      ],
+      "zubereitung": "Haferflocken in der Milch 3 Minuten köcheln, halbe Banane zerdrückt unterrühren. Mit Bananenscheiben und Erdnussmus servieren."
+    },
+    {
+      "id": "b10",
+      "name": "Avocado-Brot mit Spiegelei",
+      "vegetarisch": true,
+      "kcal": 460,
+      "eiweiss": 22,
+      "kohlenhydrate": 38,
+      "fett": 24,
+      "zutaten": [
+        ["Vollkornbrot", 80, "g", "K"],
+        ["Avocado", 70, "g", "G"],
+        ["Eier", 2, "Stk", "M"],
+        ["Tomaten", 100, "g", "G"]
+      ],
+      "zubereitung": "Avocado zerdrücken, salzen und aufs Brot streichen. Spiegeleier braten und mit Tomatenscheiben darauflegen."
+    },
+    {
+      "id": "b11",
+      "name": "Quark mit Leinöl, Apfel und Haferflocken",
+      "vegetarisch": true,
+      "kcal": 445,
+      "eiweiss": 35,
+      "kohlenhydrate": 45,
+      "fett": 12,
+      "zutaten": [
+        ["Magerquark", 250, "g", "M"],
+        ["Leinöl", 10, "ml", "S"],
+        ["Apfel", 1, "Stk", "G"],
+        ["Haferflocken", 30, "g", "K"]
+      ],
+      "zubereitung": "Quark mit Leinöl und einem Schuss Wasser cremig rühren. Apfel würfeln und mit den Haferflocken darübergeben."
+    },
+    {
+      "id": "b12",
+      "name": "Käse-Schinken-Brötchen mit Gurke",
+      "vegetarisch": false,
+      "kcal": 385,
+      "eiweiss": 27,
+      "kohlenhydrate": 34,
+      "fett": 15,
+      "zutaten": [
+        ["Vollkornbrötchen", 1, "Stk", "K"],
+        ["Kochschinken", 50, "g", "P"],
+        ["Gouda", 30, "g", "M"],
+        ["Frischkäse leicht", 20, "g", "M"],
+        ["Gurke", 100, "g", "G"]
+      ],
+      "zubereitung": "Brötchen aufschneiden, mit Frischkäse bestreichen und mit Schinken, Käse und Gurkenscheiben belegen."
+    },
+    {
+      "id": "b13",
+      "name": "Beeren-Smoothie-Bowl mit Skyr",
+      "vegetarisch": true,
+      "kcal": 405,
+      "eiweiss": 30,
+      "kohlenhydrate": 55,
+      "fett": 6,
+      "zutaten": [
+        ["Skyr", 200, "g", "M"],
+        ["Beeren (frisch oder TK)", 150, "g", "G"],
+        ["Banane", 0.5, "Stk", "G"],
+        ["Haferflocken", 30, "g", "K"],
+        ["Chiasamen", 10, "g", "S"]
+      ],
+      "zubereitung": "Skyr, Beeren und Banane pürieren. In eine Schale füllen und mit Haferflocken und Chiasamen bestreuen."
+    },
+    {
+      "id": "b14",
+      "name": "Herzhaftes Porridge mit Ei und Spinat",
+      "vegetarisch": true,
+      "kcal": 405,
+      "eiweiss": 27,
+      "kohlenhydrate": 32,
+      "fett": 18,
+      "zutaten": [
+        ["Haferflocken", 50, "g", "K"],
+        ["Eier", 2, "Stk", "M"],
+        ["Spinat", 100, "g", "G"],
+        ["Parmesan", 10, "g", "M"]
+      ],
+      "zubereitung": "Haferflocken in 250 ml Gemüsebrühe cremig kochen, Spinat unterheben. Mit zwei Spiegeleiern und Parmesan anrichten."
+    },
+    {
+      "id": "b15",
+      "name": "Vollkornbrot mit Erdnussmus, Banane und Skyr",
+      "vegetarisch": true,
+      "kcal": 490,
+      "eiweiss": 25,
+      "kohlenhydrate": 62,
+      "fett": 15,
+      "zutaten": [
+        ["Vollkornbrot", 80, "g", "K"],
+        ["Erdnussmus", 25, "g", "S"],
+        ["Banane", 1, "Stk", "G"],
+        ["Skyr", 100, "g", "M"]
+      ],
+      "zubereitung": "Brot mit Erdnussmus bestreichen und mit Bananenscheiben belegen. Skyr dazu löffeln."
+    },
+    {
+      "id": "b16",
+      "name": "Tomaten-Mozzarella-Brot",
+      "vegetarisch": true,
+      "kcal": 410,
+      "eiweiss": 28,
+      "kohlenhydrate": 36,
+      "fett": 16,
+      "zutaten": [
+        ["Vollkornbrot", 80, "g", "K"],
+        ["Mozzarella light", 100, "g", "M"],
+        ["Tomaten", 150, "g", "G"],
+        ["Olivenöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Brot mit Tomaten- und Mozzarellascheiben belegen, mit Öl beträufeln, salzen, pfeffern und Basilikum darauf."
+    },
+    {
+      "id": "b17",
+      "name": "Protein-Shake mit Hafer und Banane",
+      "vegetarisch": true,
+      "kcal": 455,
+      "eiweiss": 40,
+      "kohlenhydrate": 53,
+      "fett": 8,
+      "zutaten": [
+        ["Proteinpulver", 30, "g", "S"],
+        ["Milch 1,5 %", 300, "ml", "M"],
+        ["Haferflocken", 40, "g", "K"],
+        ["Banane", 0.5, "Stk", "G"]
+      ],
+      "zubereitung": "Alle Zutaten im Mixer fein pürieren. Passt gut, wenn morgens wenig Appetit da ist."
+    },
+    {
+      "id": "b18",
+      "name": "Lachs-Rührei mit Brot",
+      "vegetarisch": false,
+      "kcal": 395,
+      "eiweiss": 29,
+      "kohlenhydrate": 22,
+      "fett": 21,
+      "zutaten": [
+        ["Eier", 2, "Stk", "M"],
+        ["Räucherlachs", 50, "g", "P"],
+        ["Vollkornbrot", 50, "g", "K"],
+        ["Butter", 5, "g", "M"]
+      ],
+      "zubereitung": "Eier in Butter cremig stocken lassen, Lachsstreifen kurz unterheben. Mit Brot servieren."
+    },
+    {
+      "id": "b19",
+      "name": "Müsli mit Joghurt und Obst",
+      "vegetarisch": true,
+      "kcal": 415,
+      "eiweiss": 15,
+      "kohlenhydrate": 68,
+      "fett": 8,
+      "zutaten": [
+        ["Müsli ungesüßt", 60, "g", "K"],
+        ["Naturjoghurt 1,5 %", 200, "g", "M"],
+        ["Apfel", 1, "Stk", "G"],
+        ["Beeren (frisch oder TK)", 50, "g", "G"]
+      ],
+      "zubereitung": "Apfel würfeln und mit Müsli, Joghurt und Beeren mischen."
     }
   ],
   "mittagessen": [
@@ -256,6 +450,266 @@
         ["Naturjoghurt 1,5 %", 50, "g", "M"]
       ],
       "zubereitung": "Hähnchen in Streifen braten. Wrap mit Joghurt bestreichen, mit Salat, Paprika, Avocado und Hähnchen füllen und aufrollen."
+    },
+    {
+      "id": "l10",
+      "name": "Hähnchen-Curry mit Reis",
+      "vegetarisch": false,
+      "kcal": 540,
+      "eiweiss": 42,
+      "kohlenhydrate": 58,
+      "fett": 13,
+      "zutaten": [
+        ["Hähnchenbrust", 150, "g", "P"],
+        ["Reis (roh)", 60, "g", "K"],
+        ["Kokosmilch light", 100, "ml", "S"],
+        ["Paprika", 100, "g", "G"],
+        ["Zwiebel", 0.5, "Stk", "G"]
+      ],
+      "zubereitung": "Hähnchen mit Zwiebel anbraten, Paprika, Kokosmilch und Currypaste zugeben und 10 Minuten köcheln. Mit Reis servieren."
+    },
+    {
+      "id": "l11",
+      "name": "Rindfleisch-Brokkoli-Pfanne mit Reis",
+      "vegetarisch": false,
+      "kcal": 475,
+      "eiweiss": 44,
+      "kohlenhydrate": 45,
+      "fett": 11,
+      "zutaten": [
+        ["Rinderhüftsteak", 150, "g", "P"],
+        ["Brokkoli", 200, "g", "G"],
+        ["Reis (roh)", 50, "g", "K"],
+        ["Sojasauce", 15, "ml", "S"],
+        ["Rapsöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Fleisch in dünne Streifen schneiden und scharf anbraten. Brokkoli 4 Minuten mitbraten, mit Sojasauce ablöschen. Dazu Reis."
+    },
+    {
+      "id": "l12",
+      "name": "Lachs-Bowl mit Reis und Gurke",
+      "vegetarisch": false,
+      "kcal": 545,
+      "eiweiss": 31,
+      "kohlenhydrate": 52,
+      "fett": 23,
+      "zutaten": [
+        ["Lachsfilet", 120, "g", "P"],
+        ["Reis (roh)", 60, "g", "K"],
+        ["Gurke", 150, "g", "G"],
+        ["Avocado", 40, "g", "G"],
+        ["Sojasauce", 10, "ml", "S"]
+      ],
+      "zubereitung": "Lachs 4 Minuten pro Seite braten. Auf Reis mit Gurke und Avocado anrichten und Sojasauce darübergeben."
+    },
+    {
+      "id": "l13",
+      "name": "Putengeschnetzeltes mit Vollkornnudeln",
+      "vegetarisch": false,
+      "kcal": 520,
+      "eiweiss": 52,
+      "kohlenhydrate": 52,
+      "fett": 9,
+      "zutaten": [
+        ["Putenbrust", 150, "g", "P"],
+        ["Vollkornnudeln", 70, "g", "K"],
+        ["Champignons", 150, "g", "G"],
+        ["Frischkäse leicht", 40, "g", "M"],
+        ["Zwiebel", 0.5, "Stk", "G"]
+      ],
+      "zubereitung": "Pute und Zwiebel anbraten, Champignons zugeben. Mit 100 ml Brühe ablöschen, Frischkäse einrühren und mit den Nudeln mischen."
+    },
+    {
+      "id": "l14",
+      "name": "Kartoffel-Gemüse-Pfanne mit Spiegelei",
+      "vegetarisch": true,
+      "kcal": 535,
+      "eiweiss": 24,
+      "kohlenhydrate": 58,
+      "fett": 22,
+      "zutaten": [
+        ["Kartoffeln", 300, "g", "G"],
+        ["Eier", 2, "Stk", "M"],
+        ["Zucchini", 150, "g", "G"],
+        ["Paprika", 100, "g", "G"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Kartoffeln würfeln, 8 Minuten vorkochen und im Öl knusprig braten. Gemüse mitbraten, Spiegeleier darauf."
+    },
+    {
+      "id": "l15",
+      "name": "Vollkornnudeln mit Linsen-Bolognese",
+      "vegetarisch": true,
+      "kcal": 575,
+      "eiweiss": 29,
+      "kohlenhydrate": 85,
+      "fett": 11,
+      "zutaten": [
+        ["Vollkornnudeln", 60, "g", "K"],
+        ["Rote Linsen", 50, "g", "K"],
+        ["Stückige Tomaten (Dose)", 200, "g", "S"],
+        ["Karotten", 80, "g", "G"],
+        ["Zwiebel", 0.5, "Stk", "G"],
+        ["Parmesan", 15, "g", "M"],
+        ["Olivenöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Zwiebel und Karotte anbraten, Linsen, Tomaten und 150 ml Wasser 15 Minuten köcheln. Mit Nudeln und Parmesan servieren."
+    },
+    {
+      "id": "l16",
+      "name": "Couscous-Salat mit Hähnchen",
+      "vegetarisch": false,
+      "kcal": 500,
+      "eiweiss": 41,
+      "kohlenhydrate": 52,
+      "fett": 13,
+      "zutaten": [
+        ["Couscous", 60, "g", "K"],
+        ["Hähnchenbrust", 130, "g", "P"],
+        ["Gurke", 150, "g", "G"],
+        ["Tomaten", 150, "g", "G"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Couscous mit heißem Wasser quellen lassen. Hähnchen braten und würfeln, mit Gemüse, Öl und Zitronensaft unter den Couscous mischen."
+    },
+    {
+      "id": "l17",
+      "name": "Burrito-Bowl mit Hack und Bohnen",
+      "vegetarisch": false,
+      "kcal": 545,
+      "eiweiss": 38,
+      "kohlenhydrate": 58,
+      "fett": 16,
+      "zutaten": [
+        ["Rinderhack mager", 120, "g", "P"],
+        ["Reis (roh)", 50, "g", "K"],
+        ["Kidneybohnen (Dose, abgetropft)", 80, "g", "K"],
+        ["Mais (Dose)", 50, "g", "S"],
+        ["Tomaten", 100, "g", "G"],
+        ["Avocado", 40, "g", "G"]
+      ],
+      "zubereitung": "Hack mit Paprikapulver und Kreuzkümmel krümelig braten, Bohnen und Mais erwärmen. Alles auf Reis anrichten."
+    },
+    {
+      "id": "l18",
+      "name": "Thunfisch-Salat mit Kartoffeln und Ei",
+      "vegetarisch": false,
+      "kcal": 530,
+      "eiweiss": 46,
+      "kohlenhydrate": 42,
+      "fett": 18,
+      "zutaten": [
+        ["Thunfisch im eigenen Saft (abgetropft)", 130, "g", "P"],
+        ["Kartoffeln", 250, "g", "G"],
+        ["Eier", 1, "Stk", "M"],
+        ["Blattsalat", 100, "g", "G"],
+        ["Tomaten", 100, "g", "G"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Kartoffeln und Ei kochen und in Stücke schneiden. Mit Salat, Tomaten und Thunfisch mischen, Öl und Essig darüber."
+    },
+    {
+      "id": "l19",
+      "name": "Gebratener Reis mit Ei und Erbsen",
+      "vegetarisch": true,
+      "kcal": 530,
+      "eiweiss": 23,
+      "kohlenhydrate": 68,
+      "fett": 17,
+      "zutaten": [
+        ["Reis (roh)", 60, "g", "K"],
+        ["Eier", 2, "Stk", "M"],
+        ["Erbsen (TK)", 100, "g", "G"],
+        ["Karotten", 100, "g", "G"],
+        ["Sojasauce", 15, "ml", "S"],
+        ["Rapsöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Reis kochen. Karotten und Erbsen im Öl anbraten, Reis zugeben, Eier darüber verquirlen und unter Rühren stocken lassen."
+    },
+    {
+      "id": "l20",
+      "name": "Hähnchen-Gyros mit Tzatziki und Reis",
+      "vegetarisch": false,
+      "kcal": 470,
+      "eiweiss": 44,
+      "kohlenhydrate": 46,
+      "fett": 10,
+      "zutaten": [
+        ["Hähnchenbrust", 150, "g", "P"],
+        ["Reis (roh)", 50, "g", "K"],
+        ["Naturjoghurt 1,5 %", 100, "g", "M"],
+        ["Gurke", 100, "g", "G"],
+        ["Tomaten", 100, "g", "G"],
+        ["Olivenöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Hähnchen mit Gyrosgewürz in Streifen braten. Joghurt mit geriebener Gurke und Knoblauch verrühren. Mit Reis und Tomaten servieren."
+    },
+    {
+      "id": "l21",
+      "name": "Gnocchi-Pfanne mit Spinat und Feta",
+      "vegetarisch": true,
+      "kcal": 550,
+      "eiweiss": 20,
+      "kohlenhydrate": 72,
+      "fett": 19,
+      "zutaten": [
+        ["Gnocchi", 200, "g", "K"],
+        ["Spinat", 150, "g", "G"],
+        ["Feta", 50, "g", "M"],
+        ["Kirschtomaten", 100, "g", "G"],
+        ["Olivenöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Gnocchi im Öl goldbraun braten, Tomaten und Spinat 2 Minuten mitschwenken. Feta darüber bröseln."
+    },
+    {
+      "id": "l22",
+      "name": "Süßkartoffel-Kichererbsen-Blech mit Joghurt",
+      "vegetarisch": true,
+      "kcal": 560,
+      "eiweiss": 19,
+      "kohlenhydrate": 82,
+      "fett": 15,
+      "zutaten": [
+        ["Süßkartoffel", 250, "g", "G"],
+        ["Kichererbsen (Dose, abgetropft)", 150, "g", "K"],
+        ["Paprika", 100, "g", "G"],
+        ["Naturjoghurt 1,5 %", 80, "g", "M"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Süßkartoffel und Paprika würfeln, mit Kichererbsen, Öl und Paprikapulver 25 Minuten bei 200 °C backen. Joghurt dazu."
+    },
+    {
+      "id": "l23",
+      "name": "Schweinefilet mit grünen Bohnen und Kartoffeln",
+      "vegetarisch": false,
+      "kcal": 490,
+      "eiweiss": 42,
+      "kohlenhydrate": 46,
+      "fett": 13,
+      "zutaten": [
+        ["Schweinefilet", 150, "g", "P"],
+        ["Kartoffeln", 250, "g", "G"],
+        ["Grüne Bohnen", 200, "g", "G"],
+        ["Butter", 10, "g", "M"]
+      ],
+      "zubereitung": "Kartoffeln und Bohnen in Salzwasser garen. Filet in Scheiben 2 Minuten pro Seite braten, Bohnen in Butter schwenken."
+    },
+    {
+      "id": "l24",
+      "name": "Garnelen-Reis-Pfanne mit Erbsen",
+      "vegetarisch": false,
+      "kcal": 535,
+      "eiweiss": 39,
+      "kohlenhydrate": 62,
+      "fett": 12,
+      "zutaten": [
+        ["Garnelen", 150, "g", "P"],
+        ["Reis (roh)", 60, "g", "K"],
+        ["Erbsen (TK)", 100, "g", "G"],
+        ["Paprika", 100, "g", "G"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Reis kochen. Garnelen mit Knoblauch im Öl braten, Paprika und Erbsen zugeben, Reis unterheben und mit Zitrone abschmecken."
     }
   ],
   "abendessen": [
@@ -396,6 +850,264 @@
         ["Vollkornbrot", 60, "g", "K"]
       ],
       "zubereitung": "Paprika anbraten, Tomaten mit Kreuzkümmel 8 Minuten einkochen. Mulden formen, Eier hineinschlagen und zugedeckt stocken lassen. Feta darüber."
+    },
+    {
+      "id": "d10",
+      "name": "Hähnchen-Gemüse-Pfanne mit Brot",
+      "vegetarisch": false,
+      "kcal": 490,
+      "eiweiss": 50,
+      "kohlenhydrate": 28,
+      "fett": 16,
+      "zutaten": [
+        ["Hähnchenbrust", 180, "g", "P"],
+        ["Zucchini", 200, "g", "G"],
+        ["Paprika", 150, "g", "G"],
+        ["Champignons", 150, "g", "G"],
+        ["Olivenöl", 10, "ml", "S"],
+        ["Vollkornbrot", 40, "g", "K"]
+      ],
+      "zubereitung": "Hähnchen in Würfeln anbraten, Gemüse zugeben und 6 Minuten braten. Mit Kräutern der Provence würzen."
+    },
+    {
+      "id": "d11",
+      "name": "Hack-Zucchini-Pfanne mit Feta",
+      "vegetarisch": false,
+      "kcal": 450,
+      "eiweiss": 42,
+      "kohlenhydrate": 16,
+      "fett": 23,
+      "zutaten": [
+        ["Rinderhack mager", 150, "g", "P"],
+        ["Zucchini", 300, "g", "G"],
+        ["Stückige Tomaten (Dose)", 200, "g", "S"],
+        ["Feta", 40, "g", "M"],
+        ["Olivenöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Hack krümelig braten, Zucchiniwürfel und Tomaten zugeben und 8 Minuten köcheln. Feta darüber bröseln."
+    },
+    {
+      "id": "d12",
+      "name": "Ofen-Hähnchen mit Süßkartoffel und Brokkoli",
+      "vegetarisch": false,
+      "kcal": 485,
+      "eiweiss": 44,
+      "kohlenhydrate": 48,
+      "fett": 12,
+      "zutaten": [
+        ["Hähnchenbrust", 160, "g", "P"],
+        ["Süßkartoffel", 200, "g", "G"],
+        ["Brokkoli", 150, "g", "G"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Alles in Stücke schneiden, mit Öl und Paprikapulver mischen und 25 Minuten bei 200 °C auf dem Blech backen."
+    },
+    {
+      "id": "d13",
+      "name": "Thunfisch-Bohnen-Salat mit Brot",
+      "vegetarisch": false,
+      "kcal": 500,
+      "eiweiss": 46,
+      "kohlenhydrate": 42,
+      "fett": 14,
+      "zutaten": [
+        ["Thunfisch im eigenen Saft (abgetropft)", 130, "g", "P"],
+        ["Weiße Bohnen (Dose, abgetropft)", 150, "g", "K"],
+        ["Tomaten", 150, "g", "G"],
+        ["Zwiebel", 0.5, "Stk", "G"],
+        ["Olivenöl", 10, "ml", "S"],
+        ["Vollkornbrot", 40, "g", "K"]
+      ],
+      "zubereitung": "Bohnen, Thunfisch, Tomatenwürfel und Zwiebelringe mischen, mit Öl, Essig, Salz und Pfeffer anmachen."
+    },
+    {
+      "id": "d14",
+      "name": "Blumenkohl-Curry mit Kichererbsen",
+      "vegetarisch": true,
+      "kcal": 480,
+      "eiweiss": 19,
+      "kohlenhydrate": 70,
+      "fett": 11,
+      "zutaten": [
+        ["Blumenkohl", 300, "g", "G"],
+        ["Kichererbsen (Dose, abgetropft)", 150, "g", "K"],
+        ["Kokosmilch light", 100, "ml", "S"],
+        ["Reis (roh)", 40, "g", "K"]
+      ],
+      "zubereitung": "Blumenkohlröschen mit Currypaste anbraten, Kokosmilch und 100 ml Wasser zugeben, 12 Minuten garen. Kichererbsen erwärmen, mit Reis servieren."
+    },
+    {
+      "id": "d15",
+      "name": "Putensteak mit Ratatouille",
+      "vegetarisch": false,
+      "kcal": 500,
+      "eiweiss": 48,
+      "kohlenhydrate": 34,
+      "fett": 13,
+      "zutaten": [
+        ["Putenbrust", 180, "g", "P"],
+        ["Zucchini", 150, "g", "G"],
+        ["Paprika", 150, "g", "G"],
+        ["Aubergine", 150, "g", "G"],
+        ["Stückige Tomaten (Dose)", 150, "g", "S"],
+        ["Kartoffeln", 100, "g", "G"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Gemüse würfeln und mit den Tomaten 15 Minuten schmoren. Pute 4 Minuten pro Seite braten, Kartoffeln dazu kochen."
+    },
+    {
+      "id": "d16",
+      "name": "Caprese-Omelett mit Salat",
+      "vegetarisch": true,
+      "kcal": 460,
+      "eiweiss": 37,
+      "kohlenhydrate": 22,
+      "fett": 25,
+      "zutaten": [
+        ["Eier", 3, "Stk", "M"],
+        ["Mozzarella light", 60, "g", "M"],
+        ["Tomaten", 150, "g", "G"],
+        ["Blattsalat", 100, "g", "G"],
+        ["Vollkornbrot", 40, "g", "K"]
+      ],
+      "zubereitung": "Eier verquirlen und in der Pfanne stocken lassen, mit Mozzarella und Tomaten belegen und zuklappen. Salat und Brot dazu."
+    },
+    {
+      "id": "d17",
+      "name": "Lachs mit Spinat und Kartoffeln",
+      "vegetarisch": false,
+      "kcal": 500,
+      "eiweiss": 35,
+      "kohlenhydrate": 34,
+      "fett": 24,
+      "zutaten": [
+        ["Lachsfilet", 130, "g", "P"],
+        ["Spinat", 200, "g", "G"],
+        ["Kartoffeln", 200, "g", "G"],
+        ["Butter", 5, "g", "M"]
+      ],
+      "zubereitung": "Kartoffeln kochen. Lachs 4 Minuten pro Seite braten, Spinat in Butter mit Knoblauch zusammenfallen lassen."
+    },
+    {
+      "id": "d18",
+      "name": "Gefüllte Paprika mit Hack und Reis",
+      "vegetarisch": false,
+      "kcal": 500,
+      "eiweiss": 37,
+      "kohlenhydrate": 50,
+      "fett": 14,
+      "zutaten": [
+        ["Paprika", 300, "g", "G"],
+        ["Rinderhack mager", 120, "g", "P"],
+        ["Reis (roh)", 40, "g", "K"],
+        ["Stückige Tomaten (Dose)", 150, "g", "S"],
+        ["Feta", 30, "g", "M"]
+      ],
+      "zubereitung": "Reis kochen, mit angebratenem Hack und der Hälfte der Tomaten mischen. Paprika füllen, Feta darauf, 25 Minuten bei 190 °C backen."
+    },
+    {
+      "id": "d19",
+      "name": "Kürbissuppe mit Hähnchenstreifen",
+      "vegetarisch": false,
+      "kcal": 450,
+      "eiweiss": 36,
+      "kohlenhydrate": 50,
+      "fett": 10,
+      "zutaten": [
+        ["Hokkaido-Kürbis", 400, "g", "G"],
+        ["Karotten", 100, "g", "G"],
+        ["Kokosmilch light", 80, "ml", "S"],
+        ["Hähnchenbrust", 120, "g", "P"],
+        ["Vollkornbrot", 40, "g", "K"]
+      ],
+      "zubereitung": "Kürbis und Karotten in 400 ml Brühe weich kochen, mit Kokosmilch pürieren. Gebratene Hähnchenstreifen darauf anrichten."
+    },
+    {
+      "id": "d20",
+      "name": "Brokkoli-Kartoffel-Auflauf",
+      "vegetarisch": true,
+      "kcal": 545,
+      "eiweiss": 31,
+      "kohlenhydrate": 55,
+      "fett": 21,
+      "zutaten": [
+        ["Brokkoli", 250, "g", "G"],
+        ["Kartoffeln", 250, "g", "G"],
+        ["Gouda", 40, "g", "M"],
+        ["Milch 1,5 %", 100, "ml", "M"],
+        ["Eier", 1, "Stk", "M"]
+      ],
+      "zubereitung": "Kartoffelscheiben und Brokkoli 6 Minuten vorkochen, in eine Form schichten. Ei mit Milch verquirlen, darübergießen, Käse darauf, 20 Minuten bei 200 °C backen."
+    },
+    {
+      "id": "d21",
+      "name": "Garnelen-Gemüse-Wok mit Reis",
+      "vegetarisch": false,
+      "kcal": 450,
+      "eiweiss": 40,
+      "kohlenhydrate": 52,
+      "fett": 7,
+      "zutaten": [
+        ["Garnelen", 180, "g", "P"],
+        ["Wokgemüse (frisch oder TK)", 250, "g", "G"],
+        ["Reis (roh)", 50, "g", "K"],
+        ["Sojasauce", 15, "ml", "S"],
+        ["Rapsöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Garnelen im Öl 2 Minuten braten, Gemüse 5 Minuten mitbraten, mit Sojasauce und Ingwer abschmecken. Dazu Reis."
+    },
+    {
+      "id": "d22",
+      "name": "Hüttenkäse-Bowl mit Ei und Gemüse",
+      "vegetarisch": true,
+      "kcal": 520,
+      "eiweiss": 48,
+      "kohlenhydrate": 32,
+      "fett": 20,
+      "zutaten": [
+        ["Hüttenkäse", 200, "g", "M"],
+        ["Eier", 2, "Stk", "M"],
+        ["Gurke", 150, "g", "G"],
+        ["Tomaten", 150, "g", "G"],
+        ["Paprika", 100, "g", "G"],
+        ["Vollkornbrot", 40, "g", "K"]
+      ],
+      "zubereitung": "Eier 8 Minuten kochen und vierteln. Gemüse würfeln und mit Hüttenkäse und Eiern in einer Schale anrichten."
+    },
+    {
+      "id": "d23",
+      "name": "Weiße-Bohnen-Eintopf mit Gemüse",
+      "vegetarisch": true,
+      "kcal": 485,
+      "eiweiss": 24,
+      "kohlenhydrate": 72,
+      "fett": 8,
+      "zutaten": [
+        ["Weiße Bohnen (Dose, abgetropft)", 240, "g", "K"],
+        ["Karotten", 150, "g", "G"],
+        ["Lauch", 100, "g", "G"],
+        ["Stückige Tomaten (Dose)", 200, "g", "S"],
+        ["Kartoffeln", 100, "g", "G"],
+        ["Olivenöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Gemüse würfeln und im Öl anschwitzen, Tomaten und 300 ml Brühe zugeben, 15 Minuten köcheln. Bohnen 5 Minuten mitziehen lassen."
+    },
+    {
+      "id": "d24",
+      "name": "Kabeljau mit Tomaten-Zucchini-Gemüse und Reis",
+      "vegetarisch": false,
+      "kcal": 475,
+      "eiweiss": 40,
+      "kohlenhydrate": 48,
+      "fett": 12,
+      "zutaten": [
+        ["Kabeljaufilet", 180, "g", "P"],
+        ["Zucchini", 200, "g", "G"],
+        ["Kirschtomaten", 150, "g", "G"],
+        ["Reis (roh)", 50, "g", "K"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Zucchini und Tomaten im Öl 5 Minuten schmoren, Fisch darauflegen und zugedeckt 6 Minuten garen. Mit Reis servieren."
     }
   ],
   "snack": [
@@ -496,6 +1208,122 @@
         ["Tomaten", 100, "g", "G"]
       ],
       "zubereitung": "Tomate würfeln, mit Hüttenkäse mischen, pfeffern."
+    },
+    {
+      "id": "s8",
+      "name": "Griechischer Joghurt mit Beeren",
+      "vegetarisch": true,
+      "kcal": 140,
+      "eiweiss": 14,
+      "kohlenhydrate": 12,
+      "fett": 3,
+      "zutaten": [
+        ["Griechischer Joghurt 2 %", 150, "g", "M"],
+        ["Beeren (frisch oder TK)", 80, "g", "G"]
+      ],
+      "zubereitung": "Beeren über den Joghurt geben."
+    },
+    {
+      "id": "s9",
+      "name": "Reiswaffeln mit Hüttenkäse",
+      "vegetarisch": true,
+      "kcal": 160,
+      "eiweiss": 14,
+      "kohlenhydrate": 16,
+      "fett": 4,
+      "zutaten": [
+        ["Reiswaffeln", 2, "Stk", "K"],
+        ["Hüttenkäse", 100, "g", "M"]
+      ],
+      "zubereitung": "Reiswaffeln mit Hüttenkäse bestreichen, pfeffern."
+    },
+    {
+      "id": "s10",
+      "name": "Gemüsesticks mit Kräuterquark",
+      "vegetarisch": true,
+      "kcal": 150,
+      "eiweiss": 14,
+      "kohlenhydrate": 18,
+      "fett": 1,
+      "zutaten": [
+        ["Paprika", 100, "g", "G"],
+        ["Gurke", 100, "g", "G"],
+        ["Karotten", 100, "g", "G"],
+        ["Magerquark", 100, "g", "M"]
+      ],
+      "zubereitung": "Quark mit Kräutern, Salz und einem Schuss Wasser verrühren. Gemüse in Stifte schneiden und dippen."
+    },
+    {
+      "id": "s11",
+      "name": "Proteinshake mit Milch",
+      "vegetarisch": true,
+      "kcal": 210,
+      "eiweiss": 31,
+      "kohlenhydrate": 12,
+      "fett": 4,
+      "zutaten": [
+        ["Proteinpulver", 30, "g", "S"],
+        ["Milch 1,5 %", 200, "ml", "M"]
+      ],
+      "zubereitung": "Pulver mit der Milch im Shaker mischen."
+    },
+    {
+      "id": "s12",
+      "name": "Birne mit Walnüssen",
+      "vegetarisch": true,
+      "kcal": 190,
+      "eiweiss": 3,
+      "kohlenhydrate": 22,
+      "fett": 10,
+      "zutaten": [
+        ["Birne", 1, "Stk", "G"],
+        ["Walnüsse", 15, "g", "S"]
+      ],
+      "zubereitung": "Birne in Spalten schneiden, Walnüsse dazu."
+    },
+    {
+      "id": "s13",
+      "name": "Edamame mit Meersalz",
+      "vegetarisch": true,
+      "kcal": 180,
+      "eiweiss": 17,
+      "kohlenhydrate": 12,
+      "fett": 8,
+      "zutaten": [
+        ["Edamame (TK)", 150, "g", "G"]
+      ],
+      "zubereitung": "Edamame 4 Minuten in Salzwasser kochen, abgießen und mit Meersalz bestreuen."
+    },
+    {
+      "id": "s14",
+      "name": "Vollkornbrot mit Putenbrust",
+      "vegetarisch": false,
+      "kcal": 160,
+      "eiweiss": 14,
+      "kohlenhydrate": 17,
+      "fett": 3,
+      "zutaten": [
+        ["Vollkornbrot", 40, "g", "K"],
+        ["Putenbrust-Aufschnitt", 40, "g", "P"],
+        ["Frischkäse leicht", 15, "g", "M"],
+        ["Gurke", 50, "g", "G"]
+      ],
+      "zubereitung": "Brot mit Frischkäse bestreichen, mit Putenbrust und Gurke belegen."
+    },
+    {
+      "id": "s15",
+      "name": "Kakao-Quark mit Banane",
+      "vegetarisch": true,
+      "kcal": 170,
+      "eiweiss": 20,
+      "kohlenhydrate": 18,
+      "fett": 1,
+      "zutaten": [
+        ["Magerquark", 150, "g", "M"],
+        ["Kakao ungesüßt", 5, "g", "S"],
+        ["Banane", 0.5, "Stk", "G"]
+      ],
+      "zubereitung": "Quark mit Kakao und einem Schuss Wasser cremig rühren, Bananenscheiben darauf."
     }
   ]
 }

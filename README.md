@@ -6,6 +6,8 @@ Die ganze App steckt in `index.html`. Die Mac-App ist eine schlanke Hülle darum
 
 ## Mac-App installieren
 
+Die einfache Schritt-für-Schritt-Anleitung steht in [INSTALLATION.md](INSTALLATION.md).
+
 **Variante A – selbst bauen (empfohlen, keine Sicherheitswarnung)**
 
 ```bash
