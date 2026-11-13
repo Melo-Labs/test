@@ -139,6 +139,8 @@ table.log td:nth-child(2),table.log td:nth-child(3){text-align:right}
 .empty{color:var(--muted);text-align:center;padding:18px 8px}
 .down{color:var(--accent);font-weight:600}.up{color:var(--warn);font-weight:600}
 
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{display:inline-flex;align-items:center;gap:2px;background:var(--sunk);border-radius:99px;padding:3px 4px 3px 12px;font-size:.9rem;font-weight:600}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:.9rem;font-weight:600;max-width:calc(100% - 32px)}
 footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap:4px}
 </style>
@@ -187,6 +189,15 @@ footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap
           <p id="pf-error" class="full notice" hidden></p>
           <div class="full"><button class="btn primary" type="submit">Speichern und Plan berechnen</button></div>
         </form>
+      </div>
+      <div class="panel stack">
+        <h2>Lebensmittel ausschließen</h2>
+        <p class="small muted">Gib an, was du nicht magst oder nicht verträgst. Rezepte mit dieser Zutat verschwinden aus Plan und Einkaufsliste. Mehrere Angaben mit Komma trennen. „Fisch“, „Fleisch“, „Nüsse“ und „Milchprodukte“ schließen die ganze Gruppe aus.</p>
+        <form id="ex-form" class="row" novalidate>
+          <div class="field" style="flex:1 1 200px"><label for="ex-input">Lebensmittel</label><input id="ex-input" type="text" maxlength="80" placeholder="z. B. Lachs, Spinat, Feta" autocomplete="off"></div>
+          <button class="btn primary" type="submit" style="align-self:flex-end">Ausschließen</button>
+        </form>
+        <div id="ex-list" class="stack"></div>
       </div>
       <div id="profile-result"></div>
     </section>
@@ -267,20 +278,28 @@ const NOW=new Date(), TODAY_IDX=(NOW.getDay()+6)%7, WEEK=weekKey(NOW);
 const KEY="kilo-fuer-kilo-v1";
 function defaults(){return{
   profile:{sex:"m",age:35,height:178,weight:88,goal:80,activity:1.375,pace:0.5,diet:"all",example:true},
-  plan:null, eaten:{week:WEEK,items:[]}, shop:[], weights:[], updatedAt:0};}
+  plan:null, exclude:[], eaten:{week:WEEK,items:[]}, shop:[], weights:[], updatedAt:0};}
 function normalize(s){
   const d=defaults(); s=s&&typeof s==="object"?s:{};
   const st={profile:Object.assign(d.profile,s.profile||{}),plan:Array.isArray(s.plan)&&s.plan.length===7?s.plan:null,
     eaten:s.eaten&&s.eaten.week===WEEK&&Array.isArray(s.eaten.items)?s.eaten:d.eaten,
-    shop:Array.isArray(s.shop)?s.shop:[],weights:Array.isArray(s.weights)?s.weights.filter(w=>w&&w.d&&w.kg>0):[],updatedAt:s.updatedAt||0};
+    shop:Array.isArray(s.shop)?s.shop:[],exclude:Array.isArray(s.exclude)?s.exclude.filter(t=>typeof t==="string"&&t.trim()).slice(0,40):[],weights:Array.isArray(s.weights)?s.weights.filter(w=>w&&w.d&&w.kg>0):[],updatedAt:s.updatedAt||0};
   st.weights.sort((a,b)=>a.d<b.d?-1:1);
   fixPlan(st);return st;}
-function pool(slot,diet){return R[slot].filter(r=>diet!=="veg"||r.veg);}
+const GROUPS={fisch:["lachs","thunfisch","kabeljau","garnelen"],fleisch:["hähnchen","pute","rinderhack"],"nüsse":["walnüsse","mandeln","erdnussmus"],nuss:["walnüsse","mandeln","erdnussmus"],milchprodukte:["skyr","quark","joghurt","milch 1,5","käse","feta","butter","parmesan"]};
+function termsOf(list){const out=[];list.forEach(t=>{t=t.toLowerCase().trim();if(!t)return;out.push(t);if(t.length>=5&&t.endsWith("n"))out.push(t.slice(0,-1));(GROUPS[t]||[]).forEach(x=>out.push(x));});return out;}
+function hits(r,ts){return ts.some(t=>r.ing.some(i=>{const n=i[0].toLowerCase();
+  return t.length>=4?n.includes(t):n.split(/[^a-zäöüß]+/).some(w=>w===t||(w.startsWith(t)&&w.length<=t.length+2));}));}
+function dietPool(slot,st){return R[slot].filter(r=>st.profile.diet!=="veg"||r.veg);}
+function freePool(slot,st){const ts=termsOf(st.exclude);return dietPool(slot,st).filter(r=>!hits(r,ts));}
+function pool(slot,st){const p=freePool(slot,st);return p.length?p:dietPool(slot,st);}
 function fixPlan(st){
   if(!st.plan) st.plan=DAYS.map(()=>({}));
   st.plan.forEach((day,i)=>Object.keys(SLOTS).forEach((s,j)=>{
-    const p=pool(s,st.profile.diet);
-    if(!p.some(r=>r.id===day[s])) day[s]=p[(i+j*2)%p.length].id;
+    const p=pool(s,st);
+    if(p.some(r=>r.id===day[s]))return;
+    const used=id=>st.plan.filter(d=>d[s]===id).length;
+    day[s]=p.map((r,n)=>({id:r.id,u:used(r.id),o:(n-i-j*2+p.length*9)%p.length})).sort((x,y)=>x.u-y.u||x.o-y.o)[0].id;
   }));}
 function loadLocal(){try{return JSON.parse(localStorage.getItem(KEY));}catch(e){return null;}}
 let state=normalize(loadLocal());
@@ -464,6 +483,18 @@ function renderProfileResult(){
     '</div>'+note+'<p class="small muted">Viel Eiweiß hält satt und schützt beim Abnehmen die Muskulatur. Wenn du vier Wochen lang nicht abnimmst, senke das Tempo nicht weiter ab, sondern prüfe zuerst Portionsgrößen und Getränke.</p></div>';
 }
 
+function renderExclude(){
+  const ex=state.exclude,slots=Object.keys(SLOTS);let h="";
+  if(ex.length){
+    const all=slots.reduce((a,s)=>a+dietPool(s,state).length,0),left=slots.reduce((a,s)=>a+freePool(s,state).length,0);
+    const blocked=slots.filter(s=>!freePool(s,state).length).map(s=>SLOTS[s].label);
+    h='<div class="chips">'+ex.map(t=>'<span class="chip">'+esc(t)+'<button type="button" class="btn ghost" data-act="ex-del" data-t="'+esc(t)+'" aria-label="'+esc(t)+' wieder erlauben">×</button></span>').join("")+'</div>'+
+      '<p class="small muted num">'+left+' von '+all+' Rezepten bleiben im Plan.</p>'+
+      (blocked.length?'<p class="notice"><b>Zu viel ausgeschlossen.</b> Für '+blocked.join(", ")+' bliebe kein Rezept übrig. Dort zeigt der Plan weiter alle Rezepte.</p>':"");
+  }else h='<p class="small muted">Noch nichts ausgeschlossen.</p>';
+  $("#ex-list").innerHTML=h;
+}
+
 /* ---------- Steuerung ---------- */
 const VIEWS=["plan","einkauf","verlauf","profil"];
 function route(){
@@ -471,19 +502,20 @@ function route(){
   VIEWS.forEach(n=>{$("#view-"+n).hidden=n!==v;});
   document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.getAttribute("href")==="#"+v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
 }
-function renderAll(){renderPlan();renderShop();renderLog();renderProfileResult();}
+function renderAll(){renderPlan();renderShop();renderLog();renderProfileResult();renderExclude();}
 let toastT;function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>{t.hidden=true;},2200);}
 function toggle(arr,k){const i=arr.indexOf(k);if(i<0)arr.push(k);else arr.splice(i,1);}
 
 document.addEventListener("click",e=>{
   const el=e.target.closest("[data-act]");if(!el)return;const a=el.dataset.act;
   if(a==="day"){selDay=+el.dataset.i;openMeals.clear();renderPlan();}
-  else if(a==="swap"){const s=el.dataset.slot,p=pool(s,state.profile.diet),i=p.findIndex(r=>r.id===state.plan[selDay][s]);
+  else if(a==="swap"){const s=el.dataset.slot,p=pool(s,state),i=p.findIndex(r=>r.id===state.plan[selDay][s]);
     state.plan[selDay][s]=p[(i+1)%p.length].id;save();renderPlan();renderShop();}
-  else if(a==="shuffle"){Object.keys(SLOTS).forEach(s=>{const p=pool(s,state.profile.diet).slice();
+  else if(a==="shuffle"){Object.keys(SLOTS).forEach(s=>{const p=pool(s,state).slice();
       for(let i=p.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[p[i],p[j]]=[p[j],p[i]];}
       state.plan.forEach((d,i)=>{d[s]=p[i%p.length].id;});});
     state.eaten={week:WEEK,items:[]};state.shop=[];save();renderPlan();renderShop();toast("Neuer Wochenplan erstellt");}
+  else if(a==="ex-del"){state.exclude=state.exclude.filter(t=>t!==el.dataset.t);save();renderAll();toast("„"+el.dataset.t+"“ ist wieder erlaubt");}
   else if(a==="shop-reset"){state.shop=[];save();renderShop();}
   else if(a==="log-del"){state.weights=state.weights.filter(w=>w.d!==el.dataset.d);save();renderLog();toast("Eintrag gelöscht");}
 });
@@ -503,6 +535,18 @@ $("#log-form").addEventListener("submit",e=>{
   state.weights.sort((a,b)=>a.d<b.d?-1:1);
   if(state.weights[state.weights.length-1].d===d){state.profile.weight=Math.round(kg*10)/10;fillProfileForm();}
   save();$("#log-kg").value="";renderAll();toast("Gewicht eingetragen");
+});
+$("#ex-form").addEventListener("submit",e=>{
+  e.preventDefault();
+  const inp=$("#ex-input"),names=inp.value.split(/[,;\n]/).map(t=>t.trim()).filter(Boolean);
+  if(!names.length){toast("Bitte ein Lebensmittel eingeben");return;}
+  const all=[].concat(R.b,R.l,R.d,R.s),added=[],unknown=[];
+  names.forEach(t=>{
+    if(state.exclude.some(x=>x.toLowerCase()===t.toLowerCase()))return;
+    if(all.some(r=>hits(r,termsOf([t])))){state.exclude.push(t);added.push(t);}else unknown.push(t);});
+  inp.value=unknown.join(", ");
+  if(added.length){fixPlan(state);save();renderAll();}
+  toast(unknown.length?"Kein Rezept enthält „"+unknown.join("“, „")+"“":added.length?"„"+added.join("“, „")+"“ ausgeschlossen":"Schon ausgeschlossen");
 });
 $("#profile-form").addEventListener("submit",e=>{
   e.preventDefault();
