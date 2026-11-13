@@ -1,6 +1,6 @@
 # Kilo für Kilo
 
-Ernährungsplan-App zum Abnehmen: Wochenplan mit skalierten Portionen, Einkaufsliste, Gewichtsverlauf und persönlichem Kalorienziel (Mifflin-St-Jeor). Kein Ersatz für ärztliche Beratung.
+Ernährungsplan-App zum Abnehmen: Wochenplan mit skalierten Portionen, eigene Lebensmittel und Getränke mit Schnellauswahl der häufigsten Einträge, Einkaufsliste, Gewichtsverlauf und persönlichem Kalorienziel (Mifflin-St-Jeor). Kein Ersatz für ärztliche Beratung.
 
 Die ganze App steckt in `index.html`. Die Mac-App ist eine schlanke Hülle darum (`macos/`). Rezepte lädt die App bei jedem Start aus `recipes.json` in diesem Repository.
 

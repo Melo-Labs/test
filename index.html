@@ -141,6 +141,14 @@ table.log td:nth-child(2),table.log td:nth-child(3){text-align:right}
 
 .chips{display:flex;flex-wrap:wrap;gap:8px}
 .chip{display:inline-flex;align-items:center;gap:2px;background:var(--sunk);border-radius:99px;padding:3px 4px 3px 12px;font-size:.9rem;font-weight:600}
+.chipbtn{border:1px solid var(--line);background:var(--surface);border-radius:99px;padding:6px 12px;cursor:pointer;font-size:.875rem;font-weight:600;text-align:left}
+.chipbtn:hover{border-color:var(--accent)}
+.chipbtn small{font-weight:500;color:var(--muted);font-size:.8rem}
+.xform{display:grid;grid-template-columns:2fr 1.3fr 1fr 1fr auto;gap:10px;align-items:end}
+@media (max-width:600px){.xform{grid-template-columns:1fr 1fr}.xform .wide{grid-column:1/-1}}
+.xlist{list-style:none;margin:0;padding:0}
+.xlist li{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;padding:6px 0;border-top:1px solid var(--line)}
+.bar i.over{background:var(--warn)}
 #toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:.9rem;font-weight:600;max-width:calc(100% - 32px)}
 footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap:4px}
 </style>
@@ -290,12 +298,14 @@ const NOW=new Date(), TODAY_IDX=(NOW.getDay()+6)%7, WEEK=weekKey(NOW);
 const KEY="kilo-fuer-kilo-v1";
 function defaults(){return{
   profile:{sex:"m",age:35,height:178,weight:88,goal:80,activity:1.375,pace:0.5,diet:"all",example:true},
-  plan:null, exclude:[], eaten:{week:WEEK,items:[]}, shop:[], weights:[], updatedAt:0};}
+  plan:null, exclude:[], items:[], extras:{week:WEEK,days:[[],[],[],[],[],[],[]]}, eaten:{week:WEEK,items:[]}, shop:[], weights:[], updatedAt:0};}
 function normalize(s){
   const d=defaults(); s=s&&typeof s==="object"?s:{};
   const st={profile:Object.assign(d.profile,s.profile||{}),plan:Array.isArray(s.plan)&&s.plan.length===7?s.plan:null,
     eaten:s.eaten&&s.eaten.week===WEEK&&Array.isArray(s.eaten.items)?s.eaten:d.eaten,
-    shop:Array.isArray(s.shop)?s.shop:[],exclude:Array.isArray(s.exclude)?s.exclude.filter(t=>typeof t==="string"&&t.trim()).slice(0,40):[],weights:Array.isArray(s.weights)?s.weights.filter(w=>w&&w.d&&w.kg>0):[],updatedAt:s.updatedAt||0};
+    shop:Array.isArray(s.shop)?s.shop:[],exclude:Array.isArray(s.exclude)?s.exclude.filter(t=>typeof t==="string"&&t.trim()).slice(0,40):[],items:Array.isArray(s.items)?s.items.filter(i=>i&&typeof i.n==="string"&&i.k>=0).slice(0,200):[],
+    extras:s.extras&&s.extras.week===WEEK&&Array.isArray(s.extras.days)&&s.extras.days.length===7&&s.extras.days.every(Array.isArray)?s.extras:d.extras,
+    weights:Array.isArray(s.weights)?s.weights.filter(w=>w&&w.d&&w.kg>0):[],updatedAt:s.updatedAt||0};
   st.weights.sort((a,b)=>a.d<b.d?-1:1);
   if(st.profile.pace===0.75)st.profile.pace=1;
   fixPlan(st);return st;}
@@ -385,11 +395,49 @@ function fmtAmt(a,u){
 }
 function dayMeals(i,target){return Object.keys(SLOTS).map(s=>Object.assign({slot:s},scaled(s,state.plan[i][s],target)));}
 
+/* ---------- Eigene Lebensmittel und Getränke ---------- */
+const BUILTIN=[
+ {n:"Wasser 0,5 l",t:"d",k:0,p:0},{n:"Kaffee schwarz",t:"d",k:2,p:0},{n:"Kaffee mit Milch",t:"d",k:30,p:2},{n:"Cappuccino",t:"d",k:90,p:5},
+ {n:"Cola 0,33 l",t:"d",k:140,p:0},{n:"Cola Zero 0,33 l",t:"d",k:1,p:0},{n:"Apfelschorle 0,3 l",t:"d",k:75,p:0},{n:"Orangensaft 0,2 l",t:"d",k:90,p:1},
+ {n:"Bier 0,5 l",t:"d",k:215,p:2},{n:"Wein 0,2 l",t:"d",k:140,p:0},{n:"Proteinshake mit Wasser",t:"d",k:120,p:24},{n:"Energydrink 0,25 l",t:"d",k:115,p:0},
+ {n:"Banane",t:"f",k:100,p:1},{n:"Apfel",t:"f",k:80,p:0},{n:"Brötchen",t:"f",k:150,p:5},{n:"Scheibe Käse",t:"f",k:70,p:5},
+ {n:"Gekochtes Ei",t:"f",k:77,p:7},{n:"Handvoll Nüsse (30 g)",t:"f",k:180,p:6},{n:"Schokoriegel",t:"f",k:230,p:3},{n:"Proteinriegel",t:"f",k:200,p:20}];
+function findItem(name){const k=name.trim().toLowerCase();return state.items.find(i=>i.n.toLowerCase()===k)||BUILTIN.find(i=>i.n.toLowerCase()===k)||null;}
+/* Schnellauswahl: zuerst die am häufigsten eingetragenen eigenen Einträge, aufgefüllt mit Vorschlägen */
+function quickItems(){
+  const own=state.items.slice().sort((a,b)=>(b.c||0)-(a.c||0)||(b.last||0)-(a.last||0)).slice(0,8);
+  const fill=BUILTIN.filter(b=>!state.items.some(i=>i.n.toLowerCase()===b.n.toLowerCase())).slice(0,Math.max(0,6-own.length));
+  return own.concat(fill);
+}
+function addExtra(it){
+  const k=it.n.toLowerCase(),known=state.items.find(i=>i.n.toLowerCase()===k);
+  state.extras.days[selDay].push({n:known?known.n:it.n,t:it.t,k:it.k,p:it.p||0});
+  if(known){known.k=it.k;known.p=it.p||0;known.t=it.t;known.c=(known.c||0)+1;known.last=Date.now();}
+  else state.items.push({n:it.n,t:it.t,k:it.k,p:it.p||0,c:1,last:Date.now()});
+  if(state.items.length>200)state.items=state.items.sort((a,b)=>(b.c||0)-(a.c||0)).slice(0,200);
+  save();renderPlan();
+}
+function extrasPanel(){
+  const xs=state.extras.days[selDay],q=quickItems(),names=state.items.concat(BUILTIN.filter(b=>!state.items.some(i=>i.n.toLowerCase()===b.n.toLowerCase())));
+  return '<div class="panel stack"><div><h2>Zusätzlich gegessen und getrunken</h2><p class="small muted">Trag hier alles ein, was nicht im Plan steht. Die App merkt sich deine Einträge und zeigt die häufigsten zum Antippen an.</p></div>'+
+    '<div class="chips">'+q.map((i,n)=>'<button type="button" class="chipbtn" data-act="x-quick" data-i="'+n+'">+ '+esc(i.n)+' <small class="num">'+nf(i.k)+' kcal</small></button>').join("")+'</div>'+
+    '<form id="x-form" class="xform" novalidate>'+
+    '<div class="field wide"><label for="x-name">Name und Menge</label><input id="x-name" type="text" list="x-names" maxlength="60" placeholder="z. B. Cola 0,33 l" autocomplete="off"></div>'+
+    '<div class="field"><label for="x-type">Art</label><select id="x-type"><option value="f">Lebensmittel</option><option value="d">Getränk</option></select></div>'+
+    '<div class="field"><label for="x-kcal">kcal</label><input id="x-kcal" type="number" inputmode="numeric" min="0" max="5000" placeholder="140"></div>'+
+    '<div class="field"><label for="x-prot">Eiweiß (g)</label><input id="x-prot" type="number" inputmode="decimal" min="0" max="300" step="0.1" placeholder="optional"></div>'+
+    '<button class="btn primary wide" type="submit">Eintragen</button></form>'+
+    '<datalist id="x-names">'+names.map(i=>'<option value="'+esc(i.n)+'"></option>').join("")+'</datalist>'+
+    (xs.length?'<ul class="xlist">'+xs.map((x,n)=>'<li><span>'+esc(x.n)+' <span class="small muted">'+(x.t==="d"?"Getränk":"Lebensmittel")+'</span></span><span class="num"><b>'+nf(x.k)+' kcal</b>'+(x.p?' <span class="small muted">· '+nf(x.p)+' g Eiweiß</span>':'')+'</span><button type="button" class="btn ghost" data-act="x-del" data-i="'+n+'" aria-label="'+esc(x.n)+' entfernen">×</button></li>').join("")+'</ul>'
+      :'<p class="small muted">Für '+DAYS_LONG[selDay]+' ist noch nichts Zusätzliches eingetragen.</p>')+'</div>';
+}
+
 /* ---------- Plan ---------- */
 function renderPlan(){
   const p=state.profile,c=calc(p),meals=dayMeals(selDay,c.target);
   const sum=meals.reduce((a,m)=>({k:a.k+m.k,p:a.p+m.p,c:a.c+m.c,f:a.f+m.fat}),{k:0,p:0,c:0,f:0});
   const eatenK=meals.filter(m=>state.eaten.items.includes(selDay+"-"+m.slot)).reduce((a,m)=>a+m.k,0);
+  const xs=state.extras.days[selDay],xK=xs.reduce((a,x)=>a+x.k,0),xP=xs.reduce((a,x)=>a+(x.p||0),0),totalK=eatenK+xK,over=totalK>c.target;
   const pct=(v,t)=>clamp(Math.round(v/t*100),0,100);
   let goalLine;
   if(c.mode==="under")goalLine="Dein Zielgewicht läge im Untergewicht. Der Plan hält dein Gewicht.";
@@ -399,12 +447,12 @@ function renderPlan(){
   if(p.example)h+='<p class="notice"><b>Beispielwerte.</b> Der Plan rechnet gerade mit einem Musterprofil (88 kg, Ziel 80 kg). <a href="#profil">Trag deine Daten ein</a>, damit Kalorien und Portionen zu dir passen.</p>';
   h+='<div class="panel summary"><div class="stack">'+
      '<div><p class="label">Tagesziel</p><p class="big num">'+nf(c.target)+' <small>kcal</small></p></div>'+
-     '<div class="stack" style="gap:6px"><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct(eatenK,c.target)+'" aria-label="Gegessen"><i style="width:'+pct(eatenK,c.target)+'%"></i></div>'+
-     '<p class="small muted num">'+nf(eatenK)+' von '+nf(sum.k)+' kcal am '+DAYS_LONG[selDay]+' abgehakt</p></div>'+
+     '<div class="stack" style="gap:6px"><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct(totalK,c.target)+'" aria-label="Gegessen"><i class="'+(over?"over":"")+'" style="width:'+pct(totalK,c.target)+'%"></i></div>'+
+     '<p class="small muted num">'+(over?'<b class="up">'+nf(totalK-c.target)+' kcal über dem Tagesziel</b> am '+DAYS_LONG[selDay]:nf(totalK)+' von '+nf(c.target)+' kcal am '+DAYS_LONG[selDay]+' gegessen')+(xK?' · davon '+nf(xK)+' kcal zusätzlich':'')+'</p></div>'+
      '<p class="small">'+goalLine+'</p></div>'+
      '<div class="macros">'+
-       macro("Eiweiß","p",sum.p,c.protein)+macro("Kohlenhydr.","c",sum.c,c.carbs)+macro("Fett","f",sum.f,c.fat)+
-       '<p class="small muted">Was dieser Tag liefert, im Verhältnis zu deinem Richtwert.</p></div></div>';
+       macro("Eiweiß","p",sum.p+xP,c.protein)+macro("Kohlenhydr.","c",sum.c,c.carbs)+macro("Fett","f",sum.f,c.fat)+
+       '<p class="small muted">Was der Plan an diesem Tag liefert, im Verhältnis zu deinem Richtwert. Eiweiß zählt deine zusätzlichen Einträge mit.</p></div></div>';
   h+='<div class="days" role="group" aria-label="Wochentag">'+DAYS.map((d,i)=>'<button type="button" data-act="day" data-i="'+i+'" aria-pressed="'+(i===selDay)+'" aria-label="'+DAYS_LONG[i]+'">'+d+'<span>'+(i===TODAY_IDX?"heute":"")+'</span></button>').join("")+'</div>';
   h+='<div class="panel"><div class="meals">'+meals.map(m=>{
     const key=selDay+"-"+m.slot,done=state.eaten.items.includes(key);
@@ -416,6 +464,7 @@ function renderPlan(){
       '</ul><p class="how">'+esc(m.r.how)+'</p></details></div>'+
       '<button type="button" class="btn" data-act="swap" data-slot="'+m.slot+'" aria-label="'+SLOTS[m.slot].label+' tauschen">Tauschen</button></div>';
   }).join("")+'</div></div>';
+  h+=extrasPanel();
   h+='<div class="row between"><p class="small muted">Dazu 2–3 Liter Wasser, ungesüßter Tee oder schwarzer Kaffee.</p><button type="button" class="btn" data-act="shuffle">Neue Woche würfeln</button></div>';
   $("#view-plan").innerHTML=h;
 }
@@ -550,6 +599,8 @@ document.addEventListener("click",e=>{
       state.plan.forEach((d,i)=>{d[s]=p[i%p.length].id;});});
     state.eaten={week:WEEK,items:[]};state.shop=[];save();renderPlan();renderShop();toast("Neuer Wochenplan erstellt");}
   else if(a==="ex-del"){state.exclude=state.exclude.filter(t=>t!==el.dataset.t);save();renderAll();toast("„"+el.dataset.t+"“ ist wieder erlaubt");}
+  else if(a==="x-quick"){const it=quickItems()[+el.dataset.i];if(it){addExtra(it);toast("„"+it.n+"“ eingetragen");}}
+  else if(a==="x-del"){state.extras.days[selDay].splice(+el.dataset.i,1);save();renderPlan();}
   else if(a==="recipes-update")updateRecipes(true);
   else if(a==="shop-reset"){state.shop=[];save();renderShop();}
   else if(a==="log-del"){state.weights=state.weights.filter(w=>w.d!==el.dataset.d);save();renderLog();toast("Eintrag gelöscht");}
@@ -570,6 +621,20 @@ $("#log-form").addEventListener("submit",e=>{
   state.weights.sort((a,b)=>a.d<b.d?-1:1);
   if(state.weights[state.weights.length-1].d===d){state.profile.weight=Math.round(kg*10)/10;fillProfileForm();}
   save();$("#log-kg").value="";renderAll();toast("Gewicht eingetragen");
+});
+document.addEventListener("input",e=>{
+  if(e.target.id!=="x-name")return;
+  const it=findItem(e.target.value);
+  if(it){$("#x-kcal").value=it.k;$("#x-prot").value=it.p||"";$("#x-type").value=it.t;}
+});
+document.addEventListener("submit",e=>{
+  if(e.target.id!=="x-form")return;
+  e.preventDefault();
+  const n=$("#x-name").value.trim(),k=parseFloat(String($("#x-kcal").value).replace(",",".")),p=parseFloat(String($("#x-prot").value).replace(",","."))||0;
+  if(!n){toast("Bitte einen Namen eingeben");return;}
+  if(!(k>=0&&k<=5000)){toast("Bitte die Kalorien eingeben (0 bis 5.000 kcal)");return;}
+  addExtra({n,t:$("#x-type").value,k:Math.round(k),p:Math.round(clamp(p,0,300)*10)/10});
+  toast("„"+n+"“ eingetragen");
 });
 $("#ex-form").addEventListener("submit",e=>{
   e.preventDefault();
