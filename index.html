@@ -204,6 +204,7 @@ footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap
   </main>
 
   <footer>
+    <span id="recipe-row" class="row" hidden><span id="recipe-status"></span><button type="button" class="btn" data-act="recipes-update">Rezepte aktualisieren</button></span>
     <span id="sync-status">Deine Eingaben werden in diesem Browser gespeichert.</span>
     <span>Richtwerte nach der Mifflin-St-Jeor-Formel. Kein Ersatz für ärztliche Beratung – bei Vorerkrankungen, Schwangerschaft oder Essstörungen bitte vorher mit einer Ärztin oder einem Arzt sprechen.</span>
   </footer>
@@ -217,7 +218,7 @@ footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap
 /* ---------- Rezepte: [Zutat, Menge, Einheit, Kategorie] ---------- */
 const CATS={G:"Gemüse & Obst",P:"Fleisch & Fisch",M:"Milchprodukte & Eier",K:"Getreide, Brot & Hülsenfrüchte",S:"Vorrat"};
 const SLOTS={b:{label:"Frühstück",share:.26},l:{label:"Mittagessen",share:.33},d:{label:"Abendessen",share:.31},s:{label:"Snack",share:.10}};
-const R={
+let R={
 b:[
  {id:"b1",n:"Skyr-Bowl mit Beeren und Haferflocken",veg:1,k:420,p:34,c:45,f:10,ing:[["Skyr",250,"g","M"],["Haferflocken",40,"g","K"],["Beeren (frisch oder TK)",100,"g","G"],["Walnüsse",10,"g","S"]],how:"Skyr in eine Schale geben, Haferflocken und Beeren darauf, Walnüsse grob hacken und darüberstreuen."},
  {id:"b2",n:"Rührei mit Vollkornbrot und Tomate",veg:1,k:425,p:26,c:28,f:22,ing:[["Eier",3,"Stk","M"],["Vollkornbrot",60,"g","K"],["Tomaten",150,"g","G"],["Butter",5,"g","M"]],how:"Eier verquirlen, in Butter bei mittlerer Hitze stocken lassen. Mit Brot und Tomatenscheiben servieren."},
@@ -256,7 +257,20 @@ s:[
  {id:"s6",n:"Banane mit Erdnussmus",veg:1,k:160,p:4,c:26,f:5,ing:[["Banane",1,"Stk","G"],["Erdnussmus",10,"g","S"]],how:"Banane längs halbieren und mit Erdnussmus bestreichen."},
  {id:"s7",n:"Hüttenkäse mit Tomate",veg:1,k:165,p:19,c:8,f:6,ing:[["Hüttenkäse",150,"g","M"],["Tomaten",100,"g","G"]],how:"Tomate würfeln, mit Hüttenkäse mischen, pfeffern."}
 ]};
-const BY_ID={};Object.keys(R).forEach(s=>R[s].forEach(r=>BY_ID[r.id]=r));
+let BY_ID={};
+function useRecipes(r){R=r;BY_ID={};Object.keys(R).forEach(s=>R[s].forEach(x=>BY_ID[x.id]=x));}
+useRecipes(R);
+/* Rezepte aus recipes.json (GitHub) ins interne Format bringen; ungültige Einträge werden übersprungen */
+const SLOT_KEYS={fruehstueck:"b",mittagessen:"l",abendessen:"d",snack:"s"};
+function parseRecipes(data){
+  const out={b:[],l:[],d:[],s:[]},seen={};
+  Object.keys(SLOT_KEYS).forEach(k=>{(Array.isArray(data&&data[k])?data[k]:[]).forEach(x=>{
+    if(!x||typeof x.id!=="string"||seen[x.id]||typeof x.name!=="string"||!(x.kcal>0)||!Array.isArray(x.zutaten))return;
+    const ing=x.zutaten.filter(z=>Array.isArray(z)&&typeof z[0]==="string"&&z[1]>0).map(z=>[z[0],+z[1],z[2]==="ml"||z[2]==="Stk"?z[2]:"g",CATS[z[3]]?z[3]:"S"]);
+    if(!ing.length)return;seen[x.id]=1;
+    out[SLOT_KEYS[k]].push({id:x.id,n:x.name,veg:x.vegetarisch?1:0,k:+x.kcal,p:+x.eiweiss||0,c:+x.kohlenhydrate||0,f:+x.fett||0,ing,how:typeof x.zubereitung==="string"?x.zubereitung:""});});});
+  return Object.keys(out).every(k=>out[k].length)?out:null;
+}
 const DAYS=["Mo","Di","Mi","Do","Fr","Sa","So"];
 const DAYS_LONG=["Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag"];
 
@@ -289,7 +303,7 @@ const GROUPS={fisch:["lachs","thunfisch","kabeljau","garnelen"],fleisch:["hähnc
 function termsOf(list){const out=[];list.forEach(t=>{t=t.toLowerCase().trim();if(!t)return;out.push(t);if(t.length>=5&&t.endsWith("n"))out.push(t.slice(0,-1));(GROUPS[t]||[]).forEach(x=>out.push(x));});return out;}
 function hits(r,ts){return ts.some(t=>r.ing.some(i=>{const n=i[0].toLowerCase();
   return t.length>=4?n.includes(t):n.split(/[^a-zäöüß]+/).some(w=>w===t||(w.startsWith(t)&&w.length<=t.length+2));}));}
-function dietPool(slot,st){return R[slot].filter(r=>st.profile.diet!=="veg"||r.veg);}
+function dietPool(slot,st){const p=R[slot].filter(r=>st.profile.diet!=="veg"||r.veg);return p.length?p:R[slot];}
 function freePool(slot,st){const ts=termsOf(st.exclude);return dietPool(slot,st).filter(r=>!hits(r,ts));}
 function pool(slot,st){const p=freePool(slot,st);return p.length?p:dietPool(slot,st);}
 function fixPlan(st){
@@ -301,6 +315,9 @@ function fixPlan(st){
     day[s]=p.map((r,n)=>({id:r.id,u:used(r.id),o:(n-i-j*2+p.length*9)%p.length})).sort((x,y)=>x.u-y.u||x.o-y.o)[0].id;
   }));}
 function loadLocal(){try{return JSON.parse(localStorage.getItem(KEY));}catch(e){return null;}}
+const RKEY="kilo-recipes-v1",RECIPES_URL="https://raw.githubusercontent.com/Melo-Labs/Kilo-fuer-Kilo/HEAD/recipes.json";
+let recipeAt=null;
+try{const c=JSON.parse(localStorage.getItem(RKEY)),r=c&&parseRecipes(c.data);if(r){useRecipes(r);recipeAt=c.at;}}catch(e){}
 let state=normalize(loadLocal());
 let selDay=TODAY_IDX; const openMeals=new Set();
 
@@ -494,6 +511,24 @@ function renderExclude(){
   $("#ex-list").innerHTML=h;
 }
 
+/* ---------- Rezept-Updates von GitHub ---------- */
+function renderRecipeStatus(){
+  const n=Object.keys(R).reduce((a,k)=>a+R[k].length,0);
+  $("#recipe-status").textContent=n+" Rezepte · "+(recipeAt?"zuletzt von GitHub geladen am "+new Date(recipeAt).toLocaleString("de-DE",{dateStyle:"short",timeStyle:"short"}):"mitgelieferter Stand");
+}
+async function updateRecipes(manual){
+  try{
+    const res=await fetch(RECIPES_URL,{cache:"no-store"});if(!res.ok)throw new Error("http");
+    const data=await res.json(),r=parseRecipes(data);if(!r)throw new Error("format");
+    let old=null;try{old=JSON.parse(localStorage.getItem(RKEY));}catch(e){}
+    const changed=!old||JSON.stringify(old.data)!==JSON.stringify(data);
+    recipeAt=Date.now();try{localStorage.setItem(RKEY,JSON.stringify({at:recipeAt,data}));}catch(e){}
+    if(changed){useRecipes(r);fixPlan(state);renderAll();}
+    $("#recipe-row").hidden=false;renderRecipeStatus();
+    if(manual||(changed&&old))toast(changed?"Rezepte aktualisiert":"Rezepte sind auf dem neuesten Stand");
+  }catch(e){if(manual)toast("Rezepte konnten nicht geladen werden. Besteht eine Internetverbindung?");}
+}
+
 /* ---------- Steuerung ---------- */
 const VIEWS=["plan","einkauf","verlauf","profil"];
 function route(){
@@ -515,6 +550,7 @@ document.addEventListener("click",e=>{
       state.plan.forEach((d,i)=>{d[s]=p[i%p.length].id;});});
     state.eaten={week:WEEK,items:[]};state.shop=[];save();renderPlan();renderShop();toast("Neuer Wochenplan erstellt");}
   else if(a==="ex-del"){state.exclude=state.exclude.filter(t=>t!==el.dataset.t);save();renderAll();toast("„"+el.dataset.t+"“ ist wieder erlaubt");}
+  else if(a==="recipes-update")updateRecipes(true);
   else if(a==="shop-reset"){state.shop=[];save();renderShop();}
   else if(a==="log-del"){state.weights=state.weights.filter(w=>w.d!==el.dataset.d);save();renderLog();toast("Eintrag gelöscht");}
 });
@@ -565,6 +601,8 @@ $("#today-label").textContent=NOW.toLocaleDateString("de-DE",{weekday:"long",day
 $("#log-date").value=iso(NOW);$("#log-date").max=iso(NOW);
 fillProfileForm();renderAll();route();
 window.addEventListener("hashchange",route);
+renderRecipeStatus();if(location.protocol==="file:")$("#recipe-row").hidden=false;
+updateRecipes(false);
 initSync();
 })();
 </script>
