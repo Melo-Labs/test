@@ -10,20 +10,29 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate {
     func applicationDidFinishLaunching(_ notification: Notification) {
         buildMenu()
 
-        webView = WKWebView(frame: .zero, configuration: WKWebViewConfiguration())
+        // Sagt der Seite, dass sie in der Mac-App läuft (Platz für die Fensterknöpfe).
+        let config = WKWebViewConfiguration()
+        config.userContentController.addUserScript(WKUserScript(
+            source: "document.documentElement.setAttribute('data-shell','mac');",
+            injectionTime: .atDocumentEnd,
+            forMainFrameOnly: true
+        ))
+        webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = self
 
         window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 560, height: 880),
-            styleMask: [.titled, .closable, .miniaturizable, .resizable],
+            contentRect: NSRect(x: 0, y: 0, width: 1040, height: 780),
+            styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered,
             defer: false
         )
         window.title = "Kilo für Kilo"
+        window.titlebarAppearsTransparent = true
+        window.titleVisibility = .hidden
         window.minSize = NSSize(width: 380, height: 560)
         window.contentView = webView
         window.center()
-        window.setFrameAutosaveName("KiloMainWindow")
+        window.setFrameAutosaveName("KiloMainWindow2")
         window.makeKeyAndOrderFront(nil)
 
         if let page = Bundle.main.url(forResource: "index", withExtension: "html") {
