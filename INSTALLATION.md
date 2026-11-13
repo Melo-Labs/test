@@ -5,14 +5,14 @@ Dauert etwa zwei Minuten. Du brauchst kein Terminal und keine Vorkenntnisse.
 ## 1. App herunterladen
 
 1. Öffne im Browser: <https://github.com/Melo-Labs/Kilo-fuer-Kilo/releases/latest>
-2. Klicke unten bei **Assets** auf **Kilo-fuer-Kilo-mac.zip**.
+2. Klicke unten bei **Assets** auf **Kilo-fuer-Kilo.dmg**.
 3. Die Datei landet im Ordner **Downloads**.
 
-## 2. App in den Programme-Ordner legen
+## 2. Installieren
 
-1. Öffne den Ordner **Downloads** im Finder.
-2. Doppelklicke auf **Kilo-fuer-Kilo-mac.zip**. Daneben erscheint **Kilo für Kilo**.
-3. Ziehe **Kilo für Kilo** links in der Finder-Leiste auf **Programme**.
+1. Doppelklicke im Ordner **Downloads** auf **Kilo-fuer-Kilo.dmg**. Es öffnet sich ein Fenster.
+2. Ziehe darin das Symbol **Kilo für Kilo** auf den Ordner **Applications** (Programme) direkt daneben.
+3. Schließe das Fenster. Die .dmg-Datei kannst du danach löschen.
 
 ## 3. Zum ersten Mal öffnen
 

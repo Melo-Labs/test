@@ -19,7 +19,7 @@ cd Kilo-fuer-Kilo
 
 **Variante B – fertige App herunterladen**
 
-GitHub baut die App bei jeder Änderung automatisch und legt sie unter *Releases* → *Kilo für Kilo (aktuelle Version)* als `Kilo-fuer-Kilo-mac.zip` ab. Zip entpacken und die App in den Programme-Ordner ziehen.
+GitHub baut die App bei jeder Änderung automatisch und legt sie unter *Releases* → *Kilo für Kilo (aktuelle Version)* als `Kilo-fuer-Kilo.dmg` ab. Öffnen und die App in den Programme-Ordner ziehen.
 Die App ist nicht von Apple notarisiert. Beim ersten Start deshalb: *Systemeinstellungen → Datenschutz & Sicherheit → „Dennoch öffnen“*.
 
 ## Neue Rezepte hinzufügen

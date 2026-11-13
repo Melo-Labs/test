@@ -1,5 +1,5 @@
 #!/bin/bash
-# Baut "Kilo für Kilo.app" auf einem Mac.  Aufruf:  ./macos/build.sh  [install]
+# Baut "Kilo für Kilo.app" auf einem Mac.  Aufruf:  ./macos/build.sh  [install|dmg]
 # Voraussetzung: Xcode Command Line Tools (xcode-select --install)
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -37,6 +37,22 @@ rm -rf "$ICONSET"
 
 codesign --force --sign - "$APP"
 echo "Fertig: $APP"
+
+if [ "${1:-}" = "dmg" ]; then
+  STAGE="build/dmg"
+  rm -rf "$STAGE" build/Kilo-fuer-Kilo.dmg
+  mkdir -p "$STAGE"
+  cp -R "$APP" "$STAGE/"
+  ln -s /Applications "$STAGE/Applications"
+  # hdiutil meldet auf CI-Rechnern gelegentlich "Resource busy" – bis zu dreimal versuchen
+  for try in 1 2 3; do
+    if hdiutil create -volname "$NAME" -srcfolder "$STAGE" -ov -format UDZO build/Kilo-fuer-Kilo.dmg; then break; fi
+    [ "$try" = 3 ] && exit 1
+    sleep 5
+  done
+  rm -rf "$STAGE"
+  echo "Fertig: build/Kilo-fuer-Kilo.dmg"
+fi
 
 if [ "${1:-}" = "install" ]; then
   rm -rf "/Applications/$NAME.app"
