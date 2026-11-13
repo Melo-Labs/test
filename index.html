@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Kilo für Kilo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: one narrow column like a kitchen notepad — summary on top, tabs, then the working list. */
+:root{
+  --bg:#f1f5f0; --surface:#ffffff; --sunk:#e6ede6; --line:#d3ddd4;
+  --ink:#16261e; --muted:#58695f;
+  --accent:#1b7556; --accent-ink:#ffffff; --accent-soft:#dcefe6;
+  --protein:#8b3d6c; --carbs:#a86c08; --fat:#2a6c8e;
+  --warn:#9a5a00; --warn-soft:#fbefd6;
+  --display:"Bricolage Grotesque","Figtree",system-ui,sans-serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f1713; --surface:#18221c; --sunk:#202c25; --line:#2e3d34;
+    --ink:#e7efe9; --muted:#98a99f;
+    --accent:#5ec9a0; --accent-ink:#0c1a14; --accent-soft:#1d3a2e;
+    --protein:#d58bb8; --carbs:#e0ab4a; --fat:#7ab8d8;
+    --warn:#e7b45c; --warn-soft:#3a2e15;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1713; --surface:#18221c; --sunk:#202c25; --line:#2e3d34;
+  --ink:#e7efe9; --muted:#98a99f;
+  --accent:#5ec9a0; --accent-ink:#0c1a14; --accent-soft:#1d3a2e;
+  --protein:#d58bb8; --carbs:#e0ab4a; --fat:#7ab8d8;
+  --warn:#e7b45c; --warn-soft:#3a2e15;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:720px;margin-inline:auto;display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--display);margin:0;text-wrap:balance;line-height:1.15}
+h1{font-size:1.75rem;font-weight:700;letter-spacing:-.01em}
+h2{font-size:1.25rem;font-weight:700}
+h3{font-size:1rem;font-weight:500}
+p{margin:0}
+.num{font-variant-numeric:tabular-nums}
+.muted{color:var(--muted)}
+.small{font-size:.875rem}
+.label{font-size:.75rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+header.top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap}
+header.top p{color:var(--muted);font-size:.875rem}
+
+nav.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;background:var(--sunk);padding:4px;border-radius:12px}
+nav.tabs a{text-align:center;padding:9px 4px;border-radius:9px;text-decoration:none;color:var(--muted);font-weight:600;font-size:.9rem;min-width:0}
+nav.tabs a[aria-current="page"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgb(0 0 0 / .12)}
+
+.view{display:flex;flex-direction:column;gap:20px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.stack{display:flex;flex-direction:column;gap:12px}
+.row{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.between{justify-content:space-between}
+
+.notice{background:var(--warn-soft);color:var(--ink);border-radius:var(--r);padding:12px 14px;font-size:.9rem}
+.notice a{color:inherit;font-weight:700}
+.notice b{color:var(--warn)}
+
+/* summary */
+.summary{display:grid;grid-template-columns:1.1fr 1fr;gap:18px;align-items:center}
+@media (max-width:520px){.summary{grid-template-columns:1fr}}
+.big{font-family:var(--display);font-weight:700;font-size:2.6rem;line-height:1;letter-spacing:-.02em}
+.big small{font-family:var(--body);font-size:.95rem;font-weight:500;color:var(--muted);letter-spacing:0}
+.bar{height:8px;background:var(--sunk);border-radius:99px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+.macros{display:grid;gap:8px}
+.macro{display:grid;grid-template-columns:5.5rem 1fr auto;gap:10px;align-items:center;font-size:.9rem}
+.macro .bar i.p{background:var(--protein)} .macro .bar i.c{background:var(--carbs)} .macro .bar i.f{background:var(--fat)}
+
+/* day picker */
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.days button{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 0;cursor:pointer;font-weight:600;font-size:.9rem;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:0}
+.days button span{font-size:.65rem;font-weight:500;color:var(--muted);height:.9em;line-height:.9}
+.days button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.days button[aria-pressed="true"] span{color:inherit}
+
+/* meals */
+.meals{display:flex;flex-direction:column}
+.meal{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:14px 0;border-top:1px solid var(--line)}
+.meal:first-child{border-top:0;padding-top:0}
+.meal:last-child{padding-bottom:0}
+.meal .body{min-width:0;display:flex;flex-direction:column;gap:3px}
+.meal.done h3{text-decoration:line-through;color:var(--muted)}
+.check{appearance:none;width:26px;height:26px;border:2px solid var(--line);border-radius:8px;margin:2px 0 0;cursor:pointer;display:grid;place-content:center;background:var(--surface)}
+.check:checked{background:var(--accent);border-color:var(--accent)}
+.check:checked::after{content:"";width:11px;height:6px;border-left:2.5px solid var(--accent-ink);border-bottom:2.5px solid var(--accent-ink);transform:rotate(-45deg) translate(1px,-1px)}
+.meta{font-size:.875rem;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+details summary{cursor:pointer;font-size:.875rem;color:var(--accent);font-weight:600;width:fit-content;padding:2px 0}
+details ul{margin:8px 0 6px;padding:0;list-style:none;display:grid;gap:3px;font-size:.9rem}
+details li span:last-child{white-space:nowrap}
+details li{display:flex;justify-content:space-between;gap:12px;border-bottom:1px dotted var(--line);padding-bottom:3px}
+details .how{font-size:.9rem;color:var(--muted);max-width:60ch}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:8px 12px;cursor:pointer;font-weight:600;font-size:.875rem}
+.btn:hover{border-color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);padding:11px 18px;font-size:1rem}
+.btn.ghost{border-color:transparent;color:var(--muted);padding:4px 8px}
+
+/* shopping */
+.shop-group{display:flex;flex-direction:column;gap:2px}
+.shop-item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:7px 0;cursor:pointer}
+.shop-item .check{margin:0;width:22px;height:22px;border-radius:6px}
+.shop-item.done span{text-decoration:line-through;color:var(--muted)}
+
+/* form */
+form.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){form.grid{grid-template-columns:1fr}}
+.field{display:flex;flex-direction:column;gap:5px;min-width:0}
+.field label{font-size:.875rem;font-weight:600}
+.field input,.field select{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;width:100%;min-width:0}
+.full{grid-column:1/-1}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px}
+.fact{display:flex;flex-direction:column;gap:2px}
+.fact b{font-family:var(--display);font-size:1.35rem;font-weight:700}
+
+/* log */
+.chart{width:100%;height:auto;display:block}
+.chart text{font-family:var(--body);font-size:12px;fill:var(--muted)}
+table.log{width:100%;border-collapse:collapse;font-size:.95rem}
+table.log td{padding:8px 0;border-top:1px solid var(--line)}
+table.log td:nth-child(2),table.log td:nth-child(3){text-align:right}
+.empty{color:var(--muted);text-align:center;padding:18px 8px}
+.down{color:var(--accent);font-weight:600}.up{color:var(--warn);font-weight:600}
+
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:.9rem;font-weight:600;max-width:calc(100% - 32px)}
+footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap:4px}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <h1>Kilo für Kilo</h1>
+    <p id="today-label"></p>
+  </header>
+
+  <nav class="tabs" aria-label="Bereiche">
+    <a href="#plan">Plan</a>
+    <a href="#einkauf">Einkauf</a>
+    <a href="#verlauf">Verlauf</a>
+    <a href="#profil">Profil</a>
+  </nav>
+
+  <main>
+    <section class="view" id="view-plan"></section>
+    <section class="view" id="view-einkauf" hidden></section>
+    <section class="view" id="view-verlauf" hidden>
+      <div id="log-summary"></div>
+      <div class="panel stack">
+        <h2>Gewicht eintragen</h2>
+        <form id="log-form" class="row" novalidate>
+          <div class="field" style="flex:1 1 140px"><label for="log-date">Datum</label><input id="log-date" type="date" required></div>
+          <div class="field" style="flex:1 1 110px"><label for="log-kg">Gewicht (kg)</label><input id="log-kg" type="number" inputmode="decimal" step="0.1" min="35" max="300" placeholder="z. B. 86,4" required></div>
+          <button class="btn primary" type="submit" style="align-self:flex-end">Eintragen</button>
+        </form>
+        <p class="small muted">Am besten immer morgens nach dem Aufstehen wiegen. Schwankungen von 1–2 kg von Tag zu Tag sind normal, auf den Trend über Wochen kommt es an.</p>
+      </div>
+      <div id="log-list"></div>
+    </section>
+    <section class="view" id="view-profil" hidden>
+      <div class="panel stack">
+        <h2>Dein Profil</h2>
+        <form id="profile-form" class="grid" novalidate>
+          <div class="field"><label for="pf-sex">Geschlecht</label><select id="pf-sex"><option value="m">Männlich</option><option value="f">Weiblich</option></select></div>
+          <div class="field"><label for="pf-age">Alter (Jahre)</label><input id="pf-age" type="number" inputmode="numeric" min="18" max="99" required></div>
+          <div class="field"><label for="pf-height">Größe (cm)</label><input id="pf-height" type="number" inputmode="numeric" min="130" max="230" required></div>
+          <div class="field"><label for="pf-weight">Aktuelles Gewicht (kg)</label><input id="pf-weight" type="number" inputmode="decimal" step="0.1" min="35" max="300" required></div>
+          <div class="field"><label for="pf-goal">Zielgewicht (kg)</label><input id="pf-goal" type="number" inputmode="decimal" step="0.1" min="35" max="300" required></div>
+          <div class="field"><label for="pf-pace">Tempo</label><select id="pf-pace"><option value="0.25">Sanft – ca. 0,25 kg pro Woche</option><option value="0.5">Normal – ca. 0,5 kg pro Woche</option><option value="0.75">Zügig – ca. 0,75 kg pro Woche</option></select></div>
+          <div class="field full"><label for="pf-activity">Aktivität im Alltag</label><select id="pf-activity"><option value="1.2">Kaum Bewegung (Bürojob, kein Sport)</option><option value="1.375">Leicht aktiv (1–3× Sport pro Woche)</option><option value="1.55">Aktiv (3–5× Sport pro Woche)</option><option value="1.725">Sehr aktiv (körperliche Arbeit oder täglich Sport)</option></select></div>
+          <div class="field full"><label for="pf-diet">Ernährungsweise</label><select id="pf-diet"><option value="all">Ich esse alles</option><option value="veg">Vegetarisch</option></select></div>
+          <p id="pf-error" class="full notice" hidden></p>
+          <div class="full"><button class="btn primary" type="submit">Speichern und Plan berechnen</button></div>
+        </form>
+      </div>
+      <div id="profile-result"></div>
+    </section>
+  </main>
+
+  <footer>
+    <span id="sync-status">Deine Eingaben werden in diesem Browser gespeichert.</span>
+    <span>Richtwerte nach der Mifflin-St-Jeor-Formel. Kein Ersatz für ärztliche Beratung – bei Vorerkrankungen, Schwangerschaft oder Essstörungen bitte vorher mit einer Ärztin oder einem Arzt sprechen.</span>
+  </footer>
+</div>
+<div id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- Rezepte: [Zutat, Menge, Einheit, Kategorie] ---------- */
+const CATS={G:"Gemüse & Obst",P:"Fleisch, Fisch & Tofu",M:"Milchprodukte & Eier",K:"Getreide, Brot & Hülsenfrüchte",S:"Vorrat"};
+const SLOTS={b:{label:"Frühstück",share:.26},l:{label:"Mittagessen",share:.33},d:{label:"Abendessen",share:.31},s:{label:"Snack",share:.10}};
+const R={
+b:[
+ {id:"b1",n:"Skyr-Bowl mit Beeren und Haferflocken",veg:1,k:420,p:34,c:45,f:10,ing:[["Skyr",250,"g","M"],["Haferflocken",40,"g","K"],["Beeren (frisch oder TK)",100,"g","G"],["Walnüsse",10,"g","S"]],how:"Skyr in eine Schale geben, Haferflocken und Beeren darauf, Walnüsse grob hacken und darüberstreuen."},
+ {id:"b2",n:"Rührei mit Vollkornbrot und Tomate",veg:1,k:425,p:26,c:28,f:22,ing:[["Eier",3,"Stk","M"],["Vollkornbrot",60,"g","K"],["Tomaten",150,"g","G"],["Butter",5,"g","M"]],how:"Eier verquirlen, in Butter bei mittlerer Hitze stocken lassen. Mit Brot und Tomatenscheiben servieren."},
+ {id:"b3",n:"Overnight Oats mit Apfel und Zimt",veg:1,k:450,p:27,c:62,f:10,ing:[["Haferflocken",50,"g","K"],["Milch 1,5 %",150,"ml","M"],["Magerquark",100,"g","M"],["Apfel",1,"Stk","G"],["Chiasamen",10,"g","S"]],how:"Haferflocken, Milch, Quark und Chia am Vorabend verrühren und kalt stellen. Morgens Apfel hineinreiben, Zimt darüber."},
+ {id:"b4",n:"Hüttenkäse-Brot mit Gurke und Ei",veg:1,k:415,p:33,c:38,f:13,ing:[["Vollkornbrot",80,"g","K"],["Hüttenkäse",150,"g","M"],["Eier",1,"Stk","M"],["Gurke",100,"g","G"]],how:"Ei 8 Minuten kochen. Brot mit Hüttenkäse bestreichen, mit Gurke und Ei belegen, salzen und pfeffern."},
+ {id:"b5",n:"Hafer-Pfannkuchen mit Quark und Beeren",veg:1,k:460,p:32,c:52,f:13,ing:[["Eier",2,"Stk","M"],["Haferflocken",40,"g","K"],["Banane",0.5,"Stk","G"],["Magerquark",100,"g","M"],["Beeren (frisch oder TK)",80,"g","G"]],how:"Eier, Haferflocken und Banane pürieren, in einer beschichteten Pfanne kleine Pfannkuchen backen. Mit Quark und Beeren essen."},
+ {id:"b6",n:"Vollkornbrot mit Räucherlachs und Ei",veg:0,k:420,p:30,c:36,f:17,ing:[["Vollkornbrot",80,"g","K"],["Räucherlachs",60,"g","P"],["Frischkäse leicht",30,"g","M"],["Eier",1,"Stk","M"],["Gurke",100,"g","G"]],how:"Brot mit Frischkäse bestreichen, Lachs und Gurke darauf. Dazu ein gekochtes Ei."},
+ {id:"b7",n:"Joghurt mit Banane, Haferflocken und Mandeln",veg:1,k:420,p:17,c:57,f:13,ing:[["Naturjoghurt 1,5 %",250,"g","M"],["Banane",1,"Stk","G"],["Haferflocken",30,"g","K"],["Mandeln",15,"g","S"]],how:"Banane in Scheiben schneiden und mit Haferflocken und Mandeln unter den Joghurt mischen."}
+],
+l:[
+ {id:"l1",n:"Hähnchen-Reis-Bowl mit Brokkoli",veg:0,k:530,p:46,c:55,f:13,ing:[["Hähnchenbrust",150,"g","P"],["Reis (roh)",60,"g","K"],["Brokkoli",200,"g","G"],["Olivenöl",10,"ml","S"],["Sojasauce",10,"ml","S"]],how:"Reis kochen, Brokkoli 5 Minuten dämpfen. Hähnchen in Streifen im Öl braten, mit Sojasauce ablöschen und alles anrichten."},
+ {id:"l2",n:"Rotes Linsen-Dal mit Reis und Spinat",veg:1,k:520,p:25,c:80,f:9,ing:[["Rote Linsen",70,"g","K"],["Reis (roh)",40,"g","K"],["Kokosmilch light",80,"ml","S"],["Stückige Tomaten (Dose)",200,"g","S"],["Spinat",100,"g","G"],["Zwiebel",0.5,"Stk","G"]],how:"Zwiebel anschwitzen, Linsen, Tomaten, Kokosmilch und 200 ml Wasser 15 Minuten köcheln. Mit Curry würzen, Spinat unterheben, zu Reis servieren."},
+ {id:"l3",n:"Vollkornnudeln mit Thunfisch-Tomatensauce",veg:0,k:520,p:45,c:60,f:9,ing:[["Vollkornnudeln",80,"g","K"],["Thunfisch im eigenen Saft (abgetropft)",130,"g","P"],["Stückige Tomaten (Dose)",200,"g","S"],["Zwiebel",0.5,"Stk","G"],["Olivenöl",5,"ml","S"]],how:"Nudeln kochen. Zwiebel im Öl anbraten, Tomaten 5 Minuten einkochen, Thunfisch unterrühren und mit den Nudeln mischen."},
+ {id:"l4",n:"Putenpfanne mit Gemüse und Kartoffeln",veg:0,k:515,p:43,c:52,f:12,ing:[["Putenbrust",150,"g","P"],["Kartoffeln",250,"g","G"],["Paprika",150,"g","G"],["Zucchini",150,"g","G"],["Olivenöl",10,"ml","S"]],how:"Kartoffeln würfeln und 10 Minuten vorkochen. Pute im Öl anbraten, Gemüse und Kartoffeln zugeben, mit Paprikapulver würzen und fertig braten."},
+ {id:"l5",n:"Quinoa-Salat mit Feta und Kichererbsen",veg:1,k:555,p:26,c:62,f:20,ing:[["Quinoa (roh)",50,"g","K"],["Kichererbsen (Dose, abgetropft)",120,"g","K"],["Feta",50,"g","M"],["Gurke",150,"g","G"],["Tomaten",150,"g","G"],["Olivenöl",5,"ml","S"]],how:"Quinoa nach Packung garen und abkühlen lassen. Mit gewürfeltem Gemüse, Kichererbsen, Feta, Öl und Zitronensaft mischen."},
+ {id:"l6",n:"Ofenkartoffeln mit Kräuterquark und Salat",veg:1,k:510,p:34,c:62,f:11,ing:[["Kartoffeln",350,"g","G"],["Magerquark",200,"g","M"],["Leinöl",10,"ml","S"],["Blattsalat",100,"g","G"],["Gurke",100,"g","G"]],how:"Kartoffeln halbieren und 35 Minuten bei 200 °C backen. Quark mit Leinöl, Kräutern, Salz und einem Schuss Wasser verrühren. Mit Salat servieren."},
+ {id:"l7",n:"Tofu-Gemüse-Wok mit Reis",veg:1,k:530,p:35,c:55,f:17,ing:[["Tofu natur",180,"g","P"],["Reis (roh)",50,"g","K"],["Wokgemüse (frisch oder TK)",250,"g","G"],["Rapsöl",5,"ml","S"],["Sojasauce",15,"ml","S"]],how:"Reis kochen. Tofu würfeln und im Öl knusprig braten, Gemüse 5 Minuten mitbraten, mit Sojasauce abschmecken."},
+ {id:"l8",n:"Chili con Carne mit Reis",veg:0,k:520,p:42,c:58,f:10,ing:[["Rinderhack mager",120,"g","P"],["Kidneybohnen (Dose, abgetropft)",120,"g","K"],["Mais (Dose)",60,"g","S"],["Stückige Tomaten (Dose)",250,"g","S"],["Reis (roh)",30,"g","K"],["Zwiebel",0.5,"Stk","G"]],how:"Hack mit Zwiebel krümelig braten, Tomaten, Bohnen und Mais zugeben, mit Chili und Kreuzkümmel 15 Minuten köcheln. Dazu Reis."},
+ {id:"l9",n:"Hähnchen-Wrap mit Avocado und Salat",veg:0,k:500,p:40,c:40,f:16,ing:[["Vollkorn-Wrap",1,"Stk","K"],["Hähnchenbrust",120,"g","P"],["Avocado",50,"g","G"],["Paprika",100,"g","G"],["Blattsalat",50,"g","G"],["Naturjoghurt 1,5 %",50,"g","M"]],how:"Hähnchen in Streifen braten. Wrap mit Joghurt bestreichen, mit Salat, Paprika, Avocado und Hähnchen füllen und aufrollen."}
+],
+d:[
+ {id:"d1",n:"Lachs mit Ofengemüse",veg:0,k:505,p:33,c:35,f:24,ing:[["Lachsfilet",130,"g","P"],["Zucchini",200,"g","G"],["Paprika",150,"g","G"],["Kartoffeln",150,"g","G"],["Olivenöl",5,"ml","S"]],how:"Gemüse und Kartoffeln würfeln, mit Öl und Kräutern 15 Minuten bei 200 °C backen. Lachs dazulegen und weitere 12 Minuten garen."},
+ {id:"d2",n:"Spinat-Feta-Omelett mit Brot",veg:1,k:460,p:33,c:18,f:28,ing:[["Eier",3,"Stk","M"],["Spinat",150,"g","G"],["Feta",40,"g","M"],["Vollkornbrot",40,"g","K"]],how:"Spinat in der Pfanne zusammenfallen lassen, verquirlte Eier darübergießen, Feta darauf bröseln und zugedeckt stocken lassen."},
+ {id:"d3",n:"Großer Hähnchen-Salat mit Joghurtdressing",veg:0,k:430,p:44,c:30,f:12,ing:[["Hähnchenbrust",150,"g","P"],["Blattsalat",150,"g","G"],["Tomaten",150,"g","G"],["Gurke",150,"g","G"],["Naturjoghurt 1,5 %",80,"g","M"],["Vollkornbrot",50,"g","K"],["Olivenöl",5,"ml","S"]],how:"Hähnchen braten und in Scheiben schneiden. Joghurt mit Öl, Senf und Zitronensaft verrühren, über den Salat geben. Brot dazu."},
+ {id:"d4",n:"Linsen-Gemüse-Suppe mit Brot",veg:1,k:495,p:24,c:85,f:4,ing:[["Tellerlinsen",60,"g","K"],["Karotten",150,"g","G"],["Lauch",100,"g","G"],["Kartoffeln",150,"g","G"],["Vollkornbrot",40,"g","K"]],how:"Gemüse würfeln, mit Linsen in 600 ml Gemüsebrühe 25 Minuten köcheln. Mit einem Schuss Essig abschmecken."},
+ {id:"d5",n:"Zucchini-Nudeln mit Garnelen",veg:0,k:490,p:45,c:33,f:17,ing:[["Garnelen",180,"g","P"],["Zucchini",300,"g","G"],["Kirschtomaten",150,"g","G"],["Vollkornnudeln",30,"g","K"],["Parmesan",15,"g","M"],["Olivenöl",10,"ml","S"]],how:"Nudeln kochen, Zucchini in Streifen hobeln. Garnelen mit Knoblauch im Öl braten, Tomaten und Zucchini 3 Minuten mitschwenken, Nudeln und Parmesan dazu."},
+ {id:"d6",n:"Kabeljau mit Brokkoli und Kartoffelpüree",veg:0,k:500,p:44,c:50,f:11,ing:[["Kabeljaufilet",180,"g","P"],["Kartoffeln",250,"g","G"],["Brokkoli",200,"g","G"],["Milch 1,5 %",50,"ml","M"],["Butter",10,"g","M"]],how:"Kartoffeln weich kochen und mit Milch und Butter stampfen. Brokkoli dämpfen, Fisch 3 Minuten pro Seite braten."},
+ {id:"d7",n:"Kichererbsen-Curry mit Spinat",veg:1,k:500,p:22,c:68,f:12,ing:[["Kichererbsen (Dose, abgetropft)",200,"g","K"],["Spinat",150,"g","G"],["Stückige Tomaten (Dose)",200,"g","S"],["Kokosmilch light",100,"ml","S"],["Reis (roh)",30,"g","K"]],how:"Tomaten, Kokosmilch und Currypaste aufkochen, Kichererbsen 10 Minuten mitköcheln, Spinat unterheben. Mit Reis servieren."},
+ {id:"d8",n:"Shakshuka mit Feta und Brot",veg:1,k:470,p:27,c:40,f:20,ing:[["Eier",2,"Stk","M"],["Stückige Tomaten (Dose)",300,"g","S"],["Paprika",150,"g","G"],["Feta",30,"g","M"],["Vollkornbrot",60,"g","K"]],how:"Paprika anbraten, Tomaten mit Kreuzkümmel 8 Minuten einkochen. Mulden formen, Eier hineinschlagen und zugedeckt stocken lassen. Feta darüber."},
+ {id:"d9",n:"Gebackener Tofu mit Süßkartoffel und Brokkoli",veg:1,k:540,p:37,c:50,f:20,ing:[["Tofu natur",200,"g","P"],["Süßkartoffel",200,"g","G"],["Brokkoli",200,"g","G"],["Olivenöl",5,"ml","S"],["Sojasauce",10,"ml","S"]],how:"Tofu und Süßkartoffel würfeln, mit Öl und Sojasauce mischen und 25 Minuten bei 200 °C backen. Brokkoli die letzten 10 Minuten dazugeben."}
+],
+s:[
+ {id:"s1",n:"Apfel mit Mandeln",veg:1,k:170,p:4,c:20,f:8,ing:[["Apfel",1,"Stk","G"],["Mandeln",15,"g","S"]],how:"Apfel in Spalten schneiden, Mandeln dazu."},
+ {id:"s2",n:"Magerquark mit Beeren",veg:1,k:140,p:19,c:12,f:1,ing:[["Magerquark",150,"g","M"],["Beeren (frisch oder TK)",80,"g","G"]],how:"Quark mit einem Schuss Wasser cremig rühren, Beeren darauf."},
+ {id:"s3",n:"Karotten mit Hummus",veg:1,k:155,p:5,c:16,f:7,ing:[["Karotten",150,"g","G"],["Hummus",40,"g","S"]],how:"Karotten in Stifte schneiden und dippen."},
+ {id:"s4",n:"Zwei gekochte Eier mit Gurke",veg:1,k:170,p:14,c:3,f:11,ing:[["Eier",2,"Stk","M"],["Gurke",100,"g","G"]],how:"Eier 8 Minuten kochen, Gurke in Scheiben dazu."},
+ {id:"s5",n:"Skyr mit Honig",veg:1,k:130,p:17,c:11,f:0,ing:[["Skyr",150,"g","M"],["Honig",5,"g","S"]],how:"Honig über den Skyr geben."},
+ {id:"s6",n:"Banane mit Erdnussmus",veg:1,k:160,p:4,c:26,f:5,ing:[["Banane",1,"Stk","G"],["Erdnussmus",10,"g","S"]],how:"Banane längs halbieren und mit Erdnussmus bestreichen."},
+ {id:"s7",n:"Hüttenkäse mit Tomate",veg:1,k:165,p:19,c:8,f:6,ing:[["Hüttenkäse",150,"g","M"],["Tomaten",100,"g","G"]],how:"Tomate würfeln, mit Hüttenkäse mischen, pfeffern."}
+]};
+const BY_ID={};Object.keys(R).forEach(s=>R[s].forEach(r=>BY_ID[r.id]=r));
+const DAYS=["Mo","Di","Mi","Do","Fr","Sa","So"];
+const DAYS_LONG=["Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag","Sonntag"];
+
+/* ---------- Helfer ---------- */
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const nf=n=>Math.round(n).toLocaleString("de-DE");
+const kgf=n=>Number(n).toLocaleString("de-DE",{minimumFractionDigits:1,maximumFractionDigits:1});
+const clamp=(v,a,b)=>Math.min(b,Math.max(a,v));
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const parseIso=s=>{const a=s.split("-").map(Number);return new Date(a[0],a[1]-1,a[2]);};
+const dateDe=s=>parseIso(s).toLocaleDateString("de-DE",{day:"2-digit",month:"2-digit",year:"numeric"});
+function weekKey(d){const t=new Date(Date.UTC(d.getFullYear(),d.getMonth(),d.getDate()));const n=t.getUTCDay()||7;t.setUTCDate(t.getUTCDate()+4-n);const y=new Date(Date.UTC(t.getUTCFullYear(),0,1));return t.getUTCFullYear()+"-W"+String(Math.ceil(((t-y)/864e5+1)/7)).padStart(2,"0");}
+const NOW=new Date(), TODAY_IDX=(NOW.getDay()+6)%7, WEEK=weekKey(NOW);
+
+/* ---------- Zustand ---------- */
+const KEY="kilo-fuer-kilo-v1";
+function defaults(){return{
+  profile:{sex:"m",age:35,height:178,weight:88,goal:80,activity:1.375,pace:0.5,diet:"all",example:true},
+  plan:null, eaten:{week:WEEK,items:[]}, shop:[], weights:[], updatedAt:0};}
+function normalize(s){
+  const d=defaults(); s=s&&typeof s==="object"?s:{};
+  const st={profile:Object.assign(d.profile,s.profile||{}),plan:Array.isArray(s.plan)&&s.plan.length===7?s.plan:null,
+    eaten:s.eaten&&s.eaten.week===WEEK&&Array.isArray(s.eaten.items)?s.eaten:d.eaten,
+    shop:Array.isArray(s.shop)?s.shop:[],weights:Array.isArray(s.weights)?s.weights.filter(w=>w&&w.d&&w.kg>0):[],updatedAt:s.updatedAt||0};
+  st.weights.sort((a,b)=>a.d<b.d?-1:1);
+  fixPlan(st);return st;}
+function pool(slot,diet){return R[slot].filter(r=>diet!=="veg"||r.veg);}
+function fixPlan(st){
+  if(!st.plan) st.plan=DAYS.map(()=>({}));
+  st.plan.forEach((day,i)=>Object.keys(SLOTS).forEach((s,j)=>{
+    const p=pool(s,st.profile.diet);
+    if(!p.some(r=>r.id===day[s])) day[s]=p[(i+j*2)%p.length].id;
+  }));}
+function loadLocal(){try{return JSON.parse(localStorage.getItem(KEY));}catch(e){return null;}}
+let state=normalize(loadLocal());
+let selDay=TODAY_IDX; const openMeals=new Set();
+
+/* ---------- Speichern: Browser + (wenn verfügbar) Konto ---------- */
+let remote=null,pushing=false,dirty=false,pushTimer=null;
+function save(){
+  state.updatedAt=Date.now();
+  try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+  if(remote){dirty=true;clearTimeout(pushTimer);pushTimer=setTimeout(push,900);}
+}
+async function push(){
+  if(!remote||pushing||!dirty)return;
+  pushing=true;dirty=false;
+  try{await remote.set(JSON.parse(JSON.stringify(state)));setSync(true);}
+  catch(e){setSync(false);}
+  pushing=false; if(dirty)push();
+}
+function setSync(ok){$("#sync-status").textContent=ok?"Deine Eingaben sind in deinem Konto gespeichert und auf allen Geräten verfügbar.":"Deine Eingaben werden in diesem Browser gespeichert.";}
+async function initSync(){
+  try{
+    if(!window.claude||!window.claude.use)return;
+    const [db,user]=await Promise.all([window.claude.use("db"),window.claude.use("user")]);
+    if(!db||!user)return;
+    const id=await user.id(); if(!id)return;
+    const ref=db.collection("data/users/"+id).doc("state");
+    const snap=await ref.get();
+    remote=ref;
+    const data=snap.exists?snap.data():null;
+    if(data&&(data.updatedAt||0)>(state.updatedAt||0)){
+      state=normalize(data);
+      try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+      fillProfileForm();renderAll();
+    }else if(state.updatedAt&&(!data||state.updatedAt>(data.updatedAt||0))){dirty=true;push();}
+    setSync(true);
+  }catch(e){}
+}
+
+/* ---------- Rechnen ---------- */
+function calc(p){
+  const bmr=10*p.weight+6.25*p.height-5*p.age+(p.sex==="m"?5:-161);
+  const tdee=bmr*p.activity, floor=p.sex==="m"?1500:1200, h2=(p.height/100)**2;
+  const bmiNow=p.weight/h2,bmiGoal=p.goal/h2;
+  let mode="cut",target=tdee-p.pace*1100,floored=false;
+  if(bmiGoal<18.5){mode="under";target=tdee;}
+  else if(p.weight<=p.goal){mode="hold";target=tdee;}
+  else if(target<floor){target=Math.min(floor,tdee);floored=true;}
+  target=Math.round(target/10)*10;
+  const pace=Math.max(0,(tdee-target)*7/7700);
+  const weeks=mode==="cut"&&pace>0.05?(p.weight-p.goal)/pace:null;
+  const protein=Math.round(Math.min(1.6*p.weight,2.2*p.goal));
+  const fat=Math.round(target*0.28/9);
+  const carbs=Math.max(0,Math.round((target-protein*4-fat*9)/4));
+  let goalDate=null;if(weeks!=null){goalDate=new Date(NOW);goalDate.setDate(goalDate.getDate()+Math.round(weeks*7));}
+  return{bmr,tdee,target,floored,mode,pace,weeks,goalDate,protein,fat,carbs,bmiNow,bmiGoal};
+}
+function scaled(slot,id,target){
+  const r=BY_ID[id],f=clamp(target*SLOTS[slot].share/r.k,0.7,1.7);
+  return{r,f,k:r.k*f,p:r.p*f,c:r.c*f,fat:r.f*f,
+    ing:r.ing.map(i=>{const raw=i[1]*f;const amt=i[2]==="Stk"?Math.max(.5,Math.round(raw*2)/2):Math.max(5,Math.round(raw/5)*5);return{name:i[0],amt,unit:i[2],cat:i[3]};})};
+}
+function fmtAmt(a,u){
+  if(u==="Stk"){const w=Math.floor(a),h=a-w>0;return(w?w:"")+(h?"½":"")+" Stück";}
+  if(a>=1000)return(a/1000).toLocaleString("de-DE",{maximumFractionDigits:2})+(u==="g"?" kg":" l");
+  return nf(a)+" "+u;
+}
+function dayMeals(i,target){return Object.keys(SLOTS).map(s=>Object.assign({slot:s},scaled(s,state.plan[i][s],target)));}
+
+/* ---------- Plan ---------- */
+function renderPlan(){
+  const p=state.profile,c=calc(p),meals=dayMeals(selDay,c.target);
+  const sum=meals.reduce((a,m)=>({k:a.k+m.k,p:a.p+m.p,c:a.c+m.c,f:a.f+m.fat}),{k:0,p:0,c:0,f:0});
+  const eatenK=meals.filter(m=>state.eaten.items.includes(selDay+"-"+m.slot)).reduce((a,m)=>a+m.k,0);
+  const pct=(v,t)=>clamp(Math.round(v/t*100),0,100);
+  let goalLine;
+  if(c.mode==="under")goalLine="Dein Zielgewicht läge im Untergewicht. Der Plan hält dein Gewicht.";
+  else if(c.mode==="hold")goalLine="Ziel erreicht. Der Plan hält dein Gewicht.";
+  else goalLine="Noch <b>"+kgf(p.weight-p.goal)+" kg</b> bis "+kgf(p.goal)+" kg"+(c.goalDate?" · voraussichtlich "+c.goalDate.toLocaleDateString("de-DE",{month:"long",year:"numeric"}):"");
+  let h="";
+  if(p.example)h+='<p class="notice"><b>Beispielwerte.</b> Der Plan rechnet gerade mit einem Musterprofil (88 kg, Ziel 80 kg). <a href="#profil">Trag deine Daten ein</a>, damit Kalorien und Portionen zu dir passen.</p>';
+  h+='<div class="panel summary"><div class="stack">'+
+     '<div><p class="label">Tagesziel</p><p class="big num">'+nf(c.target)+' <small>kcal</small></p></div>'+
+     '<div class="stack" style="gap:6px"><div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+pct(eatenK,c.target)+'" aria-label="Gegessen"><i style="width:'+pct(eatenK,c.target)+'%"></i></div>'+
+     '<p class="small muted num">'+nf(eatenK)+' von '+nf(sum.k)+' kcal am '+DAYS_LONG[selDay]+' abgehakt</p></div>'+
+     '<p class="small">'+goalLine+'</p></div>'+
+     '<div class="macros">'+
+       macro("Eiweiß","p",sum.p,c.protein)+macro("Kohlenhydr.","c",sum.c,c.carbs)+macro("Fett","f",sum.f,c.fat)+
+       '<p class="small muted">Was dieser Tag liefert, im Verhältnis zu deinem Richtwert.</p></div></div>';
+  h+='<div class="days" role="group" aria-label="Wochentag">'+DAYS.map((d,i)=>'<button type="button" data-act="day" data-i="'+i+'" aria-pressed="'+(i===selDay)+'" aria-label="'+DAYS_LONG[i]+'">'+d+'<span>'+(i===TODAY_IDX?"heute":"")+'</span></button>').join("")+'</div>';
+  h+='<div class="panel"><div class="meals">'+meals.map(m=>{
+    const key=selDay+"-"+m.slot,done=state.eaten.items.includes(key);
+    return '<div class="meal'+(done?" done":"")+'"><input type="checkbox" class="check" id="eat-'+m.slot+'" data-act="eat" data-key="'+key+'"'+(done?" checked":"")+' aria-label="'+SLOTS[m.slot].label+' gegessen">'+
+      '<div class="body"><span class="label">'+SLOTS[m.slot].label+'</span><h3>'+esc(m.r.n)+'</h3>'+
+      '<p class="meta num"><b>'+nf(m.k)+' kcal</b> · '+nf(m.p)+' g Eiweiß · '+nf(m.c)+' g KH · '+nf(m.fat)+' g Fett</p>'+
+      '<details data-slot="'+m.slot+'"'+(openMeals.has(m.slot)?" open":"")+'><summary>Zutaten und Zubereitung</summary><ul>'+
+      m.ing.map(i=>'<li><span>'+esc(i.name)+'</span><span class="num">'+fmtAmt(i.amt,i.unit)+'</span></li>').join("")+
+      '</ul><p class="how">'+esc(m.r.how)+'</p></details></div>'+
+      '<button type="button" class="btn" data-act="swap" data-slot="'+m.slot+'" aria-label="'+SLOTS[m.slot].label+' tauschen">Tauschen</button></div>';
+  }).join("")+'</div></div>';
+  h+='<div class="row between"><p class="small muted">Dazu 2–3 Liter Wasser, ungesüßter Tee oder schwarzer Kaffee.</p><button type="button" class="btn" data-act="shuffle">Neue Woche würfeln</button></div>';
+  $("#view-plan").innerHTML=h;
+}
+function macro(name,cls,v,t){const w=clamp(Math.round(v/Math.max(t,1)*100),0,100);
+  return '<div class="macro"><span>'+name+'</span><div class="bar"><i class="'+cls+'" style="width:'+w+'%"></i></div><span class="num muted">'+nf(v)+' / '+nf(t)+' g</span></div>';}
+
+/* ---------- Einkauf ---------- */
+function renderShop(){
+  const c=calc(state.profile),map={};
+  for(let i=0;i<7;i++)dayMeals(i,c.target).forEach(m=>m.ing.forEach(g=>{
+    const k=g.name+"|"+g.unit;(map[k]=map[k]||{key:k,name:g.name,unit:g.unit,cat:g.cat,amt:0}).amt+=g.amt;}));
+  const items=Object.values(map),open=items.filter(i=>!state.shop.includes(i.key)).length;
+  let h='<div class="row between"><div><h2>Einkaufsliste für die Woche</h2><p class="small muted num">'+open+' von '+items.length+' Zutaten offen · Mengen passend zu deinem Kalorienziel</p></div>'+
+        (state.shop.length?'<button type="button" class="btn" data-act="shop-reset">Haken entfernen</button>':'')+'</div>';
+  h+='<div class="panel stack" style="gap:18px">'+Object.keys(CATS).map(cat=>{
+    const li=items.filter(i=>i.cat===cat).sort((a,b)=>a.name.localeCompare(b.name,"de"));
+    if(!li.length)return"";
+    return '<div class="shop-group"><p class="label">'+CATS[cat]+'</p>'+li.map((i,n)=>{const d=state.shop.includes(i.key);
+      return '<label class="shop-item'+(d?" done":"")+'"><input type="checkbox" class="check" id="shop-'+cat+n+'" data-act="shop" data-key="'+esc(i.key)+'"'+(d?" checked":"")+'><span>'+esc(i.name)+'</span><span class="num muted">'+fmtAmt(i.amt,i.unit)+'</span></label>';}).join("")+'</div>';
+  }).join("")+'</div><p class="small muted">Salz, Pfeffer, Gewürze, Kräuter, Knoblauch, Zitrone und Brühe sind nicht aufgeführt.</p>';
+  $("#view-einkauf").innerHTML=h;
+}
+
+/* ---------- Verlauf ---------- */
+function renderLog(){
+  const w=state.weights,p=state.profile;
+  let s="";
+  if(w.length){
+    const first=w[0],last=w[w.length-1],diff=last.kg-first.kg,days=(parseIso(last.d)-parseIso(first.d))/864e5;
+    const perWeek=days>=7?diff/(days/7):null,total=first.kg-p.goal,done=total>0?clamp((first.kg-last.kg)/total*100,0,100):100;
+    s='<div class="panel stack"><div class="facts">'+
+      '<div class="fact"><span class="label">Aktuell</span><b class="num">'+kgf(last.kg)+' kg</b></div>'+
+      '<div class="fact"><span class="label">Seit Start</span><b class="num '+(diff<=0?"down":"up")+'">'+(diff>0?"+":diff<0?"−":"")+kgf(Math.abs(diff))+' kg</b></div>'+
+      '<div class="fact"><span class="label">Pro Woche</span><b class="num">'+(perWeek==null?"–":(perWeek>0?"+":perWeek<0?"−":"")+kgf(Math.abs(perWeek))+' kg')+'</b></div>'+
+      '<div class="fact"><span class="label">Bis zum Ziel</span><b class="num">'+kgf(Math.max(0,last.kg-p.goal))+' kg</b></div></div>'+
+      '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+Math.round(done)+'" aria-label="Weg zum Ziel"><i style="width:'+done+'%"></i></div>'+
+      (w.length>1?chart(w,p.goal):'<p class="small muted">Ab dem zweiten Eintrag siehst du hier deine Kurve.</p>')+'</div>';
+  }else s='<div class="panel empty"><h2 style="margin-bottom:6px">Noch keine Einträge</h2><p>Trag unten dein heutiges Gewicht ein. Mit jedem weiteren Eintrag entsteht hier deine Kurve mit Ziellinie.</p></div>';
+  $("#log-summary").innerHTML=s;
+  $("#log-list").innerHTML=w.length?'<div class="panel"><table class="log"><tbody>'+w.slice().reverse().map((e,i,a)=>{
+    const prev=a[i+1],d=prev?e.kg-prev.kg:null;
+    return '<tr><td class="num">'+dateDe(e.d)+'</td><td class="num"><b>'+kgf(e.kg)+' kg</b></td><td class="num small '+(d==null?"muted":d<=0?"down":"up")+'">'+(d==null?"Start":(d>0?"+":d<0?"−":"±")+kgf(Math.abs(d)))+'</td><td style="text-align:right;width:44px"><button type="button" class="btn ghost" data-act="log-del" data-d="'+e.d+'" aria-label="Eintrag vom '+dateDe(e.d)+' löschen">×</button></td></tr>';
+  }).join("")+'</tbody></table></div>':"";
+}
+function chart(w,goal){
+  const W=600,H=230,L=46,Rr=14,T=14,B=28;
+  const ks=w.map(e=>e.kg),lo=Math.floor(Math.min(goal,...ks)-1),hi=Math.ceil(Math.max(goal,...ks)+1);
+  const t0=+parseIso(w[0].d),t1=+parseIso(w[w.length-1].d);
+  const x=d=>L+(t1===t0?0:(parseIso(d)-t0)/(t1-t0))*(W-L-Rr),y=k=>T+(hi-k)/(hi-lo)*(H-T-B);
+  const step=Math.max(1,Math.ceil((hi-lo)/5));let grid="";
+  for(let k=lo;k<=hi;k+=step)grid+='<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+y(k)+'" y2="'+y(k)+'" stroke="var(--line)" stroke-width="1"/><text x="'+(L-8)+'" y="'+(y(k)+4)+'" text-anchor="end">'+k+'</text>';
+  const pts=w.map(e=>x(e.d).toFixed(1)+","+y(e.kg).toFixed(1));
+  const last=w[w.length-1],gy=y(goal);
+  return '<svg class="chart" viewBox="0 0 '+W+' '+H+'" role="img" aria-label="Gewichtsverlauf in Kilogramm mit Ziellinie bei '+kgf(goal)+' kg">'+grid+
+    '<line x1="'+L+'" x2="'+(W-Rr)+'" y1="'+gy+'" y2="'+gy+'" stroke="var(--carbs)" stroke-width="1.5" stroke-dasharray="5 4"/>'+
+    '<text x="'+(W-Rr)+'" y="'+(gy-6)+'" text-anchor="end" style="fill:var(--carbs);font-weight:600">Ziel '+kgf(goal)+' kg</text>'+
+    '<polygon fill="var(--accent-soft)" points="'+x(w[0].d)+","+(H-B)+" "+pts.join(" ")+" "+x(last.d)+","+(H-B)+'" opacity=".55"/>'+
+    '<polyline fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" points="'+pts.join(" ")+'"/>'+
+    w.map((e,i)=>'<circle cx="'+x(e.d)+'" cy="'+y(e.kg)+'" r="'+(i===w.length-1?5:3)+'" fill="var(--accent)" stroke="var(--surface)" stroke-width="'+(i===w.length-1?2:1)+'"/>').join("")+
+    '<text x="'+L+'" y="'+(H-8)+'">'+dateDe(w[0].d)+'</text><text x="'+(W-Rr)+'" y="'+(H-8)+'" text-anchor="end">'+dateDe(last.d)+'</text></svg>';
+}
+
+/* ---------- Profil ---------- */
+function fillProfileForm(){
+  const p=state.profile;
+  $("#pf-sex").value=p.sex;$("#pf-age").value=p.age;$("#pf-height").value=p.height;$("#pf-weight").value=p.weight;
+  $("#pf-goal").value=p.goal;$("#pf-pace").value=String(p.pace);$("#pf-activity").value=String(p.activity);$("#pf-diet").value=p.diet;
+}
+function renderProfileResult(){
+  const p=state.profile,c=calc(p);let note="";
+  if(c.mode==="under")note='<p class="notice"><b>Zielgewicht zu niedrig.</b> '+kgf(p.goal)+' kg entsprechen bei deiner Größe einem BMI von '+kgf(c.bmiGoal)+' und damit Untergewicht. Der Plan rechnet deshalb ohne Defizit. Ab '+kgf(18.5*(p.height/100)**2)+' kg liegst du im gesunden Bereich.</p>';
+  else if(c.mode==="hold")note='<p class="notice"><b>Ziel erreicht.</b> Dein Gewicht liegt auf oder unter dem Zielgewicht. Der Plan liefert jetzt deinen Erhaltungsbedarf.</p>';
+  else if(c.floored)note='<p class="notice"><b>Tempo angepasst.</b> Mit dem gewählten Tempo lägst du unter '+nf(p.sex==="m"?1500:1200)+' kcal am Tag. Der Plan bleibt bei dieser Untergrenze, realistisch sind damit ca. '+c.pace.toLocaleString("de-DE",{maximumFractionDigits:2})+' kg pro Woche.</p>';
+  $("#profile-result").innerHTML='<div class="panel stack"><h2>'+(p.example?"Ergebnis für das Musterprofil":"Dein Ergebnis")+'</h2><div class="facts">'+
+    '<div class="fact"><span class="label">Grundumsatz</span><b class="num">'+nf(c.bmr)+' kcal</b></div>'+
+    '<div class="fact"><span class="label">Gesamtumsatz</span><b class="num">'+nf(c.tdee)+' kcal</b></div>'+
+    '<div class="fact"><span class="label">Tagesziel</span><b class="num">'+nf(c.target)+' kcal</b></div>'+
+    '<div class="fact"><span class="label">BMI aktuell</span><b class="num">'+kgf(c.bmiNow)+'</b></div>'+
+    '<div class="fact"><span class="label">Eiweiß pro Tag</span><b class="num">'+c.protein+' g</b></div>'+
+    '<div class="fact"><span class="label">Ziel erreicht</span><b>'+(c.goalDate?c.goalDate.toLocaleDateString("de-DE",{month:"short",year:"numeric"}):"–")+'</b></div>'+
+    '</div>'+note+'<p class="small muted">Viel Eiweiß hält satt und schützt beim Abnehmen die Muskulatur. Wenn du vier Wochen lang nicht abnimmst, senke das Tempo nicht weiter ab, sondern prüfe zuerst Portionsgrößen und Getränke.</p></div>';
+}
+
+/* ---------- Steuerung ---------- */
+const VIEWS=["plan","einkauf","verlauf","profil"];
+function route(){
+  const v=VIEWS.includes(location.hash.slice(1))?location.hash.slice(1):"plan";
+  VIEWS.forEach(n=>{$("#view-"+n).hidden=n!==v;});
+  document.querySelectorAll("nav.tabs a").forEach(a=>{if(a.getAttribute("href")==="#"+v)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");});
+}
+function renderAll(){renderPlan();renderShop();renderLog();renderProfileResult();}
+let toastT;function toast(m){const t=$("#toast");t.textContent=m;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>{t.hidden=true;},2200);}
+function toggle(arr,k){const i=arr.indexOf(k);if(i<0)arr.push(k);else arr.splice(i,1);}
+
+document.addEventListener("click",e=>{
+  const el=e.target.closest("[data-act]");if(!el)return;const a=el.dataset.act;
+  if(a==="day"){selDay=+el.dataset.i;openMeals.clear();renderPlan();}
+  else if(a==="swap"){const s=el.dataset.slot,p=pool(s,state.profile.diet),i=p.findIndex(r=>r.id===state.plan[selDay][s]);
+    state.plan[selDay][s]=p[(i+1)%p.length].id;save();renderPlan();renderShop();}
+  else if(a==="shuffle"){Object.keys(SLOTS).forEach(s=>{const p=pool(s,state.profile.diet).slice();
+      for(let i=p.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[p[i],p[j]]=[p[j],p[i]];}
+      state.plan.forEach((d,i)=>{d[s]=p[i%p.length].id;});});
+    state.eaten={week:WEEK,items:[]};state.shop=[];save();renderPlan();renderShop();toast("Neuer Wochenplan erstellt");}
+  else if(a==="shop-reset"){state.shop=[];save();renderShop();}
+  else if(a==="log-del"){state.weights=state.weights.filter(w=>w.d!==el.dataset.d);save();renderLog();toast("Eintrag gelöscht");}
+});
+document.addEventListener("change",e=>{
+  const el=e.target.closest("[data-act]");if(!el)return;
+  if(el.dataset.act==="eat"){toggle(state.eaten.items,el.dataset.key);save();renderPlan();}
+  else if(el.dataset.act==="shop"){toggle(state.shop,el.dataset.key);save();renderShop();}
+});
+document.addEventListener("toggle",e=>{const d=e.target;if(d.dataset&&d.dataset.slot){if(d.open)openMeals.add(d.dataset.slot);else openMeals.delete(d.dataset.slot);}},true);
+
+$("#log-form").addEventListener("submit",e=>{
+  e.preventDefault();
+  const d=$("#log-date").value,kg=parseFloat(String($("#log-kg").value).replace(",","."));
+  if(!d||!(kg>=35&&kg<=300)){toast("Bitte Datum und ein Gewicht zwischen 35 und 300 kg eingeben");return;}
+  if(d>iso(new Date())){toast("Das Datum liegt in der Zukunft");return;}
+  state.weights=state.weights.filter(w=>w.d!==d);state.weights.push({d,kg:Math.round(kg*10)/10});
+  state.weights.sort((a,b)=>a.d<b.d?-1:1);
+  if(state.weights[state.weights.length-1].d===d){state.profile.weight=Math.round(kg*10)/10;fillProfileForm();}
+  save();$("#log-kg").value="";renderAll();toast("Gewicht eingetragen");
+});
+$("#profile-form").addEventListener("submit",e=>{
+  e.preventDefault();
+  const num=id=>parseFloat(String($(id).value).replace(",","."));
+  const p={sex:$("#pf-sex").value,age:num("#pf-age"),height:num("#pf-height"),weight:num("#pf-weight"),goal:num("#pf-goal"),
+    pace:parseFloat($("#pf-pace").value),activity:parseFloat($("#pf-activity").value),diet:$("#pf-diet").value,example:false};
+  const err=!(p.age>=18&&p.age<=99)?"Bitte ein Alter zwischen 18 und 99 Jahren eingeben. Für Jugendliche ist dieser Plan nicht gedacht."
+    :!(p.height>=130&&p.height<=230)?"Bitte eine Größe zwischen 130 und 230 cm eingeben."
+    :!(p.weight>=35&&p.weight<=300)?"Bitte ein aktuelles Gewicht zwischen 35 und 300 kg eingeben."
+    :!(p.goal>=35&&p.goal<=300)?"Bitte ein Zielgewicht zwischen 35 und 300 kg eingeben.":"";
+  const box=$("#pf-error");box.hidden=!err;box.textContent=err;if(err)return;
+  state.profile=p;fixPlan(state);save();renderAll();toast("Profil gespeichert");
+  if(calc(p).mode==="cut"&&!calc(p).floored)location.hash="#plan";
+});
+
+$("#today-label").textContent=NOW.toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long"});
+$("#log-date").value=iso(NOW);$("#log-date").max=iso(NOW);
+fillProfileForm();renderAll();route();
+window.addEventListener("hashchange",route);
+initSync();
+})();
+</script>
+</body>
+</html>
