@@ -183,7 +183,7 @@ footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap
           <div class="field"><label for="pf-height">Größe (cm)</label><input id="pf-height" type="number" inputmode="numeric" min="130" max="230" required></div>
           <div class="field"><label for="pf-weight">Aktuelles Gewicht (kg)</label><input id="pf-weight" type="number" inputmode="decimal" step="0.1" min="35" max="300" required></div>
           <div class="field"><label for="pf-goal">Zielgewicht (kg)</label><input id="pf-goal" type="number" inputmode="decimal" step="0.1" min="35" max="300" required></div>
-          <div class="field"><label for="pf-pace">Tempo</label><select id="pf-pace"><option value="0.25">Sanft – ca. 0,25 kg pro Woche</option><option value="0.5">Normal – ca. 0,5 kg pro Woche</option><option value="0.75">Zügig – ca. 0,75 kg pro Woche</option></select></div>
+          <div class="field"><label for="pf-pace">Tempo</label><select id="pf-pace"><option value="0.25">Sanft – ca. 0,25 kg pro Woche</option><option value="0.5">Normal – ca. 0,5 kg pro Woche</option><option value="1">Zügig – ca. 1 kg pro Woche</option></select></div>
           <div class="field full"><label for="pf-activity">Aktivität im Alltag</label><select id="pf-activity"><option value="1.2">Kaum Bewegung (Bürojob, kein Sport)</option><option value="1.375">Leicht aktiv (1–3× Sport pro Woche)</option><option value="1.55">Aktiv (3–5× Sport pro Woche)</option><option value="1.725">Sehr aktiv (körperliche Arbeit oder täglich Sport)</option></select></div>
           <div class="field full"><label for="pf-diet">Ernährungsweise</label><select id="pf-diet"><option value="all">Ich esse alles</option><option value="veg">Vegetarisch</option></select></div>
           <p id="pf-error" class="full notice" hidden></p>
@@ -215,7 +215,7 @@ footer{font-size:.8rem;color:var(--muted);display:flex;flex-direction:column;gap
 "use strict";
 
 /* ---------- Rezepte: [Zutat, Menge, Einheit, Kategorie] ---------- */
-const CATS={G:"Gemüse & Obst",P:"Fleisch, Fisch & Tofu",M:"Milchprodukte & Eier",K:"Getreide, Brot & Hülsenfrüchte",S:"Vorrat"};
+const CATS={G:"Gemüse & Obst",P:"Fleisch & Fisch",M:"Milchprodukte & Eier",K:"Getreide, Brot & Hülsenfrüchte",S:"Vorrat"};
 const SLOTS={b:{label:"Frühstück",share:.26},l:{label:"Mittagessen",share:.33},d:{label:"Abendessen",share:.31},s:{label:"Snack",share:.10}};
 const R={
 b:[
@@ -234,7 +234,6 @@ l:[
  {id:"l4",n:"Putenpfanne mit Gemüse und Kartoffeln",veg:0,k:515,p:43,c:52,f:12,ing:[["Putenbrust",150,"g","P"],["Kartoffeln",250,"g","G"],["Paprika",150,"g","G"],["Zucchini",150,"g","G"],["Olivenöl",10,"ml","S"]],how:"Kartoffeln würfeln und 10 Minuten vorkochen. Pute im Öl anbraten, Gemüse und Kartoffeln zugeben, mit Paprikapulver würzen und fertig braten."},
  {id:"l5",n:"Quinoa-Salat mit Feta und Kichererbsen",veg:1,k:555,p:26,c:62,f:20,ing:[["Quinoa (roh)",50,"g","K"],["Kichererbsen (Dose, abgetropft)",120,"g","K"],["Feta",50,"g","M"],["Gurke",150,"g","G"],["Tomaten",150,"g","G"],["Olivenöl",5,"ml","S"]],how:"Quinoa nach Packung garen und abkühlen lassen. Mit gewürfeltem Gemüse, Kichererbsen, Feta, Öl und Zitronensaft mischen."},
  {id:"l6",n:"Ofenkartoffeln mit Kräuterquark und Salat",veg:1,k:510,p:34,c:62,f:11,ing:[["Kartoffeln",350,"g","G"],["Magerquark",200,"g","M"],["Leinöl",10,"ml","S"],["Blattsalat",100,"g","G"],["Gurke",100,"g","G"]],how:"Kartoffeln halbieren und 35 Minuten bei 200 °C backen. Quark mit Leinöl, Kräutern, Salz und einem Schuss Wasser verrühren. Mit Salat servieren."},
- {id:"l7",n:"Tofu-Gemüse-Wok mit Reis",veg:1,k:530,p:35,c:55,f:17,ing:[["Tofu natur",180,"g","P"],["Reis (roh)",50,"g","K"],["Wokgemüse (frisch oder TK)",250,"g","G"],["Rapsöl",5,"ml","S"],["Sojasauce",15,"ml","S"]],how:"Reis kochen. Tofu würfeln und im Öl knusprig braten, Gemüse 5 Minuten mitbraten, mit Sojasauce abschmecken."},
  {id:"l8",n:"Chili con Carne mit Reis",veg:0,k:520,p:42,c:58,f:10,ing:[["Rinderhack mager",120,"g","P"],["Kidneybohnen (Dose, abgetropft)",120,"g","K"],["Mais (Dose)",60,"g","S"],["Stückige Tomaten (Dose)",250,"g","S"],["Reis (roh)",30,"g","K"],["Zwiebel",0.5,"Stk","G"]],how:"Hack mit Zwiebel krümelig braten, Tomaten, Bohnen und Mais zugeben, mit Chili und Kreuzkümmel 15 Minuten köcheln. Dazu Reis."},
  {id:"l9",n:"Hähnchen-Wrap mit Avocado und Salat",veg:0,k:500,p:40,c:40,f:16,ing:[["Vollkorn-Wrap",1,"Stk","K"],["Hähnchenbrust",120,"g","P"],["Avocado",50,"g","G"],["Paprika",100,"g","G"],["Blattsalat",50,"g","G"],["Naturjoghurt 1,5 %",50,"g","M"]],how:"Hähnchen in Streifen braten. Wrap mit Joghurt bestreichen, mit Salat, Paprika, Avocado und Hähnchen füllen und aufrollen."}
 ],
@@ -247,7 +246,6 @@ d:[
  {id:"d6",n:"Kabeljau mit Brokkoli und Kartoffelpüree",veg:0,k:500,p:44,c:50,f:11,ing:[["Kabeljaufilet",180,"g","P"],["Kartoffeln",250,"g","G"],["Brokkoli",200,"g","G"],["Milch 1,5 %",50,"ml","M"],["Butter",10,"g","M"]],how:"Kartoffeln weich kochen und mit Milch und Butter stampfen. Brokkoli dämpfen, Fisch 3 Minuten pro Seite braten."},
  {id:"d7",n:"Kichererbsen-Curry mit Spinat",veg:1,k:500,p:22,c:68,f:12,ing:[["Kichererbsen (Dose, abgetropft)",200,"g","K"],["Spinat",150,"g","G"],["Stückige Tomaten (Dose)",200,"g","S"],["Kokosmilch light",100,"ml","S"],["Reis (roh)",30,"g","K"]],how:"Tomaten, Kokosmilch und Currypaste aufkochen, Kichererbsen 10 Minuten mitköcheln, Spinat unterheben. Mit Reis servieren."},
  {id:"d8",n:"Shakshuka mit Feta und Brot",veg:1,k:470,p:27,c:40,f:20,ing:[["Eier",2,"Stk","M"],["Stückige Tomaten (Dose)",300,"g","S"],["Paprika",150,"g","G"],["Feta",30,"g","M"],["Vollkornbrot",60,"g","K"]],how:"Paprika anbraten, Tomaten mit Kreuzkümmel 8 Minuten einkochen. Mulden formen, Eier hineinschlagen und zugedeckt stocken lassen. Feta darüber."},
- {id:"d9",n:"Gebackener Tofu mit Süßkartoffel und Brokkoli",veg:1,k:540,p:37,c:50,f:20,ing:[["Tofu natur",200,"g","P"],["Süßkartoffel",200,"g","G"],["Brokkoli",200,"g","G"],["Olivenöl",5,"ml","S"],["Sojasauce",10,"ml","S"]],how:"Tofu und Süßkartoffel würfeln, mit Öl und Sojasauce mischen und 25 Minuten bei 200 °C backen. Brokkoli die letzten 10 Minuten dazugeben."}
 ],
 s:[
  {id:"s1",n:"Apfel mit Mandeln",veg:1,k:170,p:4,c:20,f:8,ing:[["Apfel",1,"Stk","G"],["Mandeln",15,"g","S"]],how:"Apfel in Spalten schneiden, Mandeln dazu."},
@@ -285,6 +283,7 @@ function normalize(s){
     eaten:s.eaten&&s.eaten.week===WEEK&&Array.isArray(s.eaten.items)?s.eaten:d.eaten,
     shop:Array.isArray(s.shop)?s.shop:[],exclude:Array.isArray(s.exclude)?s.exclude.filter(t=>typeof t==="string"&&t.trim()).slice(0,40):[],weights:Array.isArray(s.weights)?s.weights.filter(w=>w&&w.d&&w.kg>0):[],updatedAt:s.updatedAt||0};
   st.weights.sort((a,b)=>a.d<b.d?-1:1);
+  if(st.profile.pace===0.75)st.profile.pace=1;
   fixPlan(st);return st;}
 const GROUPS={fisch:["lachs","thunfisch","kabeljau","garnelen"],fleisch:["hähnchen","pute","rinderhack"],"nüsse":["walnüsse","mandeln","erdnussmus"],nuss:["walnüsse","mandeln","erdnussmus"],milchprodukte:["skyr","quark","joghurt","milch 1,5","käse","feta","butter","parmesan"]};
 function termsOf(list){const out=[];list.forEach(t=>{t=t.toLowerCase().trim();if(!t)return;out.push(t);if(t.length>=5&&t.endsWith("n"))out.push(t.slice(0,-1));(GROUPS[t]||[]).forEach(x=>out.push(x));});return out;}
