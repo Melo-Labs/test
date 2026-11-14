@@ -163,6 +163,8 @@ form.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}
 .field label{font-size:.78rem;font-weight:700;color:var(--muted)}
 .field input,.field select,.field textarea{border:0;background:var(--sunk);border-radius:12px;padding:11px 13px;width:100%;min-width:0;font-size:1rem;font-weight:600;color:var(--ink)}
+.field select{appearance:none;-webkit-appearance:none;padding-right:38px;cursor:pointer;background-repeat:no-repeat;background-position:right 13px center;background-size:12px 8px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1.5 1.5L6 6l4.5-4.5' fill='none' stroke='%2398989f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")}
 .field textarea{resize:vertical;min-height:88px}
 .field input::placeholder,.field textarea::placeholder{color:#85858b}
 .field input:focus,.field select:focus,.field textarea:focus{outline:none;box-shadow:0 0 0 2px var(--accent)}
@@ -174,7 +176,6 @@ form.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .chipbtn small{color:var(--muted);font-size:.78rem;font-weight:700}
 .chipbtn.w{background:rgba(0,216,255,.15);color:var(--water)}
 .chipbtn[aria-pressed="true"]{background:rgba(191,90,242,.22);box-shadow:inset 0 0 0 1.5px var(--shot)}
-.chipbtn.q[aria-pressed="true"]{background:var(--accent-soft);box-shadow:inset 0 0 0 1.5px var(--accent);color:var(--accent)}
 .xform{display:grid;grid-template-columns:2fr 1.3fr 1fr 1fr auto;gap:10px;align-items:end}
 @media (max-width:600px){.xform{grid-template-columns:1fr 1fr}.xform .wide{grid-column:1/-1}}
 .xlist{list-style:none;margin:0;padding:0}
@@ -197,8 +198,14 @@ form.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .switch:checked::after{transform:translateX(20px)}
 @media (prefers-reduced-motion:reduce){.switch,.switch::after{transition:none}}
 .seg{display:flex;gap:2px;background:var(--sunk);padding:3px;border-radius:12px}
-.seg button{flex:1 1 0;min-width:0;border:0;background:transparent;border-radius:9px;padding:7px 2px;cursor:pointer;font-size:.8rem;font-weight:700;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg button{flex:1 1 auto;min-width:0;border:0;background:transparent;border-radius:9px;padding:7px 4px;cursor:pointer;font-size:.8rem;font-weight:700;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .seg button[aria-pressed="true"]{background:var(--seg);color:var(--ink);font-weight:800}
+@media (max-width:560px){
+  .seg{overflow-x:auto;scrollbar-width:none}
+  .seg::-webkit-scrollbar{display:none}
+  .seg button{flex:0 0 auto;padding:7px 13px;overflow:visible}
+  #view-rezepte .row>.field{flex:1 1 100%!important;max-width:none!important}
+}
 
 /* Rezepte, Einkauf, Spritze, Verlauf, Profil */
 .rrow{padding:13px 0;border-top:1px solid var(--line);display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;align-items:start}
@@ -1178,13 +1185,13 @@ function forecast(w,goal){
 }
 
 /* ---------- Rezepte: Übersicht, Favoriten, eigene Rezepte ---------- */
-let rFilter="all",rSort="std",rQuick=false,rCu="";
+let rFilter="all",rSort="std",rCu="";
 const POOL_LABEL={b:"Frühstück",l:"Mittagessen",d:"Abendessen",s:"Snack"};
 function renderRecipes(){
   $("#view-rezepte").innerHTML='<header class="head"><p class="eyebrow">'+Object.keys(R).reduce((a,k)=>a+R[k].length,0)+' Rezepte</p><h1 class="large">Rezepte</h1></header>'+
     '<div class="field"><label for="r-search">Suchen</label><input id="r-search" type="search" maxlength="60" placeholder="Name oder Zutat, z. B. Lachs" autocomplete="off"></div>'+
-    '<div class="seg" role="group" aria-label="Filter">'+[["all","Alle"],["b","Frühstück"],["l","Mittag"],["d","Abend"],["s","Snack"],["fav","★ Favoriten"]].map(f=>'<button type="button" data-act="r-filter" data-f="'+f[0]+'" aria-pressed="'+(rFilter===f[0])+'">'+f[1]+'</button>').join("")+'</div>'+
-    '<div class="row"><button type="button" class="chipbtn q" data-act="r-quick" aria-pressed="'+rQuick+'">Schnell: bis 15 Minuten</button>'+
+    '<div class="seg" role="group" aria-label="Filter">'+[["all","Alle"],["b","Frühstück"],["l","Mittag"],["d","Abend"],["s","Snack"],["quick","Schnell"],["fav","★ Favoriten"]].map(f=>'<button type="button" data-act="r-filter" data-f="'+f[0]+'" aria-pressed="'+(rFilter===f[0])+'">'+f[1]+'</button>').join("")+'</div>'+
+    '<div class="row">'+
     '<div class="field" style="flex:1 1 150px;max-width:220px"><select id="r-cu" aria-label="Küche"><option value="">Alle Küchen</option>'+CUISINES.map(x=>'<option>'+x+'</option>').join("")+'</select></div>'+
     '<div class="field" style="flex:1 1 170px;max-width:240px"><select id="r-sort" aria-label="Sortierung"><option value="std">Sortierung: Standard</option><option value="time">Schnellste zuerst</option><option value="kcal">Wenig Kalorien zuerst</option><option value="prot">Viel Eiweiß zuerst</option></select></div></div>'+
     '<p class="small muted" id="r-count"></p>'+
@@ -1206,9 +1213,9 @@ function renderRecipes(){
 function renderRecipeList(){
   const q=($("#r-search")?$("#r-search").value:"").trim().toLowerCase().split(/\s+/).filter(Boolean);
   let list=[];Object.keys(R).forEach(k=>R[k].forEach(r=>list.push({r,k})));
-  list=list.filter(x=>(!rQuick||(x.r.t>0&&x.r.t<=15))&&(!rCu||cuisineOf(x.r)===rCu)&&(rFilter==="all"||(rFilter==="fav"?state.fav.includes(x.r.id):x.k===rFilter))&&q.every(w=>x.r.n.toLowerCase().includes(w)||x.r.ing.some(i=>i[0].toLowerCase().includes(w))));
+  list=list.filter(x=>(!rCu||cuisineOf(x.r)===rCu)&&(rFilter==="all"||(rFilter==="fav"?state.fav.includes(x.r.id):rFilter==="quick"?x.r.t>0&&x.r.t<=15:x.k===rFilter))&&q.every(w=>x.r.n.toLowerCase().includes(w)||x.r.ing.some(i=>i[0].toLowerCase().includes(w))));
   if(rSort==="time")list.sort((a,b)=>(a.r.t||999)-(b.r.t||999));else if(rSort==="kcal")list.sort((a,b)=>a.r.k-b.r.k);else if(rSort==="prot")list.sort((a,b)=>b.r.p-a.r.p);
-  $("#r-count").textContent=list.length+(list.length===1?" Rezept":" Rezepte")+" · Einplanen gilt für "+DAYS_LONG[selDay];
+  $("#r-count").textContent=list.length+(list.length===1?" Rezept":" Rezepte")+(rFilter==="quick"?" bis 15 Minuten":"")+" · Einplanen gilt für "+DAYS_LONG[selDay];
   $("#r-list").innerHTML=list.length?list.map(x=>{const r=x.r,fav=state.fav.includes(r.id),ban=state.ban.includes(r.id);
     return '<div class="rrow'+(ban?" banned":"")+'"><span class="ric" aria-hidden="true">'+iconOf(r)+'</span><div class="rbody"><span class="label">'+POOL_LABEL[x.k]+(r.t?" · "+r.t+" min":"")+" · "+cuisineOf(r)+(r.veg?" · vegetarisch":"")+(r.own?" · eigenes Rezept":"")+'</span>'+
       '<h3>'+(fav?'<span class="star" aria-label="Favorit">★</span> ':"")+esc(r.n)+'</h3>'+
@@ -1367,7 +1374,6 @@ document.addEventListener("click",e=>{
   else if(a==="prep"){const s=el.dataset.slot,rid=state.plan[selDay][s];let n=0;for(let i=selDay+1;i<=Math.min(6,selDay+2);i++){state.plan[i][s]=rid;n++;}save();renderPlan();renderShop();toast("Auch für die nächsten "+n+(n===1?" Tag":" Tage")+" eingeplant");}
   else if(a==="plan-set"){state.plan[selDay][el.dataset.k]=id;save();renderPlan();renderShop();toast("Für "+DAYS_LONG[selDay]+" als "+POOL_LABEL[el.dataset.k]+" eingeplant");}
   else if(a==="own-del"){state.own=state.own.filter(o=>o.id!==id);state.fav=state.fav.filter(x=>x!==id);afterRecipeChange();toast("Rezept gelöscht");}
-  else if(a==="r-quick"){rQuick=!rQuick;el.setAttribute("aria-pressed",String(rQuick));renderRecipeList();}
   else if(a==="r-filter"){rFilter=el.dataset.f;document.querySelectorAll('[data-act="r-filter"]').forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.f===rFilter)));renderRecipeList();}
   else if(a==="water"){const d=dateOf(selDay);state.water[d]=clamp((state.water[d]||0)+ +el.dataset.ml,0,10000);if(!state.water[d])delete state.water[d];save();armed=true;renderPlan();}
   else if(a==="sp-quick"){const p=SPORT_PRESETS[+el.dataset.i];addSport(p[0],p[1]);}
