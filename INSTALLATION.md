@@ -34,5 +34,5 @@ Ab jetzt startet die App ganz normal per Doppelklick. Tipp: Rechtsklick auf das 
 ## Gut zu wissen
 
 - **Neue Rezepte** kommen automatisch. Die App lädt sie bei jedem Start aus GitHub. Du musst nichts neu installieren.
-- **Neue App-Version** (neue Funktionen, neues Aussehen): Schritte 1 und 2 wiederholen und die alte App ersetzen. Deine Eingaben bleiben erhalten.
+- **Neue App-Version:** Die App prüft beim Start, ob es ein Update gibt, und zeigt dann einen Hinweis. Unter **Profil → App und Updates** (oder im Menü **Kilo für Kilo → Nach Updates suchen …**) klickst du auf **Update installieren**. Die App lädt das Update, ersetzt sich selbst und startet neu. Deine Eingaben bleiben erhalten.
 - **Deine Daten** liegen nur auf deinem MacBook.

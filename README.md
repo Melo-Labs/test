@@ -59,6 +59,12 @@ Ein Rezept gehört in eine der vier Listen `fruehstueck`, `mittagessen`, `abende
 - Gleiche Zutaten immer gleich schreiben, damit die Einkaufsliste sie zusammenfasst.
 - Fehlerhafte Einträge überspringt die App. Ist die Datei kein gültiges JSON, bleibt der letzte funktionierende Stand aktiv.
 
+## App-Updates
+
+Jeder Push auf `main` baut die App neu und legt `Kilo-fuer-Kilo.dmg` und `version.json` im Release *latest* ab. Die Build-Nummer ist die Nummer des GitHub-Laufs. Die installierte App vergleicht ihre eigene Build-Nummer mit `version.json` und bietet unter *Profil → App und Updates* die Installation an: Sie lädt die `.dmg`, kopiert die neue App an ihren Platz und startet neu.
+
+Voraussetzung: Die App liegt in einem Ordner mit Schreibrechten (normalerweise *Programme*) und wurde nicht direkt aus *Downloads* gestartet.
+
 ## Die App selbst ändern
 
 Änderungen an `index.html` oder `macos/` brauchen einen neuen Build (Variante A erneut ausführen oder neues Release laden). Die in `index.html` eingebetteten Rezepte sind nur der Ausgangsstand für den ersten Start ohne Internet.

@@ -261,6 +261,13 @@ table.log td:nth-child(2),table.log td:nth-child(3){text-align:right}
     <section class="view" id="view-profil" hidden>
       <header class="head"><p class="eyebrow">Einstellungen</p><h1 class="large">Profil</h1></header>
       <div class="panel stack">
+        <h2>App und Updates</h2>
+        <div id="update-box" class="stack" hidden></div>
+        <div id="recipe-row" class="row between" hidden><span id="recipe-status" class="small"></span><button type="button" class="btn" data-act="recipes-update">Rezepte aktualisieren</button></div>
+        <p id="sync-status" class="small muted">Deine Eingaben werden in diesem Browser gespeichert.</p>
+        <p class="small muted">Richtwerte nach der Mifflin-St-Jeor-Formel. Kein Ersatz für ärztliche Beratung – bei Vorerkrankungen, Schwangerschaft oder Essstörungen bitte vorher mit einer Ärztin oder einem Arzt sprechen.</p>
+      </div>
+      <div class="panel stack">
         <h2>Dein Profil</h2>
         <form id="profile-form" class="grid" novalidate>
           <div class="field"><label for="pf-sex">Geschlecht</label><select id="pf-sex"><option value="m">Männlich</option><option value="f">Weiblich</option></select></div>
@@ -299,12 +306,6 @@ table.log td:nth-child(2),table.log td:nth-child(3){text-align:right}
         <p class="small muted">Erzeuge eine Sicherung und bewahre den Text auf, zum Beispiel in einer Notiz. Auf einem neuen Mac fügst du ihn hier ein und liest ihn wieder ein.</p>
         <div class="field"><label for="bk-text">Sicherung</label><textarea id="bk-text" spellcheck="false" placeholder="Hier erscheint die Sicherung. Zum Einlesen den gespeicherten Text einfügen."></textarea></div>
         <div class="row"><button type="button" class="btn" data-act="bk-make">Sicherung erzeugen</button><button type="button" class="btn" data-act="bk-load">Sicherung einlesen</button></div>
-      </div>
-      <div class="panel stack">
-        <h2>Über die App</h2>
-        <div id="recipe-row" class="row between" hidden><span id="recipe-status" class="small"></span><button type="button" class="btn" data-act="recipes-update">Rezepte aktualisieren</button></div>
-        <p id="sync-status" class="small muted">Deine Eingaben werden in diesem Browser gespeichert.</p>
-        <p class="small muted">Richtwerte nach der Mifflin-St-Jeor-Formel. Kein Ersatz für ärztliche Beratung – bei Vorerkrankungen, Schwangerschaft oder Essstörungen bitte vorher mit einer Ärztin oder einem Arzt sprechen.</p>
       </div>
     </section>
   </main>
@@ -618,6 +619,7 @@ function renderPlan(){
   const isToday=selDay===TODAY_IDX,sd=shotDue();
   let h='<header class="head"><p class="eyebrow">'+(isToday?NOW.toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long"}):"Wochenplan")+'</p><h1 class="large">'+(isToday?"Heute":DAYS_LONG[selDay])+'</h1></header>';
   if(p.example)h+='<p class="notice"><b>Beispielwerte.</b> Der Plan rechnet gerade mit einem Musterprofil (88 kg, Ziel 80 kg). <a href="#profil">Trag deine Daten ein</a>, damit Kalorien und Portionen zu dir passen.</p>';
+  if(upd.status==="available")h+='<p class="notice"><b>Update verfügbar.</b> <a href="#profil">Im Profil installieren</a></p>';
   if(sd&&sd.days<=0)h+='<p class="notice"><b>'+(sd.days===0?"Heute ist Spritzentag.":"Spritze überfällig.")+'</b> Vorschlag für die Einstichstelle: '+sd.nextSite+'. <a href="#verlauf">Im Verlauf eintragen</a></p>';
   const ring=(r,frac,C,col)=>'<circle cx="60" cy="60" r="'+r+'" fill="none" stroke="'+col+'" stroke-opacity=".18" stroke-width="11"/>'+(frac>0?'<circle cx="60" cy="60" r="'+r+'" fill="none" stroke="'+col+'" stroke-width="11" stroke-linecap="round" stroke-dasharray="'+(C*frac).toFixed(1)+' '+C.toFixed(1)+'"/>':"");
   h+='<div class="panel summary">'+
@@ -945,6 +947,37 @@ function fillOpts(){
   $("#opt-fast-row").hidden=!o.fastOn;$("#shot-every").value=String(o.shotEvery);
 }
 
+/* ---------- App-Updates (nur in der Mac-App) ---------- */
+const NATIVE=(window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.kilo)||null;
+const NV=window.kiloNative||null;
+let upd={status:"idle"};
+function nativeSend(action){if(!NATIVE)return;try{NATIVE.postMessage({action:action});}catch(e){}}
+function renderUpdate(){
+  const box=$("#update-box");if(!box)return;
+  if(!NATIVE){box.hidden=true;return;}
+  box.hidden=false;
+  const st=upd.status,dt=upd.date?" vom "+dateDe(upd.date):"";
+  let h='<p class="small muted">Installiert: Version '+esc(NV?NV.version:"?")+(NV?" (Build "+esc(NV.build)+")":"")+'</p>';
+  if(st==="available")h+='<p class="notice"><b>Neue Version verfügbar</b> (Build '+esc(upd.build)+dt+'). Update jetzt installieren? Die App lädt das Update, ersetzt sich selbst und startet neu. Deine Eingaben bleiben erhalten.</p>'+
+    '<div class="row"><button type="button" class="btn primary" data-act="upd-install">Update installieren</button><button type="button" class="btn" data-act="upd-later">Später</button></div>';
+  else if(st==="checking")h+='<p class="small">Suche nach Updates …</p>';
+  else if(st==="downloading")h+='<p class="small">Update wird heruntergeladen …</p>';
+  else if(st==="installing")h+='<p class="small">Update wird installiert. Die App schließt sich gleich und startet neu.</p>';
+  else{
+    if(st==="current")h+='<p class="small down">Du hast die neueste Version.</p>';
+    else if(st==="error")h+='<p class="notice"><b>Update nicht möglich.</b> '+esc(upd.message||"")+'</p>';
+    else if(st==="later")h+='<p class="small muted">Update verschoben. Du kannst es jederzeit hier installieren.</p>';
+    h+='<div class="row"><button type="button" class="btn" data-act="upd-check">Nach Updates suchen</button></div>';
+  }
+  box.innerHTML=h;
+}
+window.kiloUpdate=function(u){
+  const was=upd.status;upd=u&&typeof u==="object"?u:{status:"idle"};
+  renderUpdate();
+  if(upd.status==="available"||was==="available")renderPlan();
+  if(upd.status==="available"&&upd.auto)toast("Ein Update ist verfügbar");
+};
+
 /* ---------- Steuerung ---------- */
 const VIEWS=["plan","rezepte","einkauf","verlauf","profil"];
 function route(){
@@ -1036,7 +1069,10 @@ const numOf=id=>parseFloat(String($(id).value).replace(",","."));
 function afterRecipeChange(){OWN=state.own;applyRecipes();fixPlan(state);save();renderAll();}
 document.addEventListener("click",e=>{
   const el=e.target.closest("[data-act]");if(!el)return;const a=el.dataset.act,id=el.dataset.id;
-  if(a==="fav"){toggle(state.fav,id);save();renderPlan();renderRecipeList();toast(state.fav.includes(id)?"Als Favorit gemerkt":"Favorit entfernt");}
+  if(a==="upd-check"){upd={status:"checking"};renderUpdate();nativeSend("check");}
+  else if(a==="upd-install"){upd={status:"downloading"};renderUpdate();renderPlan();nativeSend("install");}
+  else if(a==="upd-later"){upd={status:"later"};renderUpdate();renderPlan();}
+  else if(a==="fav"){toggle(state.fav,id);save();renderPlan();renderRecipeList();toast(state.fav.includes(id)?"Als Favorit gemerkt":"Favorit entfernt");}
   else if(a==="ban"){toggle(state.ban,id);const on=state.ban.includes(id);if(on)state.fav=state.fav.filter(x=>x!==id);fixPlan(state);save();renderPlan();renderShop();renderRecipeList();renderExclude();toast(on?"Wird nicht mehr vorgeschlagen":"Wird wieder vorgeschlagen");}
   else if(a==="prep"){const s=el.dataset.slot,rid=state.plan[selDay][s];let n=0;for(let i=selDay+1;i<=Math.min(6,selDay+2);i++){state.plan[i][s]=rid;n++;}save();renderPlan();renderShop();toast("Auch für die nächsten "+n+(n===1?" Tag":" Tage")+" eingeplant");}
   else if(a==="plan-set"){state.plan[selDay][el.dataset.k]=id;save();renderPlan();renderShop();toast("Für "+DAYS_LONG[selDay]+" als "+POOL_LABEL[el.dataset.k]+" eingeplant");}
@@ -1094,6 +1130,7 @@ setInterval(()=>{const el=$("#fast-card");if(el)el.innerHTML=fastHtml();},30000)
 fillProfileForm();renderAll();route();
 window.addEventListener("hashchange",route);
 renderRecipeStatus();if(location.protocol==="file:")$("#recipe-row").hidden=false;
+renderUpdate();if(NATIVE)setTimeout(()=>nativeSend("check-silent"),1500);
 updateRecipes(false);
 initSync();
 })();

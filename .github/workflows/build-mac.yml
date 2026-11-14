@@ -16,7 +16,15 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: App bauen
+        env:
+          BUILD_NUMBER: ${{ github.run_number }}
         run: ./macos/build.sh dmg
+
+      - name: Versionsdatei für den Update-Check
+        run: |
+          VERSION=$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" macos/Info.plist)
+          printf '{"build":%s,"version":"%s","date":"%s"}\n' "$GITHUB_RUN_NUMBER" "$VERSION" "$(date -u +%Y-%m-%d)" > build/version.json
+          cat build/version.json
 
       - uses: actions/upload-artifact@v4
         with:
@@ -29,4 +37,4 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release delete latest --yes --cleanup-tag || true
-          gh release create latest build/Kilo-fuer-Kilo.dmg --target "$GITHUB_SHA" --title "Kilo für Kilo (aktuelle Version)" --notes "Automatisch gebaut aus dem aktuellen Stand von main."
+          gh release create latest build/Kilo-fuer-Kilo.dmg build/version.json --target "$GITHUB_SHA" --title "Kilo für Kilo (aktuelle Version)" --notes "Automatisch gebaut aus dem aktuellen Stand von main."

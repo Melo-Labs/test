@@ -24,6 +24,10 @@ rm build/kilo-arm64 build/kilo-x86_64
 
 cp macos/Info.plist "$APP/Contents/Info.plist"
 cp index.html "$APP/Contents/Resources/index.html"
+# Build-Nummer (setzt GitHub automatisch); die App vergleicht sie beim Update-Check
+if [ -n "${BUILD_NUMBER:-}" ]; then
+  /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUMBER" "$APP/Contents/Info.plist"
+fi
 
 # App-Icon aus macos/icon.png erzeugen
 ICONSET="build/AppIcon.iconset"
