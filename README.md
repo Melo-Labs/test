@@ -2,12 +2,13 @@
 
 Ernährungsplan-App zum Abnehmen. Kein Ersatz für ärztliche Beratung.
 
-- **Plan:** Wochenplan mit skalierten Portionen, Kalorien- und Eiweißring, Wasser-Tracker, Sport, Fastenfenster, wahlweise sechs kleine Mahlzeiten.
+- **Design „Fitness-Nacht“:** dunkel, mit drei Ringen für Kalorien, Eiweiß und Wasser. Die Ringe laufen animiert, jeder Wochentag zeigt Mini-Ringe, und ein geschlossener Ring wird gefeiert.
+- **Plan:** Wochenplan mit skalierten Portionen, Wasser direkt an den Ringen, Sport, Fastenfenster, wahlweise sechs kleine Mahlzeiten.
 - **Zusätzlich gegessen und getrunken:** Suche, eigene Einträge, Schnellauswahl der häufigsten, Zero-Getränke, Restaurant und Fast Food.
 - **Rezepte:** Übersicht mit Suche und Filtern, Favoriten, Ausblenden, Vorkochen, eigene Rezepte direkt in der App.
 - **Einkauf:** Einkaufsliste für die ganze Woche.
 - **Spritze:** Medikament (Wegovy, Ozempic, Mounjaro, Saxenda oder eigenes), mg pro Spritze, nächster Termin, Pen-Vorrat, Einstichstellen-Wechsel, Nebenwirkungen, Dosis-Verlauf, Tagebuch.
-- **Verlauf:** Wochenrückblick, Erfolge und Serien, Gewicht mit Trendlinie und Prognose, Körpermaße.
+- **Verlauf:** Wochenrückblick, Medaillen für Kilos, Serien und perfekte Tage, Gewicht mit Trendlinie und Prognose, Körpermaße.
 - **Profil:** Kalorienziel nach Mifflin-St-Jeor, Lebensmittel ausschließen, Datensicherung.
 
 Die ganze App steckt in `index.html`. Die Mac-App ist eine schlanke Hülle darum (`macos/`). Rezepte lädt die App bei jedem Start aus `recipes.json` in diesem Repository.

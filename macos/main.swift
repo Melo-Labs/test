@@ -44,6 +44,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
         controller.add(self, name: "kilo")
         webView = WKWebView(frame: .zero, configuration: config)
         webView.navigationDelegate = self
+        // Dunkles Design: Fenster und Randbereiche schwarz, kein weißes Aufblitzen beim Start.
+        webView.isHidden = true
+        if #available(macOS 12.0, *) {
+            webView.underPageBackgroundColor = .black
+        }
 
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 1040, height: 780),
@@ -52,6 +57,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
             defer: false
         )
         window.title = "Kilo für Kilo"
+        window.backgroundColor = .black
+        window.appearance = NSAppearance(named: .darkAqua)
         window.titlebarAppearsTransparent = true
         window.titleVisibility = .hidden
         window.minSize = NSSize(width: 380, height: 560)
@@ -64,6 +71,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, WKNavigationDelegate, 
             webView.loadFileURL(page, allowingReadAccessTo: page.deletingLastPathComponent())
         }
         NSApp.activate(ignoringOtherApps: true)
+        // Falls das Lade-Signal ausbleibt, die Seite trotzdem zeigen.
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) { [weak self] in
+            self?.webView.isHidden = false
+        }
+    }
+
+    func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+        webView.isHidden = false
+    }
+
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        webView.isHidden = false
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
