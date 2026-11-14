@@ -8,6 +8,7 @@
       "eiweiss": 34,
       "kohlenhydrate": 45,
       "fett": 10,
+      "minuten": 5,
       "zutaten": [
         ["Skyr", 250, "g", "M"],
         ["Haferflocken", 40, "g", "K"],
@@ -24,6 +25,7 @@
       "eiweiss": 26,
       "kohlenhydrate": 28,
       "fett": 22,
+      "minuten": 10,
       "zutaten": [
         ["Eier", 3, "Stk", "M"],
         ["Vollkornbrot", 60, "g", "K"],
@@ -40,6 +42,7 @@
       "eiweiss": 27,
       "kohlenhydrate": 62,
       "fett": 10,
+      "minuten": 5,
       "zutaten": [
         ["Haferflocken", 50, "g", "K"],
         ["Milch 1,5 %", 150, "ml", "M"],
@@ -57,6 +60,7 @@
       "eiweiss": 33,
       "kohlenhydrate": 38,
       "fett": 13,
+      "minuten": 10,
       "zutaten": [
         ["Vollkornbrot", 80, "g", "K"],
         ["Hüttenkäse", 150, "g", "M"],
@@ -73,6 +77,7 @@
       "eiweiss": 32,
       "kohlenhydrate": 52,
       "fett": 13,
+      "minuten": 15,
       "zutaten": [
         ["Eier", 2, "Stk", "M"],
         ["Haferflocken", 40, "g", "K"],
@@ -90,6 +95,7 @@
       "eiweiss": 30,
       "kohlenhydrate": 36,
       "fett": 17,
+      "minuten": 10,
       "zutaten": [
         ["Vollkornbrot", 80, "g", "K"],
         ["Räucherlachs", 60, "g", "P"],
@@ -107,6 +113,7 @@
       "eiweiss": 17,
       "kohlenhydrate": 57,
       "fett": 13,
+      "minuten": 3,
       "zutaten": [
         ["Naturjoghurt 1,5 %", 250, "g", "M"],
         ["Banane", 1, "Stk", "G"],
@@ -123,6 +130,7 @@
       "eiweiss": 26,
       "kohlenhydrate": 28,
       "fett": 17,
+      "minuten": 3,
       "zutaten": [
         ["Griechischer Joghurt 2 %", 250, "g", "M"],
         ["Honig", 10, "g", "S"],
@@ -139,6 +147,7 @@
       "eiweiss": 21,
       "kohlenhydrate": 75,
       "fett": 13,
+      "minuten": 8,
       "zutaten": [
         ["Haferflocken", 60, "g", "K"],
         ["Milch 1,5 %", 250, "ml", "M"],
@@ -155,6 +164,7 @@
       "eiweiss": 22,
       "kohlenhydrate": 38,
       "fett": 24,
+      "minuten": 10,
       "zutaten": [
         ["Vollkornbrot", 80, "g", "K"],
         ["Avocado", 70, "g", "G"],
@@ -171,6 +181,7 @@
       "eiweiss": 35,
       "kohlenhydrate": 45,
       "fett": 12,
+      "minuten": 5,
       "zutaten": [
         ["Magerquark", 250, "g", "M"],
         ["Leinöl", 10, "ml", "S"],
@@ -187,6 +198,7 @@
       "eiweiss": 27,
       "kohlenhydrate": 34,
       "fett": 15,
+      "minuten": 5,
       "zutaten": [
         ["Vollkornbrötchen", 1, "Stk", "K"],
         ["Kochschinken", 50, "g", "P"],
@@ -204,6 +216,7 @@
       "eiweiss": 30,
       "kohlenhydrate": 55,
       "fett": 6,
+      "minuten": 5,
       "zutaten": [
         ["Skyr", 200, "g", "M"],
         ["Beeren (frisch oder TK)", 150, "g", "G"],
@@ -221,6 +234,7 @@
       "eiweiss": 27,
       "kohlenhydrate": 32,
       "fett": 18,
+      "minuten": 12,
       "zutaten": [
         ["Haferflocken", 50, "g", "K"],
         ["Eier", 2, "Stk", "M"],
@@ -237,6 +251,7 @@
       "eiweiss": 25,
       "kohlenhydrate": 62,
       "fett": 15,
+      "minuten": 5,
       "zutaten": [
         ["Vollkornbrot", 80, "g", "K"],
         ["Erdnussmus", 25, "g", "S"],
@@ -253,6 +268,7 @@
       "eiweiss": 28,
       "kohlenhydrate": 36,
       "fett": 16,
+      "minuten": 5,
       "zutaten": [
         ["Vollkornbrot", 80, "g", "K"],
         ["Mozzarella light", 100, "g", "M"],
@@ -269,6 +285,7 @@
       "eiweiss": 40,
       "kohlenhydrate": 53,
       "fett": 8,
+      "minuten": 3,
       "zutaten": [
         ["Proteinpulver", 30, "g", "S"],
         ["Milch 1,5 %", 300, "ml", "M"],
@@ -285,6 +302,7 @@
       "eiweiss": 29,
       "kohlenhydrate": 22,
       "fett": 21,
+      "minuten": 10,
       "zutaten": [
         ["Eier", 2, "Stk", "M"],
         ["Räucherlachs", 50, "g", "P"],
@@ -301,6 +319,7 @@
       "eiweiss": 15,
       "kohlenhydrate": 68,
       "fett": 8,
+      "minuten": 3,
       "zutaten": [
         ["Müsli ungesüßt", 60, "g", "K"],
         ["Naturjoghurt 1,5 %", 200, "g", "M"],
@@ -308,6 +327,117 @@
         ["Beeren (frisch oder TK)", 50, "g", "G"]
       ],
       "zubereitung": "Apfel würfeln und mit Müsli, Joghurt und Beeren mischen."
+    },
+    {
+      "id": "b20",
+      "name": "Rührei-Wrap mit Spinat",
+      "vegetarisch": true,
+      "kcal": 400,
+      "eiweiss": 26,
+      "kohlenhydrate": 33,
+      "fett": 18,
+      "minuten": 8,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Vollkorn-Wrap", 1, "Stk", "K"],
+        ["Eier", 2, "Stk", "M"],
+        ["Spinat", 50, "g", "G"],
+        ["Hüttenkäse", 50, "g", "M"]
+      ],
+      "zubereitung": "Eier mit dem Spinat in der Pfanne stocken lassen, mit Hüttenkäse auf den Wrap geben und aufrollen."
+    },
+    {
+      "id": "b21",
+      "name": "Bircher Müsli mit Apfel und Mandeln",
+      "vegetarisch": true,
+      "kcal": 450,
+      "eiweiss": 17,
+      "kohlenhydrate": 60,
+      "fett": 15,
+      "minuten": 5,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Haferflocken", 50, "g", "K"],
+        ["Naturjoghurt 1,5 %", 150, "g", "M"],
+        ["Milch 1,5 %", 50, "ml", "M"],
+        ["Apfel", 1, "Stk", "G"],
+        ["Mandeln", 15, "g", "S"]
+      ],
+      "zubereitung": "Haferflocken mit Joghurt und Milch verrühren, Apfel hineinreiben. Am besten über Nacht ziehen lassen, morgens Mandeln darüber."
+    },
+    {
+      "id": "b22",
+      "name": "Menemen mit Feta und Brot",
+      "vegetarisch": true,
+      "kcal": 450,
+      "eiweiss": 24,
+      "kohlenhydrate": 38,
+      "fett": 22,
+      "minuten": 12,
+      "kueche": "Orientalisch",
+      "zutaten": [
+        ["Eier", 2, "Stk", "M"],
+        ["Tomaten", 200, "g", "G"],
+        ["Paprika", 100, "g", "G"],
+        ["Feta", 20, "g", "M"],
+        ["Vollkornbrot", 60, "g", "K"],
+        ["Olivenöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Paprika im Öl anbraten, gewürfelte Tomaten 5 Minuten einkochen. Eier hineinrühren und cremig stocken lassen, Feta darüber. Mit Brot essen."
+    },
+    {
+      "id": "b23",
+      "name": "Skyr-Shake mit Beeren und Hafer",
+      "vegetarisch": true,
+      "kcal": 350,
+      "eiweiss": 32,
+      "kohlenhydrate": 43,
+      "fett": 5,
+      "minuten": 3,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Skyr", 200, "g", "M"],
+        ["Beeren (frisch oder TK)", 120, "g", "G"],
+        ["Haferflocken", 30, "g", "K"],
+        ["Milch 1,5 %", 150, "ml", "M"]
+      ],
+      "zubereitung": "Alles im Mixer fein pürieren. Gut zum Mitnehmen."
+    },
+    {
+      "id": "b24",
+      "name": "Lachs-Avocado-Brötchen",
+      "vegetarisch": false,
+      "kcal": 385,
+      "eiweiss": 23,
+      "kohlenhydrate": 34,
+      "fett": 17,
+      "minuten": 5,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Vollkornbrötchen", 1, "Stk", "K"],
+        ["Räucherlachs", 60, "g", "P"],
+        ["Avocado", 40, "g", "G"],
+        ["Frischkäse leicht", 20, "g", "M"]
+      ],
+      "zubereitung": "Brötchen aufschneiden, mit Frischkäse bestreichen, Avocado und Lachs darauf, pfeffern."
+    },
+    {
+      "id": "b25",
+      "name": "Apfel-Zimt-Quark mit Walnüssen",
+      "vegetarisch": true,
+      "kcal": 360,
+      "eiweiss": 32,
+      "kohlenhydrate": 34,
+      "fett": 11,
+      "minuten": 3,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Magerquark", 250, "g", "M"],
+        ["Apfel", 1, "Stk", "G"],
+        ["Walnüsse", 15, "g", "S"],
+        ["Honig", 5, "g", "S"]
+      ],
+      "zubereitung": "Quark mit einem Schuss Wasser cremig rühren, Apfel würfeln und unterheben. Zimt, Honig und Walnüsse darüber."
     }
   ],
   "mittagessen": [
@@ -319,6 +449,7 @@
       "eiweiss": 46,
       "kohlenhydrate": 55,
       "fett": 13,
+      "minuten": 20,
       "zutaten": [
         ["Hähnchenbrust", 150, "g", "P"],
         ["Reis (roh)", 60, "g", "K"],
@@ -336,6 +467,7 @@
       "eiweiss": 25,
       "kohlenhydrate": 80,
       "fett": 9,
+      "minuten": 25,
       "zutaten": [
         ["Rote Linsen", 70, "g", "K"],
         ["Reis (roh)", 40, "g", "K"],
@@ -354,6 +486,7 @@
       "eiweiss": 45,
       "kohlenhydrate": 60,
       "fett": 9,
+      "minuten": 15,
       "zutaten": [
         ["Vollkornnudeln", 80, "g", "K"],
         ["Thunfisch im eigenen Saft (abgetropft)", 130, "g", "P"],
@@ -371,6 +504,7 @@
       "eiweiss": 43,
       "kohlenhydrate": 52,
       "fett": 12,
+      "minuten": 25,
       "zutaten": [
         ["Putenbrust", 150, "g", "P"],
         ["Kartoffeln", 250, "g", "G"],
@@ -388,6 +522,7 @@
       "eiweiss": 26,
       "kohlenhydrate": 62,
       "fett": 20,
+      "minuten": 20,
       "zutaten": [
         ["Quinoa (roh)", 50, "g", "K"],
         ["Kichererbsen (Dose, abgetropft)", 120, "g", "K"],
@@ -406,6 +541,7 @@
       "eiweiss": 34,
       "kohlenhydrate": 62,
       "fett": 11,
+      "minuten": 40,
       "zutaten": [
         ["Kartoffeln", 350, "g", "G"],
         ["Magerquark", 200, "g", "M"],
@@ -423,6 +559,7 @@
       "eiweiss": 42,
       "kohlenhydrate": 58,
       "fett": 10,
+      "minuten": 30,
       "zutaten": [
         ["Rinderhack mager", 120, "g", "P"],
         ["Kidneybohnen (Dose, abgetropft)", 120, "g", "K"],
@@ -441,6 +578,7 @@
       "eiweiss": 40,
       "kohlenhydrate": 40,
       "fett": 16,
+      "minuten": 15,
       "zutaten": [
         ["Vollkorn-Wrap", 1, "Stk", "K"],
         ["Hähnchenbrust", 120, "g", "P"],
@@ -459,6 +597,7 @@
       "eiweiss": 42,
       "kohlenhydrate": 58,
       "fett": 13,
+      "minuten": 25,
       "zutaten": [
         ["Hähnchenbrust", 150, "g", "P"],
         ["Reis (roh)", 60, "g", "K"],
@@ -476,6 +615,7 @@
       "eiweiss": 44,
       "kohlenhydrate": 45,
       "fett": 11,
+      "minuten": 20,
       "zutaten": [
         ["Rinderhüftsteak", 150, "g", "P"],
         ["Brokkoli", 200, "g", "G"],
@@ -493,6 +633,7 @@
       "eiweiss": 31,
       "kohlenhydrate": 52,
       "fett": 23,
+      "minuten": 20,
       "zutaten": [
         ["Lachsfilet", 120, "g", "P"],
         ["Reis (roh)", 60, "g", "K"],
@@ -510,6 +651,7 @@
       "eiweiss": 52,
       "kohlenhydrate": 52,
       "fett": 9,
+      "minuten": 20,
       "zutaten": [
         ["Putenbrust", 150, "g", "P"],
         ["Vollkornnudeln", 70, "g", "K"],
@@ -527,6 +669,7 @@
       "eiweiss": 24,
       "kohlenhydrate": 58,
       "fett": 22,
+      "minuten": 25,
       "zutaten": [
         ["Kartoffeln", 300, "g", "G"],
         ["Eier", 2, "Stk", "M"],
@@ -544,6 +687,7 @@
       "eiweiss": 29,
       "kohlenhydrate": 85,
       "fett": 11,
+      "minuten": 25,
       "zutaten": [
         ["Vollkornnudeln", 60, "g", "K"],
         ["Rote Linsen", 50, "g", "K"],
@@ -563,6 +707,7 @@
       "eiweiss": 41,
       "kohlenhydrate": 52,
       "fett": 13,
+      "minuten": 15,
       "zutaten": [
         ["Couscous", 60, "g", "K"],
         ["Hähnchenbrust", 130, "g", "P"],
@@ -580,6 +725,7 @@
       "eiweiss": 38,
       "kohlenhydrate": 58,
       "fett": 16,
+      "minuten": 20,
       "zutaten": [
         ["Rinderhack mager", 120, "g", "P"],
         ["Reis (roh)", 50, "g", "K"],
@@ -598,6 +744,7 @@
       "eiweiss": 46,
       "kohlenhydrate": 42,
       "fett": 18,
+      "minuten": 25,
       "zutaten": [
         ["Thunfisch im eigenen Saft (abgetropft)", 130, "g", "P"],
         ["Kartoffeln", 250, "g", "G"],
@@ -616,6 +763,7 @@
       "eiweiss": 23,
       "kohlenhydrate": 68,
       "fett": 17,
+      "minuten": 20,
       "zutaten": [
         ["Reis (roh)", 60, "g", "K"],
         ["Eier", 2, "Stk", "M"],
@@ -634,6 +782,7 @@
       "eiweiss": 44,
       "kohlenhydrate": 46,
       "fett": 10,
+      "minuten": 20,
       "zutaten": [
         ["Hähnchenbrust", 150, "g", "P"],
         ["Reis (roh)", 50, "g", "K"],
@@ -652,6 +801,7 @@
       "eiweiss": 20,
       "kohlenhydrate": 72,
       "fett": 19,
+      "minuten": 12,
       "zutaten": [
         ["Gnocchi", 200, "g", "K"],
         ["Spinat", 150, "g", "G"],
@@ -669,6 +819,7 @@
       "eiweiss": 19,
       "kohlenhydrate": 82,
       "fett": 15,
+      "minuten": 30,
       "zutaten": [
         ["Süßkartoffel", 250, "g", "G"],
         ["Kichererbsen (Dose, abgetropft)", 150, "g", "K"],
@@ -686,6 +837,7 @@
       "eiweiss": 42,
       "kohlenhydrate": 46,
       "fett": 13,
+      "minuten": 25,
       "zutaten": [
         ["Schweinefilet", 150, "g", "P"],
         ["Kartoffeln", 250, "g", "G"],
@@ -702,6 +854,7 @@
       "eiweiss": 39,
       "kohlenhydrate": 62,
       "fett": 12,
+      "minuten": 20,
       "zutaten": [
         ["Garnelen", 150, "g", "P"],
         ["Reis (roh)", 60, "g", "K"],
@@ -710,6 +863,199 @@
         ["Olivenöl", 10, "ml", "S"]
       ],
       "zubereitung": "Reis kochen. Garnelen mit Knoblauch im Öl braten, Paprika und Erbsen zugeben, Reis unterheben und mit Zitrone abschmecken."
+    },
+    {
+      "id": "l25",
+      "name": "Spaghetti Aglio e Olio mit Garnelen",
+      "vegetarisch": false,
+      "kcal": 510,
+      "eiweiss": 39,
+      "kohlenhydrate": 55,
+      "fett": 14,
+      "minuten": 15,
+      "kueche": "Italienisch",
+      "zutaten": [
+        ["Vollkornnudeln", 80, "g", "K"],
+        ["Garnelen", 150, "g", "P"],
+        ["Kirschtomaten", 100, "g", "G"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Nudeln kochen. Garnelen mit Knoblauch und Chili im Öl 3 Minuten braten, Tomaten kurz mitschwenken und mit den Nudeln mischen."
+    },
+    {
+      "id": "l26",
+      "name": "Teriyaki-Hähnchen mit Reis und Brokkoli",
+      "vegetarisch": false,
+      "kcal": 515,
+      "eiweiss": 45,
+      "kohlenhydrate": 62,
+      "fett": 9,
+      "minuten": 20,
+      "kueche": "Asiatisch",
+      "zutaten": [
+        ["Hähnchenbrust", 150, "g", "P"],
+        ["Reis (roh)", 60, "g", "K"],
+        ["Brokkoli", 150, "g", "G"],
+        ["Sojasauce", 20, "ml", "S"],
+        ["Honig", 10, "g", "S"],
+        ["Rapsöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Reis kochen, Brokkoli dämpfen. Hähnchen im Öl braten, Sojasauce und Honig zugeben und kurz einkochen, bis die Sauce glänzt."
+    },
+    {
+      "id": "l27",
+      "name": "Griechischer Salat mit Hähnchen",
+      "vegetarisch": false,
+      "kcal": 490,
+      "eiweiss": 42,
+      "kohlenhydrate": 29,
+      "fett": 22,
+      "minuten": 10,
+      "kueche": "Mediterran",
+      "zutaten": [
+        ["Hähnchenbrust", 120, "g", "P"],
+        ["Feta", 50, "g", "M"],
+        ["Gurke", 150, "g", "G"],
+        ["Tomaten", 150, "g", "G"],
+        ["Oliven", 20, "g", "S"],
+        ["Olivenöl", 5, "ml", "S"],
+        ["Vollkornbrot", 50, "g", "K"]
+      ],
+      "zubereitung": "Hähnchen braten und in Streifen schneiden. Gurke und Tomaten würfeln, mit Oliven, Feta, Öl und Oregano mischen. Brot dazu."
+    },
+    {
+      "id": "l28",
+      "name": "Mexikanische Hähnchen-Bowl",
+      "vegetarisch": false,
+      "kcal": 540,
+      "eiweiss": 43,
+      "kohlenhydrate": 64,
+      "fett": 10,
+      "minuten": 20,
+      "kueche": "Mexikanisch",
+      "zutaten": [
+        ["Hähnchenbrust", 130, "g", "P"],
+        ["Reis (roh)", 50, "g", "K"],
+        ["Kidneybohnen (Dose, abgetropft)", 80, "g", "K"],
+        ["Mais (Dose)", 50, "g", "S"],
+        ["Paprika", 100, "g", "G"],
+        ["Avocado", 40, "g", "G"]
+      ],
+      "zubereitung": "Reis kochen. Hähnchen mit Paprikapulver und Kreuzkümmel braten, Bohnen und Mais erwärmen. Alles mit Paprika und Avocado anrichten, Limette darüber."
+    },
+    {
+      "id": "l29",
+      "name": "Pesto-Nudeln mit Hähnchen",
+      "vegetarisch": false,
+      "kcal": 490,
+      "eiweiss": 39,
+      "kohlenhydrate": 49,
+      "fett": 14,
+      "minuten": 15,
+      "kueche": "Italienisch",
+      "zutaten": [
+        ["Vollkornnudeln", 70, "g", "K"],
+        ["Hähnchenbrust", 120, "g", "P"],
+        ["Pesto", 20, "g", "S"],
+        ["Kirschtomaten", 100, "g", "G"]
+      ],
+      "zubereitung": "Nudeln kochen, Hähnchen in Würfeln braten. Mit Pesto, halbierten Tomaten und einem Schuss Nudelwasser mischen."
+    },
+    {
+      "id": "l30",
+      "name": "Linsensalat mit Feta und Paprika",
+      "vegetarisch": true,
+      "kcal": 460,
+      "eiweiss": 25,
+      "kohlenhydrate": 36,
+      "fett": 22,
+      "minuten": 10,
+      "kueche": "Mediterran",
+      "zutaten": [
+        ["Linsen (Dose, abgetropft)", 200, "g", "K"],
+        ["Feta", 50, "g", "M"],
+        ["Paprika", 150, "g", "G"],
+        ["Blattsalat", 50, "g", "G"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Linsen abspülen, Paprika würfeln. Mit Öl, Essig, Salz und Pfeffer anmachen, Feta darüber bröseln und auf Salat anrichten."
+    },
+    {
+      "id": "l31",
+      "name": "Thai-Curry mit Garnelen",
+      "vegetarisch": false,
+      "kcal": 470,
+      "eiweiss": 36,
+      "kohlenhydrate": 50,
+      "fett": 13,
+      "minuten": 20,
+      "kueche": "Asiatisch",
+      "zutaten": [
+        ["Garnelen", 150, "g", "P"],
+        ["Kokosmilch light", 150, "ml", "S"],
+        ["Wokgemüse (frisch oder TK)", 200, "g", "G"],
+        ["Reis (roh)", 50, "g", "K"]
+      ],
+      "zubereitung": "Reis kochen. Currypaste kurz anrösten, Kokosmilch und Gemüse zugeben, 6 Minuten köcheln. Garnelen 3 Minuten darin gar ziehen lassen."
+    },
+    {
+      "id": "l32",
+      "name": "Omelett-Wrap mit Schinken und Käse",
+      "vegetarisch": false,
+      "kcal": 480,
+      "eiweiss": 33,
+      "kohlenhydrate": 34,
+      "fett": 22,
+      "minuten": 8,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Vollkorn-Wrap", 1, "Stk", "K"],
+        ["Eier", 2, "Stk", "M"],
+        ["Kochschinken", 40, "g", "P"],
+        ["Gouda", 20, "g", "M"],
+        ["Tomaten", 100, "g", "G"]
+      ],
+      "zubereitung": "Eier als dünnes Omelett backen, mit Schinken, Käse und Tomatenscheiben auf den Wrap legen und aufrollen."
+    },
+    {
+      "id": "l33",
+      "name": "Couscous mit Kichererbsen und Ofengemüse",
+      "vegetarisch": true,
+      "kcal": 540,
+      "eiweiss": 20,
+      "kohlenhydrate": 76,
+      "fett": 16,
+      "minuten": 25,
+      "kueche": "Orientalisch",
+      "zutaten": [
+        ["Couscous", 60, "g", "K"],
+        ["Kichererbsen (Dose, abgetropft)", 120, "g", "K"],
+        ["Zucchini", 150, "g", "G"],
+        ["Paprika", 100, "g", "G"],
+        ["Naturjoghurt 1,5 %", 60, "g", "M"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Gemüse und Kichererbsen mit Öl und Ras el-Hanout 20 Minuten bei 200 °C backen. Couscous quellen lassen, alles mischen, Joghurt dazu."
+    },
+    {
+      "id": "l34",
+      "name": "Leichter Kartoffelsalat mit Ei",
+      "vegetarisch": true,
+      "kcal": 525,
+      "eiweiss": 25,
+      "kohlenhydrate": 68,
+      "fett": 17,
+      "minuten": 25,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Kartoffeln", 350, "g", "G"],
+        ["Eier", 2, "Stk", "M"],
+        ["Naturjoghurt 1,5 %", 100, "g", "M"],
+        ["Gurke", 100, "g", "G"],
+        ["Radieschen", 80, "g", "G"],
+        ["Rapsöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Kartoffeln und Eier kochen und in Scheiben schneiden. Joghurt mit Öl, Senf, Essig und Brühe verrühren, alles mit Gurke und Radieschen mischen."
     }
   ],
   "abendessen": [
@@ -721,6 +1067,7 @@
       "eiweiss": 33,
       "kohlenhydrate": 35,
       "fett": 24,
+      "minuten": 35,
       "zutaten": [
         ["Lachsfilet", 130, "g", "P"],
         ["Zucchini", 200, "g", "G"],
@@ -738,6 +1085,7 @@
       "eiweiss": 33,
       "kohlenhydrate": 18,
       "fett": 28,
+      "minuten": 12,
       "zutaten": [
         ["Eier", 3, "Stk", "M"],
         ["Spinat", 150, "g", "G"],
@@ -754,6 +1102,7 @@
       "eiweiss": 44,
       "kohlenhydrate": 30,
       "fett": 12,
+      "minuten": 15,
       "zutaten": [
         ["Hähnchenbrust", 150, "g", "P"],
         ["Blattsalat", 150, "g", "G"],
@@ -773,6 +1122,7 @@
       "eiweiss": 24,
       "kohlenhydrate": 85,
       "fett": 4,
+      "minuten": 35,
       "zutaten": [
         ["Tellerlinsen", 60, "g", "K"],
         ["Karotten", 150, "g", "G"],
@@ -790,6 +1140,7 @@
       "eiweiss": 45,
       "kohlenhydrate": 33,
       "fett": 17,
+      "minuten": 15,
       "zutaten": [
         ["Garnelen", 180, "g", "P"],
         ["Zucchini", 300, "g", "G"],
@@ -808,6 +1159,7 @@
       "eiweiss": 44,
       "kohlenhydrate": 50,
       "fett": 11,
+      "minuten": 30,
       "zutaten": [
         ["Kabeljaufilet", 180, "g", "P"],
         ["Kartoffeln", 250, "g", "G"],
@@ -825,6 +1177,7 @@
       "eiweiss": 22,
       "kohlenhydrate": 68,
       "fett": 12,
+      "minuten": 20,
       "zutaten": [
         ["Kichererbsen (Dose, abgetropft)", 200, "g", "K"],
         ["Spinat", 150, "g", "G"],
@@ -842,6 +1195,7 @@
       "eiweiss": 27,
       "kohlenhydrate": 40,
       "fett": 20,
+      "minuten": 20,
       "zutaten": [
         ["Eier", 2, "Stk", "M"],
         ["Stückige Tomaten (Dose)", 300, "g", "S"],
@@ -859,6 +1213,7 @@
       "eiweiss": 50,
       "kohlenhydrate": 28,
       "fett": 16,
+      "minuten": 15,
       "zutaten": [
         ["Hähnchenbrust", 180, "g", "P"],
         ["Zucchini", 200, "g", "G"],
@@ -877,6 +1232,7 @@
       "eiweiss": 42,
       "kohlenhydrate": 16,
       "fett": 23,
+      "minuten": 20,
       "zutaten": [
         ["Rinderhack mager", 150, "g", "P"],
         ["Zucchini", 300, "g", "G"],
@@ -894,6 +1250,7 @@
       "eiweiss": 44,
       "kohlenhydrate": 48,
       "fett": 12,
+      "minuten": 30,
       "zutaten": [
         ["Hähnchenbrust", 160, "g", "P"],
         ["Süßkartoffel", 200, "g", "G"],
@@ -910,6 +1267,7 @@
       "eiweiss": 46,
       "kohlenhydrate": 42,
       "fett": 14,
+      "minuten": 5,
       "zutaten": [
         ["Thunfisch im eigenen Saft (abgetropft)", 130, "g", "P"],
         ["Weiße Bohnen (Dose, abgetropft)", 150, "g", "K"],
@@ -928,6 +1286,7 @@
       "eiweiss": 19,
       "kohlenhydrate": 70,
       "fett": 11,
+      "minuten": 25,
       "zutaten": [
         ["Blumenkohl", 300, "g", "G"],
         ["Kichererbsen (Dose, abgetropft)", 150, "g", "K"],
@@ -944,6 +1303,7 @@
       "eiweiss": 48,
       "kohlenhydrate": 34,
       "fett": 13,
+      "minuten": 30,
       "zutaten": [
         ["Putenbrust", 180, "g", "P"],
         ["Zucchini", 150, "g", "G"],
@@ -963,6 +1323,7 @@
       "eiweiss": 37,
       "kohlenhydrate": 22,
       "fett": 25,
+      "minuten": 12,
       "zutaten": [
         ["Eier", 3, "Stk", "M"],
         ["Mozzarella light", 60, "g", "M"],
@@ -980,6 +1341,7 @@
       "eiweiss": 35,
       "kohlenhydrate": 34,
       "fett": 24,
+      "minuten": 25,
       "zutaten": [
         ["Lachsfilet", 130, "g", "P"],
         ["Spinat", 200, "g", "G"],
@@ -996,6 +1358,7 @@
       "eiweiss": 37,
       "kohlenhydrate": 50,
       "fett": 14,
+      "minuten": 40,
       "zutaten": [
         ["Paprika", 300, "g", "G"],
         ["Rinderhack mager", 120, "g", "P"],
@@ -1013,6 +1376,7 @@
       "eiweiss": 36,
       "kohlenhydrate": 50,
       "fett": 10,
+      "minuten": 30,
       "zutaten": [
         ["Hokkaido-Kürbis", 400, "g", "G"],
         ["Karotten", 100, "g", "G"],
@@ -1030,6 +1394,7 @@
       "eiweiss": 31,
       "kohlenhydrate": 55,
       "fett": 21,
+      "minuten": 35,
       "zutaten": [
         ["Brokkoli", 250, "g", "G"],
         ["Kartoffeln", 250, "g", "G"],
@@ -1047,6 +1412,7 @@
       "eiweiss": 40,
       "kohlenhydrate": 52,
       "fett": 7,
+      "minuten": 15,
       "zutaten": [
         ["Garnelen", 180, "g", "P"],
         ["Wokgemüse (frisch oder TK)", 250, "g", "G"],
@@ -1064,6 +1430,7 @@
       "eiweiss": 48,
       "kohlenhydrate": 32,
       "fett": 20,
+      "minuten": 12,
       "zutaten": [
         ["Hüttenkäse", 200, "g", "M"],
         ["Eier", 2, "Stk", "M"],
@@ -1082,6 +1449,7 @@
       "eiweiss": 24,
       "kohlenhydrate": 72,
       "fett": 8,
+      "minuten": 25,
       "zutaten": [
         ["Weiße Bohnen (Dose, abgetropft)", 240, "g", "K"],
         ["Karotten", 150, "g", "G"],
@@ -1100,6 +1468,7 @@
       "eiweiss": 40,
       "kohlenhydrate": 48,
       "fett": 12,
+      "minuten": 20,
       "zutaten": [
         ["Kabeljaufilet", 180, "g", "P"],
         ["Zucchini", 200, "g", "G"],
@@ -1108,6 +1477,199 @@
         ["Olivenöl", 10, "ml", "S"]
       ],
       "zubereitung": "Zucchini und Tomaten im Öl 5 Minuten schmoren, Fisch darauflegen und zugedeckt 6 Minuten garen. Mit Reis servieren."
+    },
+    {
+      "id": "d25",
+      "name": "Hähnchen-Saltimbocca mit grünen Bohnen",
+      "vegetarisch": false,
+      "kcal": 490,
+      "eiweiss": 53,
+      "kohlenhydrate": 36,
+      "fett": 14,
+      "minuten": 20,
+      "kueche": "Italienisch",
+      "zutaten": [
+        ["Hähnchenbrust", 170, "g", "P"],
+        ["Kochschinken", 30, "g", "P"],
+        ["Grüne Bohnen", 250, "g", "G"],
+        ["Kartoffeln", 150, "g", "G"],
+        ["Olivenöl", 10, "ml", "S"]
+      ],
+      "zubereitung": "Hähnchen flach klopfen, mit Schinken und Salbei belegen und 4 Minuten pro Seite braten. Bohnen und Kartoffeln in Salzwasser garen."
+    },
+    {
+      "id": "d26",
+      "name": "Asiatische Hühnersuppe mit Nudeln",
+      "vegetarisch": false,
+      "kcal": 445,
+      "eiweiss": 46,
+      "kohlenhydrate": 42,
+      "fett": 9,
+      "minuten": 20,
+      "kueche": "Asiatisch",
+      "zutaten": [
+        ["Hähnchenbrust", 130, "g", "P"],
+        ["Vollkornnudeln", 50, "g", "K"],
+        ["Karotten", 100, "g", "G"],
+        ["Lauch", 80, "g", "G"],
+        ["Eier", 1, "Stk", "M"],
+        ["Sojasauce", 15, "ml", "S"]
+      ],
+      "zubereitung": "Hähnchen in 600 ml Brühe mit Ingwer 12 Minuten garen und zerzupfen. Gemüse und Nudeln 6 Minuten mitkochen, mit Sojasauce abschmecken, gekochtes Ei dazu."
+    },
+    {
+      "id": "d27",
+      "name": "Griechische Hackbällchen mit Tzatziki",
+      "vegetarisch": false,
+      "kcal": 450,
+      "eiweiss": 42,
+      "kohlenhydrate": 34,
+      "fett": 16,
+      "minuten": 25,
+      "kueche": "Mediterran",
+      "zutaten": [
+        ["Rinderhack mager", 150, "g", "P"],
+        ["Naturjoghurt 1,5 %", 100, "g", "M"],
+        ["Gurke", 150, "g", "G"],
+        ["Tomaten", 150, "g", "G"],
+        ["Vollkornbrot", 50, "g", "K"],
+        ["Olivenöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Hack mit Oregano, Knoblauch und Salz zu Bällchen formen und rundum braten. Joghurt mit geriebener Gurke verrühren. Mit Tomaten und Brot servieren."
+    },
+    {
+      "id": "d28",
+      "name": "Teriyaki-Lachs mit Brokkoli und Reis",
+      "vegetarisch": false,
+      "kcal": 485,
+      "eiweiss": 36,
+      "kohlenhydrate": 42,
+      "fett": 18,
+      "minuten": 20,
+      "kueche": "Asiatisch",
+      "zutaten": [
+        ["Lachsfilet", 130, "g", "P"],
+        ["Brokkoli", 200, "g", "G"],
+        ["Reis (roh)", 40, "g", "K"],
+        ["Sojasauce", 15, "ml", "S"],
+        ["Honig", 5, "g", "S"]
+      ],
+      "zubereitung": "Lachs mit Sojasauce und Honig bestreichen und 12 Minuten bei 200 °C backen. Brokkoli dämpfen, Reis kochen."
+    },
+    {
+      "id": "d29",
+      "name": "Bohnen-Käse-Quesadilla",
+      "vegetarisch": true,
+      "kcal": 490,
+      "eiweiss": 25,
+      "kohlenhydrate": 55,
+      "fett": 17,
+      "minuten": 12,
+      "kueche": "Mexikanisch",
+      "zutaten": [
+        ["Vollkorn-Wrap", 1, "Stk", "K"],
+        ["Kidneybohnen (Dose, abgetropft)", 100, "g", "K"],
+        ["Gouda", 40, "g", "M"],
+        ["Mais (Dose)", 40, "g", "S"],
+        ["Tomaten", 100, "g", "G"]
+      ],
+      "zubereitung": "Bohnen grob zerdrücken, mit Mais und Käse auf eine Wrap-Hälfte geben, zuklappen und in der Pfanne von beiden Seiten knusprig backen. Tomaten dazu."
+    },
+    {
+      "id": "d30",
+      "name": "Puten-Paprika-Gulasch mit Reis",
+      "vegetarisch": false,
+      "kcal": 520,
+      "eiweiss": 50,
+      "kohlenhydrate": 64,
+      "fett": 8,
+      "minuten": 30,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Putenbrust", 170, "g", "P"],
+        ["Paprika", 250, "g", "G"],
+        ["Stückige Tomaten (Dose)", 200, "g", "S"],
+        ["Zwiebel", 1, "Stk", "G"],
+        ["Reis (roh)", 50, "g", "K"],
+        ["Rapsöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Pute und Zwiebel anbraten, Paprikapulver, Paprika und Tomaten zugeben und 20 Minuten schmoren. Mit Reis servieren."
+    },
+    {
+      "id": "d31",
+      "name": "Caprese-Hähnchen aus dem Ofen",
+      "vegetarisch": false,
+      "kcal": 510,
+      "eiweiss": 58,
+      "kohlenhydrate": 34,
+      "fett": 14,
+      "minuten": 25,
+      "kueche": "Italienisch",
+      "zutaten": [
+        ["Hähnchenbrust", 170, "g", "P"],
+        ["Mozzarella light", 60, "g", "M"],
+        ["Tomaten", 200, "g", "G"],
+        ["Vollkornnudeln", 40, "g", "K"],
+        ["Olivenöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Hähnchen in eine Form legen, mit Tomaten- und Mozzarellascheiben belegen, 20 Minuten bei 200 °C backen. Nudeln dazu kochen, Basilikum darüber."
+    },
+    {
+      "id": "d32",
+      "name": "Türkische Linsensuppe mit Brot",
+      "vegetarisch": true,
+      "kcal": 490,
+      "eiweiss": 28,
+      "kohlenhydrate": 72,
+      "fett": 9,
+      "minuten": 20,
+      "kueche": "Orientalisch",
+      "zutaten": [
+        ["Rote Linsen", 80, "g", "K"],
+        ["Karotten", 100, "g", "G"],
+        ["Zwiebel", 0.5, "Stk", "G"],
+        ["Naturjoghurt 1,5 %", 50, "g", "M"],
+        ["Vollkornbrot", 50, "g", "K"],
+        ["Olivenöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Zwiebel und Karotte im Öl anschwitzen, Linsen und 500 ml Brühe 15 Minuten kochen, pürieren. Mit Zitrone, Paprikapulver und Joghurt servieren."
+    },
+    {
+      "id": "d33",
+      "name": "Champignon-Rührei mit Schinken",
+      "vegetarisch": false,
+      "kcal": 440,
+      "eiweiss": 38,
+      "kohlenhydrate": 24,
+      "fett": 20,
+      "minuten": 10,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Eier", 3, "Stk", "M"],
+        ["Champignons", 200, "g", "G"],
+        ["Kochschinken", 50, "g", "P"],
+        ["Vollkornbrot", 50, "g", "K"]
+      ],
+      "zubereitung": "Champignons scharf anbraten, Schinkenstreifen zugeben, verquirlte Eier darüber und stocken lassen. Mit Brot essen."
+    },
+    {
+      "id": "d34",
+      "name": "Kabeljau mit Gurkensalat und Kartoffeln",
+      "vegetarisch": false,
+      "kcal": 475,
+      "eiweiss": 41,
+      "kohlenhydrate": 50,
+      "fett": 11,
+      "minuten": 20,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Kabeljaufilet", 180, "g", "P"],
+        ["Kartoffeln", 250, "g", "G"],
+        ["Gurke", 200, "g", "G"],
+        ["Naturjoghurt 1,5 %", 80, "g", "M"],
+        ["Butter", 10, "g", "M"]
+      ],
+      "zubereitung": "Kartoffeln kochen. Gurke hobeln und mit Joghurt, Dill und Essig anmachen. Fisch in Butter 3 Minuten pro Seite braten."
     }
   ],
   "snack": [
@@ -1119,6 +1681,7 @@
       "eiweiss": 4,
       "kohlenhydrate": 20,
       "fett": 8,
+      "minuten": 2,
       "zutaten": [
         ["Apfel", 1, "Stk", "G"],
         ["Mandeln", 15, "g", "S"]
@@ -1133,6 +1696,7 @@
       "eiweiss": 19,
       "kohlenhydrate": 12,
       "fett": 1,
+      "minuten": 3,
       "zutaten": [
         ["Magerquark", 150, "g", "M"],
         ["Beeren (frisch oder TK)", 80, "g", "G"]
@@ -1147,6 +1711,7 @@
       "eiweiss": 5,
       "kohlenhydrate": 16,
       "fett": 7,
+      "minuten": 5,
       "zutaten": [
         ["Karotten", 150, "g", "G"],
         ["Hummus", 40, "g", "S"]
@@ -1161,6 +1726,7 @@
       "eiweiss": 14,
       "kohlenhydrate": 3,
       "fett": 11,
+      "minuten": 10,
       "zutaten": [
         ["Eier", 2, "Stk", "M"],
         ["Gurke", 100, "g", "G"]
@@ -1175,6 +1741,7 @@
       "eiweiss": 17,
       "kohlenhydrate": 11,
       "fett": 0,
+      "minuten": 2,
       "zutaten": [
         ["Skyr", 150, "g", "M"],
         ["Honig", 5, "g", "S"]
@@ -1189,6 +1756,7 @@
       "eiweiss": 4,
       "kohlenhydrate": 26,
       "fett": 5,
+      "minuten": 2,
       "zutaten": [
         ["Banane", 1, "Stk", "G"],
         ["Erdnussmus", 10, "g", "S"]
@@ -1203,6 +1771,7 @@
       "eiweiss": 19,
       "kohlenhydrate": 8,
       "fett": 6,
+      "minuten": 3,
       "zutaten": [
         ["Hüttenkäse", 150, "g", "M"],
         ["Tomaten", 100, "g", "G"]
@@ -1217,6 +1786,7 @@
       "eiweiss": 14,
       "kohlenhydrate": 12,
       "fett": 3,
+      "minuten": 2,
       "zutaten": [
         ["Griechischer Joghurt 2 %", 150, "g", "M"],
         ["Beeren (frisch oder TK)", 80, "g", "G"]
@@ -1231,6 +1801,7 @@
       "eiweiss": 14,
       "kohlenhydrate": 16,
       "fett": 4,
+      "minuten": 3,
       "zutaten": [
         ["Reiswaffeln", 2, "Stk", "K"],
         ["Hüttenkäse", 100, "g", "M"]
@@ -1245,6 +1816,7 @@
       "eiweiss": 14,
       "kohlenhydrate": 18,
       "fett": 1,
+      "minuten": 5,
       "zutaten": [
         ["Paprika", 100, "g", "G"],
         ["Gurke", 100, "g", "G"],
@@ -1261,6 +1833,7 @@
       "eiweiss": 31,
       "kohlenhydrate": 12,
       "fett": 4,
+      "minuten": 2,
       "zutaten": [
         ["Proteinpulver", 30, "g", "S"],
         ["Milch 1,5 %", 200, "ml", "M"]
@@ -1275,6 +1848,7 @@
       "eiweiss": 3,
       "kohlenhydrate": 22,
       "fett": 10,
+      "minuten": 2,
       "zutaten": [
         ["Birne", 1, "Stk", "G"],
         ["Walnüsse", 15, "g", "S"]
@@ -1289,6 +1863,7 @@
       "eiweiss": 17,
       "kohlenhydrate": 12,
       "fett": 8,
+      "minuten": 6,
       "zutaten": [
         ["Edamame (TK)", 150, "g", "G"]
       ],
@@ -1302,6 +1877,7 @@
       "eiweiss": 14,
       "kohlenhydrate": 17,
       "fett": 3,
+      "minuten": 3,
       "zutaten": [
         ["Vollkornbrot", 40, "g", "K"],
         ["Putenbrust-Aufschnitt", 40, "g", "P"],
@@ -1318,12 +1894,79 @@
       "eiweiss": 20,
       "kohlenhydrate": 18,
       "fett": 1,
+      "minuten": 3,
       "zutaten": [
         ["Magerquark", 150, "g", "M"],
         ["Kakao ungesüßt", 5, "g", "S"],
         ["Banane", 0.5, "Stk", "G"]
       ],
       "zubereitung": "Quark mit Kakao und einem Schuss Wasser cremig rühren, Bananenscheiben darauf."
+    },
+    {
+      "id": "s16",
+      "name": "Hüttenkäse mit Beeren",
+      "vegetarisch": true,
+      "kcal": 180,
+      "eiweiss": 19,
+      "kohlenhydrate": 11,
+      "fett": 6,
+      "minuten": 2,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Hüttenkäse", 150, "g", "M"],
+        ["Beeren (frisch oder TK)", 80, "g", "G"]
+      ],
+      "zubereitung": "Beeren über den Hüttenkäse geben."
+    },
+    {
+      "id": "s17",
+      "name": "Tomate-Mozzarella-Spieße",
+      "vegetarisch": true,
+      "kcal": 160,
+      "eiweiss": 17,
+      "kohlenhydrate": 6,
+      "fett": 7,
+      "minuten": 5,
+      "kueche": "Italienisch",
+      "zutaten": [
+        ["Mozzarella light", 80, "g", "M"],
+        ["Kirschtomaten", 150, "g", "G"]
+      ],
+      "zubereitung": "Mozzarella würfeln und abwechselnd mit Tomaten aufspießen, salzen, pfeffern, Basilikum dazu."
+    },
+    {
+      "id": "s18",
+      "name": "Gurkensticks mit Tzatziki",
+      "vegetarisch": true,
+      "kcal": 145,
+      "eiweiss": 7,
+      "kohlenhydrate": 11,
+      "fett": 8,
+      "minuten": 5,
+      "kueche": "Mediterran",
+      "zutaten": [
+        ["Gurke", 200, "g", "G"],
+        ["Naturjoghurt 1,5 %", 150, "g", "M"],
+        ["Olivenöl", 5, "ml", "S"]
+      ],
+      "zubereitung": "Ein Viertel der Gurke reiben und mit Joghurt, Öl, Knoblauch und Salz verrühren. Den Rest in Sticks schneiden und dippen."
+    },
+    {
+      "id": "s19",
+      "name": "Putenröllchen mit Frischkäse",
+      "vegetarisch": false,
+      "kcal": 155,
+      "eiweiss": 21,
+      "kohlenhydrate": 6,
+      "fett": 5,
+      "minuten": 3,
+      "kueche": "Klassisch",
+      "zutaten": [
+        ["Putenbrust-Aufschnitt", 80, "g", "P"],
+        ["Frischkäse leicht", 30, "g", "M"],
+        ["Paprika", 80, "g", "G"]
+      ],
+      "zubereitung": "Putenscheiben mit Frischkäse bestreichen, Paprikastreifen einrollen."
     }
   ]
 }

@@ -5,7 +5,7 @@ Ernährungsplan-App zum Abnehmen. Kein Ersatz für ärztliche Beratung.
 - **Design „Fitness-Nacht“:** dunkel, mit drei Ringen für Kalorien, Eiweiß und Wasser. Die Ringe laufen animiert, jeder Wochentag zeigt Mini-Ringe, und ein geschlossener Ring wird gefeiert.
 - **Plan:** Wochenplan mit skalierten Portionen, Wasser direkt an den Ringen, Sport, Fastenfenster, wahlweise sechs kleine Mahlzeiten.
 - **Zusätzlich gegessen und getrunken:** Suche, eigene Einträge, Schnellauswahl der häufigsten, Zero-Getränke, Restaurant und Fast Food.
-- **Rezepte:** Übersicht mit Suche und Filtern, Favoriten, Ausblenden, Vorkochen, eigene Rezepte direkt in der App.
+- **Rezepte:** 110 Rezepte mit Symbol, Zubereitungszeit und Küche. Übersicht mit Suche und Filtern (Mahlzeit, schnell bis 15 Minuten, Küche), Favoriten, Ausblenden, Vorkochen, eigene Rezepte direkt in der App.
 - **Einkauf:** Einkaufsliste für die ganze Woche.
 - **Spritze:** Medikament (Wegovy, Ozempic, Mounjaro, Saxenda oder eigenes), mg pro Spritze, nächster Termin, Pen-Vorrat, Einstichstellen-Wechsel, Nebenwirkungen, Dosis-Verlauf, Tagebuch.
 - **Verlauf:** Wochenrückblick, Medaillen für Kilos, Serien und perfekte Tage, Gewicht mit Trendlinie und Prognose, Körpermaße.
@@ -46,6 +46,9 @@ Ein Rezept gehört in eine der vier Listen `fruehstueck`, `mittagessen`, `abende
   "eiweiss": 44,
   "kohlenhydrate": 58,
   "fett": 12,
+  "minuten": 25,
+  "kueche": "Asiatisch",
+  "symbol": "🍛",
   "zutaten": [
     ["Hähnchenbrust", 150, "g", "P"],
     ["Reis (roh)", 60, "g", "K"],
@@ -59,6 +62,8 @@ Ein Rezept gehört in eine der vier Listen `fruehstueck`, `mittagessen`, `abende
 - Nährwerte gelten für die angegebene Portion; die App skaliert Mengen auf das Kalorienziel.
 - Zutat: `[Name, Menge, Einheit, Kategorie]` – Einheit `g`, `ml` oder `Stk`; Kategorie `G` Gemüse & Obst, `P` Fleisch & Fisch, `M` Milchprodukte & Eier, `K` Getreide, Brot & Hülsenfrüchte, `S` Vorrat.
 - Gleiche Zutaten immer gleich schreiben, damit die Einkaufsliste sie zusammenfasst.
+- `minuten` ist die Zubereitungszeit; Rezepte bis 15 Minuten erscheinen im Filter „Schnell“.
+- `kueche` und `symbol` sind freiwillig. Erlaubte Küchen: Klassisch, Italienisch, Asiatisch, Mexikanisch, Mediterran, Orientalisch. Fehlt eine Angabe, leitet die App Küche und Symbol aus dem Namen ab.
 - Fehlerhafte Einträge überspringt die App. Ist die Datei kein gültiges JSON, bleibt der letzte funktionierende Stand aktiv.
 
 ## App-Updates
