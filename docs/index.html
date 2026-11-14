@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+<title>Kilo für Kilo Startseite</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Kilo für Kilo: der Ernährungsplan für den Mac. Drei Ringe für Kalorien, Eiweiß und Wasser, 110 Rezepte, Spritzen-Tagebuch.">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap">
+<style>
+/* Layout: eine Spalte, schwarzer Grund wie die App. Großer Auftakt mit App-Fenster, dann Ringe, Bereiche im Wechsel, drei Schritte, Fragen. Bewusst nur dunkel. */
+:root{
+  color-scheme:dark;
+  --bg:#000; --card:#1c1c1e; --line:rgba(255,255,255,.1); --ink:#f5f5f7; --muted:#a1a1a8;
+  --kcal:#fa114f; --kcal-text:#ff5c8a; --protein:#a6ff00; --water:#00d8ff; --shot:#d79bff; --accent-ink:#0b1500;
+  --font:ui-rounded,"SF Pro Rounded","Nunito",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:17px;font-weight:500;line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{text-wrap:balance;line-height:1.08;letter-spacing:-.02em}
+a{color:var(--protein)}
+:focus-visible{outline:2px solid var(--protein);outline-offset:3px}
+.wrap{max-width:1080px;margin-inline:auto;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+section{padding-block:64px}
+.eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:20px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem;color:var(--ink);text-decoration:none}
+.brand img{width:34px;height:34px;display:block}
+.top a.small{font-size:.92rem;font-weight:700;text-decoration:none}
+
+.hero{padding-block:36px 24px;display:flex;flex-direction:column;align-items:flex-start;gap:22px;position:relative}
+.hero h1{font-size:clamp(2.6rem,7.5vw,5.2rem);font-weight:900;max-width:14ch}
+.hero h1 span{background:linear-gradient(90deg,var(--kcal) 0%,var(--protein) 55%,var(--water) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p.lead{font-size:clamp(1.05rem,2.2vw,1.3rem);color:var(--muted);max-width:56ch}
+.cta{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:16px;padding:14px 24px;font-weight:800;font-size:1.05rem;text-decoration:none}
+.btn.primary{background:var(--protein);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:var(--card);color:var(--ink)}
+.note{font-size:.88rem;color:var(--muted)}
+.window{position:relative;margin-top:14px;border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 30px 90px rgba(250,17,79,.16),0 10px 40px rgba(0,216,255,.10);width:100%}
+.window img{display:block;width:100%;height:auto}
+.caption{font-size:.82rem;color:var(--muted);margin-top:10px}
+
+.rings{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px}
+.ringcard{background:var(--card);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:10px}
+.ringcard svg{width:64px;height:64px;display:block}
+.ringcard h3{font-size:1.35rem;font-weight:800}
+.ringcard p{color:var(--muted);font-size:.98rem}
+.k h3{color:var(--kcal-text)} .p h3{color:var(--protein)} .w h3{color:var(--water)}
+h2.big{font-size:clamp(1.9rem,4.6vw,3.1rem);font-weight:900;max-width:20ch;margin-top:8px}
+p.sub{color:var(--muted);max-width:60ch;margin-top:12px}
+
+.feature{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:36px;align-items:center;padding-block:36px}
+.feature:nth-of-type(even) .text{order:2}
+.feature h3{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:900;margin-top:8px}
+.feature p{color:var(--muted);margin-top:12px}
+.feature ul{margin:14px 0 0;padding:0;list-style:none;display:grid;gap:8px}
+.feature li{display:grid;grid-template-columns:auto 1fr;gap:10px;font-size:.98rem}
+.feature li::before{content:"";width:10px;height:10px;border-radius:50%;background:var(--dot,var(--protein));margin-top:.5em}
+.feature .shot{border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.feature .shot img{display:block;width:100%;height:auto}
+
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:28px;counter-reset:step}
+.step{background:var(--card);border-radius:24px;padding:24px;display:flex;flex-direction:column;gap:8px;counter-increment:step}
+.step::before{content:counter(step);width:40px;height:40px;border-radius:50%;display:grid;place-content:center;font-weight:900;font-size:1.1rem;background:var(--protein);color:var(--accent-ink)}
+.step h3{font-size:1.2rem;font-weight:800;margin-top:6px}
+.step p{color:var(--muted);font-size:.96rem}
+
+.faq{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:28px}
+.q{background:var(--card);border-radius:20px;padding:22px}
+.q h3{font-size:1.1rem;font-weight:800}
+.q p{color:var(--muted);font-size:.96rem;margin-top:8px}
+
+.end{text-align:center;display:flex;flex-direction:column;align-items:center;gap:18px;padding-block:72px}
+.end h2{font-size:clamp(2rem,5vw,3.4rem);font-weight:900;max-width:16ch}
+footer{border-top:1px solid var(--line);padding-block:26px 44px;color:var(--muted);font-size:.84rem;display:flex;flex-direction:column;gap:6px}
+
+@media (max-width:820px){
+  section{padding-block:44px}
+  .rings,.steps,.faq{grid-template-columns:1fr}
+  .feature{grid-template-columns:1fr;gap:20px;padding-block:24px}
+  .feature:nth-of-type(even) .text{order:0}
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#top"><img src="img/icon.png" alt="">Kilo für Kilo</a>
+    <a class="small" href="https://github.com/Melo-Labs/Kilo-fuer-Kilo">Code auf GitHub</a>
+  </header>
+
+  <section class="hero" id="top">
+    <p class="eyebrow">Ernährungsplan für den Mac</p>
+    <h1>Kilo für Kilo. <span>Ring für Ring.</span></h1>
+    <p class="lead">Dein Wochenplan, deine Kalorien, dein Eiweiß und dein Wasser auf einen Blick. Hak ab, was du gegessen hast, und sieh zu, wie sich deine Ringe schließen.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/Melo-Labs/Kilo-fuer-Kilo/releases/latest">Für Mac laden</a>
+      <a class="btn ghost" href="#start">So geht die Installation</a>
+    </div>
+    <p class="note">Kostenlos · ohne Konto · ab macOS 11 · deine Daten bleiben auf deinem Mac</p>
+    <div class="window"><img src="img/plan.png" width="2360" height="1600" alt="Die App mit drei Ringen für Kalorien, Eiweiß und Wasser, darunter die Wochentage mit Mini-Ringen und die Mahlzeiten des Tages"></div>
+    <p class="caption">Alle Bilder zeigen Beispieldaten.</p>
+  </section>
+
+  <section>
+    <p class="eyebrow">Das Prinzip</p>
+    <h2 class="big">Drei Ringe sagen dir, wo du heute stehst.</h2>
+    <p class="sub">Kein Zahlenfriedhof. Jeder Ring hat eine Farbe, die überall in der App dasselbe bedeutet.</p>
+    <div class="rings">
+      <div class="ringcard k">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-90 32 32)" fill="none" stroke-width="9" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke="#fa114f" stroke-opacity=".22"/><circle cx="32" cy="32" r="25" stroke="#fa114f" stroke-dasharray="102 157"/></g></svg>
+        <h3>Kalorien</h3>
+        <p>Dein Tagesziel wird aus Gewicht, Größe, Alter und Tempo berechnet. Der Ring zeigt, wie viel heute noch geht. Wer drüber isst, sieht es sofort.</p>
+      </div>
+      <div class="ringcard p">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-90 32 32)" fill="none" stroke-width="9" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke="#a6ff00" stroke-opacity=".22"/><circle cx="32" cy="32" r="25" stroke="#a6ff00" stroke-dasharray="126 157"/></g></svg>
+        <h3>Eiweiß</h3>
+        <p>Genug Eiweiß hält satt und schützt beim Abnehmen die Muskeln. Schließt du den Ring, feiert die App mit.</p>
+      </div>
+      <div class="ringcard w">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-90 32 32)" fill="none" stroke-width="9" stroke-linecap="round"><circle cx="32" cy="32" r="25" stroke="#00d8ff" stroke-opacity=".22"/><circle cx="32" cy="32" r="25" stroke="#00d8ff" stroke-dasharray="78 157"/></g></svg>
+        <h3>Wasser</h3>
+        <p>Ein Tipp pro Glas oder Flasche, Ziel 2,5 Liter. Der blaue Ring wächst mit jedem Schluck.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Was drin ist</p>
+    <h2 class="big">Alles, was du zum Abnehmen brauchst. Sonst nichts.</h2>
+
+    <div class="feature">
+      <div class="text">
+        <p class="eyebrow">Rezepte</p>
+        <h3>110 Rezepte, die in deinen Plan passen.</h3>
+        <p>Die App stellt dir die Woche zusammen und rechnet jede Portion auf dein Kalorienziel um.</p>
+        <ul>
+          <li>63 Gerichte sind in höchstens 15 Minuten fertig</li>
+          <li>Sechs Küchen, von klassisch bis asiatisch</li>
+          <li>Favoriten kommen öfter, Ungeliebtes nie wieder</li>
+          <li>Die Einkaufsliste für die Woche entsteht von selbst</li>
+        </ul>
+      </div>
+      <div class="shot"><img src="img/rezepte.png" width="2360" height="1600" loading="lazy" alt="Rezeptübersicht mit dem Filter Schnell und Symbolen zu jedem Gericht"></div>
+    </div>
+
+    <div class="feature" style="--dot:var(--shot)">
+      <div class="text">
+        <p class="eyebrow">Spritze</p>
+        <h3>Gemacht für das Abnehmen mit Spritze.</h3>
+        <p>Für Wegovy, Ozempic, Mounjaro, Saxenda oder ein anderes Medikament.</p>
+        <ul>
+          <li>Zeigt, wann die nächste Spritze dran ist</li>
+          <li>Schlägt die Einstichstelle vor, die am längsten Pause hatte</li>
+          <li>Zählt die Dosen im Pen mit</li>
+          <li>Hält Nebenwirkungen und den Dosis-Verlauf fest</li>
+        </ul>
+      </div>
+      <div class="shot"><img src="img/spritze.png" width="2360" height="1600" loading="lazy" alt="Bereich Spritze mit Medikament, aktueller Dosis, nächstem Termin und Pen-Vorrat"></div>
+    </div>
+
+    <div class="feature" style="--dot:var(--water)">
+      <div class="text">
+        <p class="eyebrow">Verlauf</p>
+        <h3>Sieh, dass es vorangeht.</h3>
+        <p>Die Waage schwankt. Der Trend zählt.</p>
+        <ul>
+          <li>Gewichtskurve mit Trendlinie und geschätztem Zieldatum</li>
+          <li>Medaillen für Kilos, Serien und perfekte Tage</li>
+          <li>Wochenrückblick mit Kalorien und Eiweiß im Schnitt</li>
+          <li>Körpermaße, wenn die Waage mal steht</li>
+        </ul>
+      </div>
+      <div class="shot"><img src="img/verlauf.png" width="2360" height="1600" loading="lazy" alt="Verlauf mit Wochenrückblick, Medaillen und Gewichtskurve"></div>
+    </div>
+  </section>
+
+  <section id="start">
+    <p class="eyebrow">Loslegen</p>
+    <h2 class="big">In drei Schritten startklar.</h2>
+    <div class="steps">
+      <div class="step"><h3>Laden</h3><p>Lade <b>Kilo-fuer-Kilo.dmg</b> herunter, öffne die Datei und zieh die App in den Ordner Programme.</p></div>
+      <div class="step"><h3>Freigeben</h3><p>Beim ersten Start blockiert der Mac die App einmal. Unter Systemeinstellungen → Datenschutz &amp; Sicherheit klickst du auf „Dennoch öffnen“.</p></div>
+      <div class="step"><h3>Profil eintragen</h3><p>Gewicht, Ziel und Tempo eingeben. Dein Plan steht sofort, Updates installiert die App danach selbst.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <p class="eyebrow">Gut zu wissen</p>
+    <h2 class="big">Kurze Antworten.</h2>
+    <div class="faq">
+      <div class="q"><h3>Kostet das etwas?</h3><p>Nein. Die App ist kostenlos und kommt ohne Abo, Werbung und Konto aus.</p></div>
+      <div class="q"><h3>Wo liegen meine Daten?</h3><p>Nur auf deinem Mac. Die App lädt lediglich neue Rezepte und Updates von GitHub.</p></div>
+      <div class="q"><h3>Ersetzt die App ärztlichen Rat?</h3><p>Nein. Kalorien und Nährwerte sind Richtwerte, die Rezeptangaben geschätzt. Dosis und Steigerung deines Medikaments legt deine Ärztin oder dein Arzt fest.</p></div>
+      <div class="q"><h3>Wie wenig darf ich essen?</h3><p>Die App plant nie unter 1.500 kcal am Tag für Männer und 1.200 kcal für Frauen, egal welches Tempo du wählst.</p></div>
+    </div>
+  </section>
+
+  <section class="end">
+    <h2>Fang heute an. Der erste Ring wartet.</h2>
+    <a class="btn primary" href="https://github.com/Melo-Labs/Kilo-fuer-Kilo/releases/latest">Für Mac laden</a>
+    <p class="note">Kostenlos · ab macOS 11</p>
+  </section>
+
+  <footer>
+    <span>Kilo für Kilo ist ein privates Projekt und kein Medizinprodukt. Bei Vorerkrankungen, Schwangerschaft oder Essstörungen sprich bitte vorher mit einer Ärztin oder einem Arzt.</span>
+    <span>Wegovy, Ozempic, Mounjaro und Saxenda sind Marken ihrer jeweiligen Hersteller. Die App steht mit ihnen in keiner Verbindung.</span>
+  </footer>
+</div>
+</body>
+</html>

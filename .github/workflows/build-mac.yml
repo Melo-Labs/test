@@ -3,7 +3,7 @@ name: Mac-App bauen
 on:
   push:
     branches: [main]
-    paths-ignore: ["recipes.json", "README.md"]
+    paths-ignore: ["recipes.json", "README.md", "docs/**"]
   workflow_dispatch:
 
 permissions:

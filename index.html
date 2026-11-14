@@ -327,7 +327,7 @@ table.log td:nth-child(2),table.log td:nth-child(3){text-align:right}
         <form id="log-form" class="row" novalidate>
           <div class="field" style="flex:1 1 140px"><label for="log-date">Datum</label><input id="log-date" type="date" required></div>
           <div class="field" style="flex:1 1 110px"><label for="log-kg">Gewicht (kg)</label><input id="log-kg" type="number" inputmode="decimal" step="0.1" min="35" max="300" placeholder="z. B. 86,4" required></div>
-          <button class="btn primary" type="submit" style="align-self:flex-end">Eintragen</button>
+          <button class="btn primary" type="submit" style="align-self:flex-end">Gewicht eintragen</button>
         </form>
         <p class="small muted">Am besten immer morgens nach dem Aufstehen wiegen. Schwankungen von 1–2 kg von Tag zu Tag sind normal, auf den Trend über Wochen kommt es an.</p>
       </div>
@@ -339,7 +339,7 @@ table.log td:nth-child(2),table.log td:nth-child(3){text-align:right}
           <div class="field" style="flex:1 1 90px"><label for="ms-waist">Bauch (cm)</label><input id="ms-waist" type="number" inputmode="decimal" step="0.1" min="30" max="250"></div>
           <div class="field" style="flex:1 1 90px"><label for="ms-hip">Hüfte (cm)</label><input id="ms-hip" type="number" inputmode="decimal" step="0.1" min="30" max="250"></div>
           <div class="field" style="flex:1 1 90px"><label for="ms-chest">Brust (cm)</label><input id="ms-chest" type="number" inputmode="decimal" step="0.1" min="30" max="250"></div>
-          <button class="btn primary" type="submit" style="align-self:flex-end">Eintragen</button>
+          <button class="btn primary" type="submit" style="align-self:flex-end">Maße eintragen</button>
         </form>
         <div id="ms-list"></div>
       </div>
@@ -732,10 +732,10 @@ function addExtra(it){
 }
 function extrasPanel(){
   const xs=state.extras.days[selDay],names=catalog();
-  return '<div class="panel stack"><div><h2>Zusätzlich gegessen und getrunken</h2><p class="small muted">Trag hier alles ein, was nicht im Plan steht, auch Restaurant und Fast Food. Ohne Suchbegriff siehst du deine häufigsten Einträge zum Antippen.</p></div>'+
+  return '<div class="panel stack"><div><h2>Zusätzlich gegessen und getrunken</h2><p class="small muted">Snacks, Getränke, Restaurant: alles, was nicht im Plan steht. Deine häufigsten Einträge stehen zum Antippen bereit.</p></div>'+
     '<div class="field"><label for="x-search">Suchen</label><input id="x-search" type="search" maxlength="60" placeholder="Suchen, z. B. Zero oder Döner" autocomplete="off"></div>'+
     '<div class="chips" id="x-results" aria-live="polite">'+resultChips("")+'</div>'+
-    '<p class="label">Neu eintragen</p>'+
+    '<p class="label">Nicht dabei? Selbst eintragen</p>'+
     '<form id="x-form" class="xform" novalidate>'+
     '<div class="field wide"><label for="x-name">Name und Menge</label><input id="x-name" type="text" list="x-names" maxlength="60" placeholder="z. B. Cola 0,33 l" autocomplete="off"></div>'+
     '<div class="field"><label for="x-type">Art</label><select id="x-type"><option value="f">Lebensmittel</option><option value="d">Getränk</option></select></div>'+
@@ -744,7 +744,7 @@ function extrasPanel(){
     '<button class="btn primary wide" type="submit">Eintragen</button></form>'+
     '<datalist id="x-names">'+names.map(i=>'<option value="'+esc(i.n)+'"></option>').join("")+'</datalist>'+
     (xs.length?'<ul class="xlist">'+xs.map((x,n)=>'<li><span>'+esc(x.n)+' <span class="small muted">'+(x.t==="d"?"Getränk":"Lebensmittel")+'</span></span><span class="num"><b>'+nf(x.k)+' kcal</b>'+(x.p?' <span class="small muted">· '+nf(x.p)+' g Eiweiß</span>':'')+'</span><button type="button" class="btn ghost" data-act="x-del" data-i="'+n+'" aria-label="'+esc(x.n)+' entfernen">×</button></li>').join("")+'</ul>'
-      :'<p class="small muted">Für '+DAYS_LONG[selDay]+' ist noch nichts Zusätzliches eingetragen.</p>')+'</div>';
+      :'<p class="small muted">Für '+DAYS_LONG[selDay]+' steht hier noch nichts. Tipp oben etwas an oder trag es selbst ein.</p>')+'</div>';
 }
 
 /* ---------- Ringe, Feier und Tagesübersicht ---------- */
@@ -803,7 +803,7 @@ function celebrate(kind){
   burst(kind==="p"?["#a6ff00","#d9ff66","#ffffff"]:kind==="w"?["#00d8ff","#7ff0ff","#ffffff"]:["#fa114f","#a6ff00","#00d8ff","#ffffff"],
     vis?{x:box.left+box.width/2,y:box.top+box.height/2}:{x:window.innerWidth/2,y:window.innerHeight*.4},kind==="all"?150:80);
   if(vis&&!calm()){el.classList.remove("pulse");el.getBoundingClientRect();el.classList.add("pulse");}
-  toast(kind==="p"?"Eiweiß-Ring geschlossen":kind==="w"?"Wasser-Ring geschlossen":"Perfekter Tag: alle Ziele erreicht");
+  toast(kind==="p"?"Stark: Eiweiß-Ring geschlossen":kind==="w"?"Gut getrunken: Wasser-Ring geschlossen":"Perfekter Tag: alle Ziele erreicht");
 }
 function renderSide(W){
   const el=$("#side-today");if(!el)return;
@@ -820,7 +820,7 @@ function renderPlan(){
   const ml=state.water[dateOf(selDay)]||0,fr=frOf(selDay,S),over=S.totalK>S.target;
   const isToday=selDay===TODAY_IDX,sd=shotDue(),st=streak();
   let h='<header class="head"><p class="eyebrow">'+(isToday?NOW.toLocaleDateString("de-DE",{weekday:"long",day:"numeric",month:"long"}):"Wochenplan")+'</p><h1 class="large">'+(isToday?"Heute":DAYS_LONG[selDay])+'</h1></header>';
-  if(p.example)h+='<p class="notice"><b>Beispielwerte.</b> Der Plan rechnet gerade mit einem Musterprofil (88 kg, Ziel 80 kg). <a href="#profil">Trag deine Daten ein</a>, damit Kalorien und Portionen zu dir passen.</p>';
+  if(p.example)h+='<p class="notice"><b>Das ist ein Musterplan</b> für 88 kg mit Ziel 80 kg. <a href="#profil">Trag dein Profil ein</a>, dann stimmen Kalorien und Portionen für dich.</p>';
   if(upd.status==="available")h+='<p class="notice"><b>Update verfügbar.</b> <a href="#profil">Im Profil installieren</a></p>';
   if(sd&&sd.days<=0)h+='<p class="notice"><b>'+(sd.days===0?"Heute ist Spritzentag.":"Spritze überfällig.")+'</b> Vorschlag für die Einstichstelle: '+sd.nextSite+'. <a href="#spritze">Jetzt eintragen</a></p>';
   // Ringe: starten beim letzten Stand und laufen dann zum neuen Wert
@@ -905,7 +905,7 @@ function renderLog(){
       '<div class="fact"><span class="label">Bis zum Ziel</span><b class="num">'+kgf(Math.max(0,last.kg-p.goal))+' kg</b></div></div>'+
       '<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="'+Math.round(done)+'" aria-label="Weg zum Ziel"><i style="width:'+done+'%"></i></div>'+
       (w.length>1?chart(w,p.goal)+forecast(w,p.goal):'<p class="small muted">Ab dem zweiten Eintrag siehst du hier deine Kurve.</p>')+'</div>';
-  }else s='<div class="panel empty"><h2 style="margin-bottom:6px">Noch keine Einträge</h2><p>Trag unten dein heutiges Gewicht ein. Mit jedem weiteren Eintrag entsteht hier deine Kurve mit Ziellinie.</p></div>';
+  }else s='<div class="panel empty"><h2 style="margin-bottom:6px">Noch kein Gewicht eingetragen</h2><p>Trag unten dein heutiges Gewicht ein. Ab dem zweiten Eintrag siehst du hier deine Kurve mit Ziellinie.</p></div>';
   $("#log-summary").innerHTML=s;
   $("#log-list").innerHTML=w.length?'<div class="panel"><table class="log"><tbody>'+w.slice().reverse().map((e,i,a)=>{
     const prev=a[i+1],d=prev?e.kg-prev.kg:null;
@@ -1027,7 +1027,7 @@ function fastHtml(){
 const SPORT_PRESETS=[["Spaziergang 30 min",120],["Joggen 30 min",300],["Krafttraining 45 min",250],["Radfahren 30 min",220],["Schwimmen 30 min",250],["10.000 Schritte",350]];
 function sportPanel(){
   const list=state.sport[dateOf(selDay)]||[];
-  return '<div class="panel stack"><div><h2>Sport und Bewegung</h2><p class="small muted">Verbrannte Kalorien erhöhen dein Tagesziel. Die Vorschläge sind grobe Schätzwerte.</p></div>'+
+  return '<div class="panel stack"><div><h2>Sport und Bewegung</h2><p class="small muted">Was du verbrennst, kommt auf dein Tagesziel obendrauf. Die Vorschläge sind grobe Schätzwerte.</p></div>'+
     '<div class="chips">'+SPORT_PRESETS.map((p,n)=>'<button type="button" class="chipbtn" data-act="sp-quick" data-i="'+n+'">+ '+p[0]+' <small class="num">'+p[1]+' kcal</small></button>').join("")+'</div>'+
     '<form id="sp-form" class="row" novalidate><div class="field" style="flex:2 1 160px"><label for="sp-name">Aktivität</label><input id="sp-name" type="text" maxlength="60" placeholder="z. B. Fußball 60 min" autocomplete="off"></div>'+
     '<div class="field" style="flex:1 1 90px"><label for="sp-kcal">kcal verbrannt</label><input id="sp-kcal" type="number" inputmode="numeric" min="1" max="5000" placeholder="400"></div>'+
@@ -1062,7 +1062,7 @@ function renderMed(){
   const m=state.med,c=MEDS[m.key],s=state.shots,d=shotDue();
   // Übersicht
   let h='<div class="panel stack">';
-  if(!m.key)h+='<div><h2>Willkommen</h2><p class="small muted">Wähle unten dein Medikament und deine aktuelle Dosis. Danach trägst du hier jede Spritze ein, und die App zeigt dir, wann die nächste dran ist.</p></div>';
+  if(!m.key)h+='<div><h2>Richte deine Spritze ein</h2><p class="small muted">Wähle unten Medikament und Dosis. Danach trägst du hier jede Spritze ein und siehst, wann die nächste dran ist.</p></div>';
   else{
     const due=!d?'<b>Noch keine Spritze eingetragen</b>':d.days<0?'<b class="up">Überfällig seit '+(-d.days)+(d.days===-1?" Tag":" Tagen")+'</b>':d.days===0?'<b class="down">Heute</b>':'<b>In '+d.days+(d.days===1?" Tag":" Tagen")+'</b>';
     h+='<div class="facts">'+
@@ -1116,7 +1116,7 @@ function medFormSync(){
 const MS=[["waist","Bauch"],["hip","Hüfte"],["chest","Brust"]];
 function renderMeasures(){
   const m=state.measures;
-  if(!m.length){$("#ms-list").innerHTML='<p class="small muted">Noch keine Maße eingetragen. Der Umfang zeigt Fortschritt auch dann, wenn die Waage steht.</p>';return;}
+  if(!m.length){$("#ms-list").innerHTML='<p class="small muted">Noch keine Maße eingetragen. Der Umfang zeigt Fortschritt, auch wenn die Waage mal steht.</p>';return;}
   const first=m[0],dl=(e,k)=>e[k]&&first[k]&&e!==first?' <span class="small '+(e[k]<=first[k]?"down":"up")+'">'+(e[k]>first[k]?"+":e[k]<first[k]?"−":"±")+kgf(Math.abs(e[k]-first[k]))+'</span>':"";
   $("#ms-list").innerHTML='<div style="overflow-x:auto"><table class="log"><tbody><tr><td class="label">Datum</td>'+MS.map(x=>'<td class="label" style="text-align:right">'+x[1]+'</td>').join("")+'<td></td></tr>'+
     m.slice().reverse().map(e=>'<tr><td class="num">'+dateDe(e.d)+'</td>'+MS.map(x=>'<td class="num" style="text-align:right">'+(e[x[0]]?'<b>'+kgf(e[x[0]])+' cm</b>'+dl(e,x[0]):"–")+'</td>').join("")+
@@ -1129,7 +1129,7 @@ function renderReview(){
   const mon=iso(MONDAY),w=state.weights,inWeek=w.filter(e=>e.d>=mon),before=w.filter(e=>e.d<mon);
   const base=before.length?before[before.length-1]:inWeek[0],lastW=inWeek[inWeek.length-1],dw=base&&lastW&&base!==lastW?lastW.kg-base.kg:null;
   let h='<div class="panel stack"><div><h2>Diese Woche</h2><p class="small muted">Montag bis heute, aus deinen abgehakten Mahlzeiten und Einträgen.</p></div>';
-  if(!days.length)h+='<p class="small muted">Noch nichts abgehakt. Sobald du im Plan Mahlzeiten abhakst oder etwas einträgst, erscheint hier dein Rückblick.</p>';
+  if(!days.length)h+='<p class="small muted">Diese Woche ist noch leer. Hak im Plan eine Mahlzeit ab, dann erscheint hier dein Rückblick.</p>';
   else{const avg=k=>days.reduce((a,d)=>a+d[k],0)/days.length;
     h+='<div class="facts">'+
       '<div class="fact"><span class="label">Kalorien pro Tag</span><b class="num">'+nf(avg("k"))+'</b></div>'+
@@ -1196,7 +1196,7 @@ function renderRecipes(){
     '<div class="field" style="flex:1 1 170px;max-width:240px"><select id="r-sort" aria-label="Sortierung"><option value="std">Sortierung: Standard</option><option value="time">Schnellste zuerst</option><option value="kcal">Wenig Kalorien zuerst</option><option value="prot">Viel Eiweiß zuerst</option></select></div></div>'+
     '<p class="small muted" id="r-count"></p>'+
     '<div class="panel" id="r-list"></div>'+
-    '<div class="panel stack"><div><h2>Eigenes Rezept anlegen</h2><p class="small muted">Dein Rezept landet im Pool und kann vom Plan vorgeschlagen werden. Nährwerte gelten für die ganze Portion.</p></div>'+
+    '<div class="panel stack"><div><h2>Eigenes Rezept anlegen</h2><p class="small muted">Dein Rezept kommt in den Wochenplan wie alle anderen. Die Nährwerte gelten für eine Portion.</p></div>'+
     '<form id="or-form" class="grid" novalidate>'+
     '<div class="field full"><label for="or-name">Name</label><input id="or-name" type="text" maxlength="70" autocomplete="off"></div>'+
     '<div class="field"><label for="or-slot">Mahlzeit</label><select id="or-slot"><option value="b">Frühstück</option><option value="l">Mittagessen</option><option value="d">Abendessen</option><option value="s">Snack</option></select></div>'+
@@ -1225,7 +1225,7 @@ function renderRecipeList(){
       '<button type="button" class="btn plain" data-act="fav" data-id="'+esc(r.id)+'">'+(fav?"Favorit entfernen":"Als Favorit")+'</button>'+
       '<button type="button" class="btn '+(ban?"plain":"ghost")+'" data-act="ban" data-id="'+esc(r.id)+'">'+(ban?"Wieder vorschlagen":"Nicht mehr vorschlagen")+'</button>'+
       (r.own?'<button type="button" class="btn ghost" data-act="own-del" data-id="'+esc(r.id)+'">Löschen</button>':"")+'</div></div></div>';}).join("")
-    :'<p class="empty">Kein Rezept gefunden.</p>';
+    :'<p class="empty">Kein Rezept gefunden. Ändere die Suche oder den Filter.</p>';
 }
 function catOf(name){const k=name.toLowerCase();for(const s of Object.keys(R))for(const r of R[s])for(const i of r.ing)if(i[0].toLowerCase()===k)return i[3];return "S";}
 function parseIng(text){
@@ -1294,7 +1294,7 @@ document.addEventListener("click",e=>{
   else if(a==="shuffle"){Object.keys(slots()).forEach(s=>{const base=pool(s,state),p=base.concat(base.filter(r=>state.fav.includes(r.id)));
       for(let i=p.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[p[i],p[j]]=[p[j],p[i]];}
       state.plan.forEach((d,i)=>{d[s]=p[i%p.length].id;});});
-    state.eaten={week:WEEK,items:[]};state.shop=[];save();renderPlan();renderShop();toast("Neuer Wochenplan erstellt");}
+    state.eaten={week:WEEK,items:[]};state.shop=[];save();renderPlan();renderShop();toast("Neue Woche gewürfelt");}
   else if(a==="ex-del"){state.exclude=state.exclude.filter(t=>t!==el.dataset.t);save();renderAll();toast("„"+el.dataset.t+"“ ist wieder erlaubt");}
   else if(a==="x-quick"){const it=findItem(el.dataset.n);if(it){addExtra(it);toast("„"+it.n+"“ eingetragen");}}
   else if(a==="x-new"){$("#x-name").value=$("#x-search").value.trim();$("#x-kcal").focus();}
@@ -1357,7 +1357,7 @@ $("#profile-form").addEventListener("submit",e=>{
     :!(p.weight>=35&&p.weight<=300)?"Bitte ein aktuelles Gewicht zwischen 35 und 300 kg eingeben."
     :!(p.goal>=35&&p.goal<=300)?"Bitte ein Zielgewicht zwischen 35 und 300 kg eingeben.":"";
   const box=$("#pf-error");box.hidden=!err;box.textContent=err;if(err)return;
-  state.profile=p;fixPlan(state);save();renderAll();toast("Profil gespeichert");
+  state.profile=p;fixPlan(state);save();renderAll();toast("Profil gespeichert. Dein Plan ist neu berechnet.");
   if(calc(p).mode==="cut"&&!calc(p).floored)location.hash="#plan";
 });
 

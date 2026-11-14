@@ -1,15 +1,44 @@
-# Kilo für Kilo
+<p align="center"><img src="docs/img/icon.png" width="120" alt=""></p>
+<h1 align="center">Kilo für Kilo</h1>
+<p align="center"><b>Kilo für Kilo. Ring für Ring.</b><br>Der Ernährungsplan für den Mac: Kalorien, Eiweiß und Wasser auf einen Blick.</p>
+<p align="center"><a href="https://github.com/Melo-Labs/Kilo-fuer-Kilo/releases/latest"><b>Für Mac laden</b></a> · <a href="INSTALLATION.md">Installation in drei Schritten</a></p>
 
-Ernährungsplan-App zum Abnehmen. Kein Ersatz für ärztliche Beratung.
+![Die App mit drei Ringen für Kalorien, Eiweiß und Wasser](docs/img/plan.png)
 
-- **Design „Fitness-Nacht“:** dunkel, mit drei Ringen für Kalorien, Eiweiß und Wasser. Die Ringe laufen animiert, jeder Wochentag zeigt Mini-Ringe, und ein geschlossener Ring wird gefeiert.
-- **Plan:** Wochenplan mit skalierten Portionen, Wasser direkt an den Ringen, Sport, Fastenfenster, wahlweise sechs kleine Mahlzeiten.
-- **Zusätzlich gegessen und getrunken:** Suche, eigene Einträge, Schnellauswahl der häufigsten, Zero-Getränke, Restaurant und Fast Food.
-- **Rezepte:** 110 Rezepte mit Symbol, Zubereitungszeit und Küche. Übersicht mit Suche und Filtern (Mahlzeit, schnell bis 15 Minuten, Küche), Favoriten, Ausblenden, Vorkochen, eigene Rezepte direkt in der App.
-- **Einkauf:** Einkaufsliste für die ganze Woche.
-- **Spritze:** Medikament (Wegovy, Ozempic, Mounjaro, Saxenda oder eigenes), mg pro Spritze, nächster Termin, Pen-Vorrat, Einstichstellen-Wechsel, Nebenwirkungen, Dosis-Verlauf, Tagebuch.
-- **Verlauf:** Wochenrückblick, Medaillen für Kilos, Serien und perfekte Tage, Gewicht mit Trendlinie und Prognose, Körpermaße.
-- **Profil:** Kalorienziel nach Mifflin-St-Jeor, Lebensmittel ausschließen, Datensicherung.
+Kostenlos, ohne Konto, ab macOS 11. Deine Daten bleiben auf deinem Mac. Alle Bilder zeigen Beispieldaten.
+
+## Drei Ringe sagen dir, wo du heute stehst
+
+| Kalorien | Eiweiß | Wasser |
+|---|---|---|
+| Dein Tagesziel aus Gewicht, Größe, Alter und Tempo. Der Ring zeigt, wie viel heute noch geht. | Hält satt und schützt die Muskeln. Schließt du den Ring, feiert die App mit. | Ein Tipp pro Glas, Ziel 2,5 Liter. |
+
+## Was drin ist
+
+**110 Rezepte, die in deinen Plan passen.** Die App stellt die Woche zusammen und rechnet jede Portion auf dein Kalorienziel um. 63 Gerichte sind in höchstens 15 Minuten fertig. Favoriten kommen öfter, Ungeliebtes nie wieder, und die Einkaufsliste entsteht von selbst.
+
+![Rezeptübersicht mit dem Filter Schnell](docs/img/rezepte.png)
+
+**Gemacht für das Abnehmen mit Spritze.** Für Wegovy, Ozempic, Mounjaro, Saxenda oder ein anderes Medikament: nächster Termin, Einstichstellen-Wechsel, Pen-Vorrat, Nebenwirkungen und Dosis-Verlauf.
+
+![Bereich Spritze](docs/img/spritze.png)
+
+**Sieh, dass es vorangeht.** Gewichtskurve mit Trendlinie und geschätztem Zieldatum, Medaillen für Kilos, Serien und perfekte Tage, Wochenrückblick und Körpermaße.
+
+![Verlauf mit Medaillen und Gewichtskurve](docs/img/verlauf.png)
+
+**Außerdem:** eigene Lebensmittel und Getränke mit Suche, Restaurant und Fast Food, Sport, Fastenfenster, sechs kleine Mahlzeiten statt vier, Lebensmittel ausschließen, Datensicherung und Updates direkt aus der App.
+
+## Gut zu wissen
+
+- Die App ist ein privates Projekt und kein Medizinprodukt. Sie ersetzt keine ärztliche Beratung.
+- Kalorien und Nährwerte sind Richtwerte, die Rezeptangaben geschätzt.
+- Die App plant nie unter 1.500 kcal am Tag für Männer und 1.200 kcal für Frauen.
+- Dosis und Steigerung deines Medikaments legt deine Ärztin oder dein Arzt fest.
+
+---
+
+# Für Bastler
 
 Die ganze App steckt in `index.html`. Die Mac-App ist eine schlanke Hülle darum (`macos/`). Rezepte lädt die App bei jedem Start aus `recipes.json` in diesem Repository.
 
